@@ -70,7 +70,7 @@ const Login = () => {
                 </form>
                 <p className="p-4">
                     New to Car Seller
-                    <Link className="text-primary px-2 hover:underline" to="/signupBuyer">
+                    <Link className="text-primary px-2 hover:underline" to="/signup">
                         Create new Account
                     </Link>
                 </p>

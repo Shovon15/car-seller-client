@@ -44,7 +44,7 @@ const Navbar = () => {
             <Link to="/login">
                 <button className="btn btn-ghost w-full">Login</button>
             </Link>
-            <Link to="/signupBuyer">
+            <Link to="/signup">
                 <button className="btn btn-ghost w-full">SignUp</button>
             </Link>
             {/* {user?.uid ? (

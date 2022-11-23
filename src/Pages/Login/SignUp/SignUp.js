@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthProvider";
 
-const SignUpBuyer = () => {
+const SignUp = () => {
+    const { createUser, updateUser } = useContext(AuthContext);
+    const [createdUserEmail, setCreatedUserEmail] = useState("");
+    const [userCheck, setUserCheck] = useState(true);
+    const [passwordShown, setPasswordShown] = useState(false);
+
     const {
         register,
         handleSubmit,
@@ -11,23 +18,66 @@ const SignUpBuyer = () => {
     } = useForm();
     const [signUpError, setSignUpError] = useState();
 
-    const handleSignUp = () => {};
-
-    // -------------------check buyer/seller--------------
-
-    const [userRole, setUserRole] = useState(true);
-    let user = "buyer";
+    // -------------------check buyer/seller-------------
+    let userRole = "buyer";
     const toggleUser = () => {
-        setUserRole(!userRole);
+        setUserCheck(!userCheck);
     };
-    if (userRole === true) {
-        user = "buyer";
+    if (userCheck === true) {
+        userRole = "buyer";
     } else {
-        user = "seller";
+        userRole = "seller";
     }
-    console.log(user);
+    // console.log(userRole);
+
+    const handleSignUp = (data) => {
+        setSignUpError("");
+        createUser(data.email, data.password)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                toast("User Created Successfully.");
+                const userInfo = {
+                    displayName: data.name,
+                };
+                updateUser(userInfo)
+                    .then(() => {
+                        saveUser(data.name, data.email, userRole);
+                    })
+                    .catch((err) => console.log(err));
+            })
+            .catch((error) => {
+                console.log(error);
+                setSignUpError(error.message);
+            });
+    };
+
+    const saveUser = (name, email, userRole) => {
+        const users = { name, email, userRole };
+
+        fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(users),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                // console.log("userSaveDb", data);
+                // getUserToken(email);
+                // if (data.acknowledged) {
+                //     setTreatment(null);
+                //     toast.success("Booking confirmed");
+                //     refetch();
+                // } else {
+                //     toast.error(data.message);
+                // }
+            });
+    };
+
     // -------------------show pass-----------
-    const [passwordShown, setPasswordShown] = useState(false);
+
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
@@ -37,7 +87,7 @@ const SignUpBuyer = () => {
                 <h2 className="text-2xl text-center font-bold text-orange-600">Sign Up</h2>
 
                 <span onClick={toggleUser} className="flex space-x-2 justify-center items-center p-2 text-orange-600">
-                    <button className="btn btn-outline btn-sm">{user} </button>
+                    <button className="btn btn-outline btn-sm">{userRole} </button>
                     <p className="font-bold">Account</p>
                 </span>
 
@@ -113,4 +163,4 @@ const SignUpBuyer = () => {
     );
 };
 
-export default SignUpBuyer;
+export default SignUp;
