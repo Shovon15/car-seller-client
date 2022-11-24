@@ -6,9 +6,11 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 import logo from "../../../assets/images/logo.png";
+import { AuthContext } from "../../../context/AuthProvider";
 
 const Navbar = () => {
-    // const { user, logOut } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+    // console.log(user?.photoURL, );
 
     const [theme, setTheme] = useState("light");
 
@@ -26,11 +28,11 @@ const Navbar = () => {
 
     // console.log(theme);
     const handleLogOut = () => {
-        // logOut()
-        //     .than(() => {
-        //         toast.success("Logout");
-        //     })
-        //     .catch((err) => console.log(err));
+        logOut()
+            .then(() => {
+                toast.success("    logout     ");
+            })
+            .catch((error) => console.error(error));
     };
 
     const menuItems = (
@@ -41,15 +43,15 @@ const Navbar = () => {
             <Link to="/">
                 <button className="btn btn-ghost w-full">Appointment</button>
             </Link>
-            <Link to="/login">
+            {/* <Link to="/login">
                 <button className="btn btn-ghost w-full">Login</button>
             </Link>
             <Link to="/signup">
                 <button className="btn btn-ghost w-full">SignUp</button>
-            </Link>
-            {/* {user?.uid ? (
+            </Link> */}
+            {user?.uid ? (
                 <>
-                    <Link to="/dashboard">
+                    <Link to="/">
                         <button className="btn btn-ghost w-full">Dashboard</button>
                     </Link>
 
@@ -66,7 +68,7 @@ const Navbar = () => {
                         <button className="btn btn-ghost w-full">SignUp</button>
                     </Link>
                 </>
-            )} */}
+            )}
         </>
     );
     const userItem = (
@@ -82,7 +84,7 @@ const Navbar = () => {
                     </span>
                 )}
             </button>
-            {/* {user?.uid ? (
+            {user?.uid ? (
                 <div className="dropdown dropdown-end">
                     <label tabIndex={1} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
@@ -111,7 +113,7 @@ const Navbar = () => {
                 </div>
             ) : (
                 <></>
-            )} */}
+            )}
         </>
     );
 

@@ -11,6 +11,9 @@ const SignUp = () => {
     const [userCheck, setUserCheck] = useState(true);
     const [passwordShown, setPasswordShown] = useState(false);
 
+    const imageHostKey = process.env.REACT_APP_img_KEY;
+    // console.log(imageHostKey);
+
     const {
         register,
         handleSubmit,
@@ -31,29 +34,45 @@ const SignUp = () => {
     // console.log(userRole);
 
     const handleSignUp = (data) => {
-        setSignUpError("");
-        createUser(data.email, data.password)
-            .then((result) => {
-                const user = result.user;
-                console.log(user);
-                toast("User Created Successfully.");
-                const userInfo = {
-                    displayName: data.name,
-                };
-                updateUser(userInfo)
-                    .then(() => {
-                        saveUser(data.name, data.email, userRole);
-                    })
-                    .catch((err) => console.log(err));
-            })
-            .catch((error) => {
-                console.log(error);
-                setSignUpError(error.message);
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append("image", image);
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+            .then((res) => res.json())
+            .then((imgData) => {
+                console.log(imgData);
+                if (imgData.success) {
+                    let image = imgData.data.url;
+                    setSignUpError("");
+                    createUser(data.email, data.password)
+                        .then((result) => {
+                            const user = result.user;
+                            console.log(user);
+                            toast("User Created Successfully.");
+                            const userInfo = {
+                                displayName: data.name,
+                                image: image,
+                            };
+                            updateUser(userInfo)
+                                .then(() => {
+                                    saveUser(data.name, data.email, userRole, image);
+                                })
+                                .catch((err) => console.log(err));
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            setSignUpError(error.message);
+                        });
+                }
             });
     };
 
-    const saveUser = (name, email, userRole) => {
-        const users = { name, email, userRole };
+    const saveUser = (name, email, userRole, image) => {
+        const users = { name, email, userRole, image };
 
         fetch("http://localhost:5000/users", {
             method: "POST",
@@ -117,6 +136,19 @@ const SignUp = () => {
                             className="input input-bordered w-full max-w-xs"
                         />
                         {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Photo</span>
+                        </label>
+                        <input
+                            type="file"
+                            {...register("image", {
+                                required: "Photo is Required",
+                            })}
+                            className="input input-bordered w-full max-w-xs py-2 "
+                        />
+                        {errors.image && <p className="text-red-500">{errors.image.message}</p>}
                     </div>
                     <div className="form-control w-full max-w-xs ">
                         <label className="label">

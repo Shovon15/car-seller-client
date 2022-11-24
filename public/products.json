@@ -1,0 +1,86 @@
+[
+    {
+        "categoryName": "SUV",
+        "brandName": "Honda",
+        "image": "https://i.ibb.co/K2scwcZ/Suv.jpg",
+        "price": 124000,
+        "specification": {
+            "color": "red",
+            "mileage": "120040",
+            "Features": "automatic",
+            "Fuel Type": "Hybrid",
+            "Introduction Year": "2018",
+            "Body Style": "SUV"
+        }
+    },
+    {
+        "categoryName": "SUV",
+        "brandName": "Honda",
+        "image": "https://i.ibb.co/K2scwcZ/Suv.jpg",
+        "price": 124000,
+        "specification": {
+            "color": "red",
+            "mileage": "120040",
+            "Features": "automatic",
+            "Fuel Type": "Hybrid",
+            "Introduction Year": "2018",
+            "Body Style": "SUV"
+        }
+    },
+    {
+        "categoryName": "sedan",
+        "brandName": "Honda Accord",
+        "image": "https://i.ibb.co/K2scwcZ/Suv.jpg",
+        "price": 124000,
+        "specification": {
+            "color": "red",
+            "mileage": "120040",
+            "Features": "automatic",
+            "Fuel Type": "Hybrid",
+            "Introduction Year": "2018",
+            "Body Style": "SUV"
+        }
+    },
+    {
+        "categoryName": "sports car",
+        "brandName": "Honda",
+        "image": "https://i.ibb.co/K2scwcZ/Suv.jpg",
+        "price": 84000,
+        "specification": {
+            "color": "red",
+            "mileage": "120040",
+            "Features": "automatic",
+            "Fuel Type": "Hybrid",
+            "Introduction Year": "2018",
+            "Body Style": "SUV"
+        }
+    },
+    {
+        "categoryName": "sedan",
+        "brandName": "Honda",
+        "image": "https://i.ibb.co/K2scwcZ/Suv.jpg",
+        "price": 124000,
+        "specification": {
+            "color": "red",
+            "mileage": "120040",
+            "Features": "automatic",
+            "Fuel Type": "Petrol",
+            "Introduction Year": "2020",
+            "Body Style": "sedan"
+        }
+    },
+    {
+        "categoryName": "sports",
+        "brandName": "Honda",
+        "image": "https://i.ibb.co/K2scwcZ/Suv.jpg",
+        "price": 175000,
+        "specification": {
+            "color": "red",
+            "mileage": "120040",
+            "Features": "automatic",
+            "Fuel Type": "Hybrid",
+            "Introduction Year": "2018",
+            "Body Style": "sports car"
+        }
+    }
+]
