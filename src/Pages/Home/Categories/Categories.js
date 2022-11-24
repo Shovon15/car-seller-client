@@ -1,14 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { Link } from "react-router-dom";
 import Category from "./Category";
 
 const Categories = () => {
-    const {
-        data: categories = [],
-        refetch,
-        isLoading,
-    } = useQuery({
+    const { data: categories = [] } = useQuery({
         queryKey: ["categories"],
         queryFn: async () => {
             const res = await fetch("http://localhost:5000/carCategory");
@@ -18,17 +13,13 @@ const Categories = () => {
     });
     // console.log(categories);
     return (
-        <div>
-            <h1 className="text-center text-2xl font-bold">Categories</h1>
-            <div className="grid grid-cols-3 mx-10">
+        <div className="my-10 ">
+            <h1 className="text-center text-2xl font-bold p-5">Categories</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-10">
                 {categories.map((category) => (
                     <Category key={category._id} category={category}></Category>
                 ))}
             </div>
-
-            <Link to="/sedan">
-                <button className="btn">sedan</button>
-            </Link>
         </div>
     );
 };

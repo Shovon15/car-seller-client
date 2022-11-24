@@ -9,13 +9,12 @@ const Category = ({ category }) => {
     };
 
     return (
-        <div className="card card-compact w-96 bg-base-100 shadow-xl">
+        <div className="card card-compact  bg-base-100 shadow-xl">
             <figure>
                 <img src={image} alt="Shoes" />
             </figure>
             <div className="card-body">
-                <h2 className="card-title">{categoryName}</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
+                <h2 className="card-title">{categoryName.toUpperCase()}</h2>
                 <div className="card-actions justify-center ">
                     <Link to={`/products/${categoryName.toLowerCase()}`}>
                         <button onClick={() => handleProducts(categoryName)} className="btn btn-primary px-12">
