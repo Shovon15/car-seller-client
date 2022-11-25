@@ -1,5 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
+import DashboardLayout from "../../Layouts/Main/DashboardLayout/DashboardLayout";
 import Main from "../../Layouts/Main/Main";
+import AddItems from "../../Pages/AddItems/AddItems";
+import BuyerAccount from "../../Pages/Dashboard/BuyerAccount/BuyerAccount";
+import SellerAccount from "../../Pages/Dashboard/SellerAccount/SellerAccount";
 import Home from "../../Pages/Home/Home/Home";
 import ProductDetails from "../../Pages/Home/Products/ProductDetails";
 import Products from "../../Pages/Home/Products/Products";
@@ -7,6 +11,7 @@ import Login from "../../Pages/Login/Login/Login";
 import SignUp from "../../Pages/Login/SignUp/SignUp";
 import NotFound from "../../Pages/Shared/NotFound/NotFound";
 import Profile from "../../Pages/UserProfile/Profile/Profile";
+import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
 const router = createBrowserRouter([
     {
@@ -27,7 +32,19 @@ const router = createBrowserRouter([
             },
             {
                 path: "/profile",
-                element: <Profile />,
+                element: (
+                    <PrivateRoutes>
+                        <Profile />
+                    </PrivateRoutes>
+                ),
+            },
+            {
+                path: "/addItems",
+                element: (
+                    <PrivateRoutes>
+                        <AddItems />
+                    </PrivateRoutes>
+                ),
             },
             {
                 path: "/products/:categoryName",
@@ -36,8 +53,30 @@ const router = createBrowserRouter([
             },
             {
                 path: "/products/:categoryName/:_id",
-                element: <ProductDetails />,
+                element: (
+                    <PrivateRoutes>
+                        <ProductDetails />
+                    </PrivateRoutes>
+                ),
                 loader: ({ params }) => fetch(`http://localhost:5000/products/${params.categoryName}/${params._id}`),
+            },
+        ],
+    },
+    {
+        path: "/dashboard",
+        element: (
+            <PrivateRoutes>
+                <DashboardLayout></DashboardLayout>
+            </PrivateRoutes>
+        ),
+        children: [
+            {
+                path: "/dashboard",
+                element: <BuyerAccount />,
+            },
+            {
+                path: "/dashboard/sellerAccount",
+                element: <SellerAccount />,
             },
         ],
     },

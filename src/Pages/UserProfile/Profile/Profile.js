@@ -8,7 +8,7 @@ const Profile = () => {
     // console.log(isUser);
     const { name, userRole, image } = isUser;
     return (
-        <div>
+        <div className="mx-5 md:mx-10">
             <h1>user profile</h1>
             <h1 className="text-3xl">{name}</h1>
             <h1 className="text-3xl">{userRole}</h1>

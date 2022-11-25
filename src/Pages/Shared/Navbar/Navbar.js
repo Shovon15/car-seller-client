@@ -13,7 +13,7 @@ const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     // console.log(user?.photoURL, );
     const [isUser] = useUser(user?.email);
-    console.log(user, isUser);
+    // console.log(user, isUser);
 
     const [theme, setTheme] = useState("light");
 
@@ -45,7 +45,10 @@ const Navbar = () => {
             </Link>
             {user?.uid ? (
                 <>
-                    <Link to="/">
+                    <Link to="/addItems">
+                        <button className="btn btn-ghost w-full">Add Items</button>
+                    </Link>
+                    <Link to="/dashboard">
                         <button className="btn btn-ghost w-full">Dashboard</button>
                     </Link>
 
@@ -82,7 +85,9 @@ const Navbar = () => {
             </button>
             {user?.uid ? (
                 <Link to="/profile" className="cursor-pointer">
-                    <img src={isUser?.image} alt="avatar" className="w-6 h-6" />
+                    <div className="tooltip tooltip-left" data-tip={isUser?.name}>
+                        <img src={isUser?.image} alt="avatar" className="w-10 h-10 rounded-full mr-5" />
+                    </div>
                 </Link>
             ) : (
                 // <div className="dropdown dropdown-end">
