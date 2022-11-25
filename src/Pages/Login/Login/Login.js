@@ -11,9 +11,10 @@ const Login = () => {
         handleSubmit,
     } = useForm();
 
-    const { signIn } = useContext(AuthContext);
-    const { loginError, setLoginError } = useState();
+    const { signIn, googleSignIn } = useContext(AuthContext);
+    const [loginError, setLoginError] = useState();
     // const [loginUserEmail, setLoginUserEmail] = useState('');
+    const [passwordShown, setPasswordShown] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ const Login = () => {
 
     const handleLogin = (data) => {
         console.log(data);
-        // setLoginError("");
+        setLoginError("");
         signIn(data.email, data.password)
             .then((result) => {
                 const user = result.user;
@@ -35,7 +36,21 @@ const Login = () => {
             });
     };
 
-    const [passwordShown, setPasswordShown] = useState(false);
+    const handleGoogleSignIn = () => {
+        // console.log(data);
+        setLoginError(""); //for previous error reset
+        googleSignIn()
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                navigate(from, { replace: true });
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoginError(error.message);
+            });
+    };
+
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
@@ -96,7 +111,9 @@ const Login = () => {
                     </Link>
                 </p>
                 <div className="divider">OR</div>
-                <button className="btn btn-outline w-full">CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className="btn btn-outline w-full">
+                    CONTINUE WITH GOOGLE
+                </button>
             </div>
         </div>
     );

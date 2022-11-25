@@ -2,24 +2,27 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 
 const SignUp = () => {
-    const { createUser, updateUser } = useContext(AuthContext);
+    const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
     const [createdUserEmail, setCreatedUserEmail] = useState("");
     const [userCheck, setUserCheck] = useState(true);
     const [passwordShown, setPasswordShown] = useState(false);
+    const [signUpError, setSignUpError] = useState();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
 
     const imageHostKey = process.env.REACT_APP_img_KEY;
-    // console.log(imageHostKey);
 
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const [signUpError, setSignUpError] = useState();
 
     // -------------------check buyer/seller-------------
     let userRole = "buyer";
@@ -32,6 +35,7 @@ const SignUp = () => {
         userRole = "seller";
     }
     // console.log(userRole);
+    // -----------------------------------
 
     const handleSignUp = (data) => {
         const image = data.image[0];
@@ -68,6 +72,21 @@ const SignUp = () => {
                             setSignUpError(error.message);
                         });
                 }
+            });
+    };
+
+    const handleGoogleSignIn = () => {
+        // console.log(data);
+        setSignUpError(""); //for previous error reset
+        googleSignIn()
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                navigate(from, { replace: true });
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setSignUpError(error.message);
             });
     };
 
@@ -189,7 +208,9 @@ const SignUp = () => {
                     </Link>
                 </p>
                 <div className="divider">OR</div>
-                <button className="btn btn-outline w-full">CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className="btn btn-outline w-full">
+                    CONTINUE WITH GOOGLE
+                </button>
             </div>
         </div>
     );

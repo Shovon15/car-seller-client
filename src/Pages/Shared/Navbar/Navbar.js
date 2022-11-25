@@ -7,10 +7,13 @@ import toast from "react-hot-toast";
 
 import logo from "../../../assets/images/logo.png";
 import { AuthContext } from "../../../context/AuthProvider";
+import useUser from "../../../hooks/useUser";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     // console.log(user?.photoURL, );
+    const [isUser] = useUser(user?.email);
+    console.log(user, isUser);
 
     const [theme, setTheme] = useState("light");
 
@@ -40,24 +43,17 @@ const Navbar = () => {
             <Link to="/">
                 <button className="btn btn-ghost w-full">Home</button>
             </Link>
-            <Link to="/">
-                <button className="btn btn-ghost w-full">Appointment</button>
-            </Link>
-            {/* <Link to="/login">
-                <button className="btn btn-ghost w-full">Login</button>
-            </Link>
-            <Link to="/signup">
-                <button className="btn btn-ghost w-full">SignUp</button>
-            </Link> */}
             {user?.uid ? (
                 <>
                     <Link to="/">
                         <button className="btn btn-ghost w-full">Dashboard</button>
                     </Link>
 
-                    <button onClick={handleLogOut} className="btn btn-ghost">
-                        SignOut
-                    </button>
+                    <Link>
+                        <button onClick={handleLogOut} className="btn btn-ghost w-full">
+                            logOut
+                        </button>
+                    </Link>
                 </>
             ) : (
                 <>
@@ -85,33 +81,33 @@ const Navbar = () => {
                 )}
             </button>
             {user?.uid ? (
-                <div className="dropdown dropdown-end">
-                    <label tabIndex={1} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            {user?.photoURL ? <p>ase</p> : <FaUser className="w-8 h-8 m-auto" />}
-                        </div>
-                    </label>
-                    <ul
-                        tabIndex={1}
-                        className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
-                    >
-                        <li className="px-2">{user?.displayName}</li>
-
-                        <li>
-                            <Link to="/" className="justify-between">
-                                Profile
-                                <span className="badge">New</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/">Settings</Link>
-                        </li>
-                        <li>
-                            <Link onClick={handleLogOut}>Logout</Link>
-                        </li>
-                    </ul>
-                </div>
+                <Link to="/profile" className="cursor-pointer">
+                    <img src={isUser?.image} alt="avatar" className="w-6 h-6" />
+                </Link>
             ) : (
+                // <div className="dropdown dropdown-end">
+                //     <label tabIndex={1} className="btn btn-ghost btn-circle avatar">
+                //         <div className="w-10 rounded-full">
+                //             {user?.photoURL ? <p>avatar</p> : <FaUser className="w-8 h-8 m-auto" />}
+                //         </div>
+                //     </label>
+                //     <ul
+                //         tabIndex={1}
+                //         className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+                //     >
+                //         <li className="px-2">{user?.displayName}</li>
+
+                //         <li>
+                //             <Link to="/profile" className="justify-between">
+                //                 Profile
+                //             </Link>
+                //         </li>
+
+                //         <li>
+                //             <Link onClick={handleLogOut}>Logout</Link>
+                //         </li>
+                //     </ul>
+                // </div>
                 <></>
             )}
         </>
