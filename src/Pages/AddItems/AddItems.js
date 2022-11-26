@@ -42,7 +42,8 @@ const AddItems = () => {
                     const items = {
                         sellerName: isUser.name,
                         sellerImage: isUser.image,
-                        // sellerVerification: verify,
+                        sellerEmail: isUser.email,
+                        sellerVerification: isUser?.verify,
                         date: currentDate,
                         categoryName: data.category,
                         modelName: data.modelName,

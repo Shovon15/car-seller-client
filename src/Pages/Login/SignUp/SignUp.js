@@ -82,6 +82,14 @@ const SignUp = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
+                // const userInfo = {
+                //     name: user.displayName,
+                //     email: user.email,
+                //     image: user.photoURL,
+                //     userRole,
+                // };
+
+                saveUser(user.displayName, user.email, user.photoURL, userRole);
                 navigate(from, { replace: true });
             })
             .catch((error) => {

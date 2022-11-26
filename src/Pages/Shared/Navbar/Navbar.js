@@ -41,19 +41,28 @@ const Navbar = () => {
     const menuItems = (
         <>
             <Link to="/">
-                <button className="btn btn-ghost w-full">Home</button>
+                <button className="btn btn-ghost font-bold">Home</button>
             </Link>
+
+            {isUser?.userRole === "seller" && (
+                <Link to="/addItems">
+                    <button className="btn btn-ghost font-bold">Add Items</button>
+                </Link>
+            )}
+
+            {isUser?.userRole === "buyer" && (
+                <Link to="/">
+                    <button className="btn btn-ghost font-bold">Booking items</button>
+                </Link>
+            )}
             {user?.uid ? (
                 <>
-                    <Link to="/addItems">
-                        <button className="btn btn-ghost w-full">Add Items</button>
-                    </Link>
                     <Link to="/dashboard">
-                        <button className="btn btn-ghost w-full">Dashboard</button>
+                        <button className="btn btn-ghost font-bold">Dashboard</button>
                     </Link>
 
                     <Link>
-                        <button onClick={handleLogOut} className="btn btn-ghost w-full">
+                        <button onClick={handleLogOut} className="btn btn-ghost font-bold">
                             logOut
                         </button>
                     </Link>
@@ -61,10 +70,10 @@ const Navbar = () => {
             ) : (
                 <>
                     <Link to="/login">
-                        <button className="btn btn-ghost w-full">Login</button>
+                        <button className="btn btn-ghost  font-bold">Login</button>
                     </Link>
                     <Link to="/signup">
-                        <button className="btn btn-ghost w-full">SignUp</button>
+                        <button className="btn btn-ghost font-bold">SignUp</button>
                     </Link>
                 </>
             )}
