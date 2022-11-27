@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../context/AuthProvider";
 
 const BookingModal = ({ product }) => {
     const { modelName, _id, sellerName, sellerEmail } = product;
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     console.log(product);
 
@@ -57,6 +59,7 @@ const BookingModal = ({ product }) => {
                     // setTreatment(null);
                     toast.success("Booking confirmed");
                     // refetch();
+                    navigate("/bookingItems");
                 } else {
                     toast.error(data.message);
                 }

@@ -26,7 +26,6 @@ const ProductDetails = () => {
         sellerImage,
         sellerName,
         sellerVerification,
-        _id,
     } = product;
     // const { Features, color, mileage } = specification;
     return (
@@ -43,9 +42,7 @@ const ProductDetails = () => {
                         <p>
                             <span className="font-bold">Category:</span> {categoryName}{" "}
                         </p>
-                        <p>
-                            <span className="font-bold">Price:</span> {price}
-                        </p>
+
                         <p>
                             <span className="font-bold">Color:</span> {color}
                         </p>

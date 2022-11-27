@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 // import { AuthContext } from "../../../Context/AuthContext/AuthContext";
-import { FaMoon, FaSun, FaUser } from "react-icons/fa";
+import { FaMoon, FaSun } from "react-icons/fa";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 
@@ -51,10 +51,13 @@ const Navbar = () => {
             )}
 
             {isUser?.userRole === "buyer" && (
-                <Link to="/">
+                <Link to="/bookingItems">
                     <button className="btn btn-ghost font-bold">Booking items</button>
                 </Link>
             )}
+            <Link to="/blogs">
+                <button className="btn btn-ghost font-bold">Blogs</button>
+            </Link>
             {user?.uid ? (
                 <>
                     <Link to="/dashboard">

@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../../Layouts/Main/DashboardLayout/DashboardLayout";
 import Main from "../../Layouts/Main/Main";
 import AddItems from "../../Pages/AddItems/AddItems";
+import Blogs from "../../Pages/Blogs/Blogs";
+import BookingsItem from "../../Pages/BookingsItem/BookingsItem";
 import BuyerAccount from "../../Pages/Dashboard/BuyerAccount/BuyerAccount";
 import SellerAccount from "../../Pages/Dashboard/SellerAccount/SellerAccount";
 import Home from "../../Pages/Home/Home/Home";
@@ -31,10 +33,22 @@ const router = createBrowserRouter([
                 element: <SignUp />,
             },
             {
+                path: "/blogs",
+                element: <Blogs />,
+            },
+            {
                 path: "/profile",
                 element: (
                     <PrivateRoutes>
                         <Profile />
+                    </PrivateRoutes>
+                ),
+            },
+            {
+                path: "/bookingItems",
+                element: (
+                    <PrivateRoutes>
+                        <BookingsItem />
                     </PrivateRoutes>
                 ),
             },

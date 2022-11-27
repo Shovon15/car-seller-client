@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
+import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
 
 const SellerAccount = () => {
     const { data: sellers = [], refetch } = useQuery({
@@ -11,7 +12,9 @@ const SellerAccount = () => {
             return data;
         },
     });
-    console.log(sellers);
+
+    const [deletingSeller, setDeletingSeller] = useState();
+    // console.log(sellers);
 
     const handleMakeVerified = (id) => {
         fetch(`http://localhost:5000/users/${id}`, {
@@ -28,6 +31,27 @@ const SellerAccount = () => {
                 }
             });
     };
+
+    const handleDeleteSeller = () => {
+        fetch(`http://localhost:5000/users/${deletingSeller._id}`, {
+            method: "DELETE",
+            headers: {
+                // authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success(`Doctor ${deletingSeller.name} deleted successfully`);
+                }
+            });
+    };
+
+    const closeModal = () => {
+        setDeletingSeller(null);
+    };
+
     return (
         <div>
             <h2 className="text-3xl py-5">All Sellers</h2>
@@ -61,13 +85,29 @@ const SellerAccount = () => {
                                     )}
                                 </td>
                                 <td>
-                                    <button className="btn btn-xs btn-danger">Delete</button>
+                                    <label
+                                        onClick={() => setDeletingSeller(seller)}
+                                        htmlFor="confirmation-modal"
+                                        className="btn btn-sm btn-error"
+                                    >
+                                        Delete
+                                    </label>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+            {deletingSeller && (
+                <ConfirmationModal
+                    title={`Are you sure you want to delete?`}
+                    message={`If you delete ${deletingSeller.name}. It cannot be undone.`}
+                    successAction={handleDeleteSeller}
+                    successButtonName="Delete"
+                    modalData={deletingSeller}
+                    closeModal={closeModal}
+                ></ConfirmationModal>
+            )}
         </div>
     );
 };
