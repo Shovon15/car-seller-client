@@ -35,7 +35,7 @@ const BuyerAccount = () => {
             .then((data) => {
                 if (data.deletedCount > 0) {
                     refetch();
-                    toast.success(`Doctor ${buyers.name} deleted successfully`);
+                    toast.success(`Buyer ${buyers.name} deleted successfully`);
                 }
             });
     };

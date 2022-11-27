@@ -26,7 +26,7 @@ const SellerAccount = () => {
             .then((res) => res.json())
             .then((data) => {
                 if (data.modifiedCount > 0) {
-                    toast.success("Make admin successful.");
+                    toast.success(" successfully verified.");
                     refetch();
                 }
             });
@@ -43,7 +43,7 @@ const SellerAccount = () => {
             .then((data) => {
                 if (data.deletedCount > 0) {
                     refetch();
-                    toast.success(`Doctor ${deletingSeller.name} deleted successfully`);
+                    toast.success(`Seller ${deletingSeller.name} deleted successfully`);
                 }
             });
     };
