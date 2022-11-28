@@ -3,6 +3,9 @@ Name: Car Seller website
 
 Live website Link: https://car-resale-client.web.app/
 
+adminEmail: admin@admin.com
+adminPassword: Admin@001
+
 How i create Car Seller web application
 
 1. create react app
