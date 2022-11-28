@@ -8,7 +8,7 @@ import Loader from "../../Shared/Loader/Loader";
 
 const SignUp = () => {
     const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
-    const [createdUserEmail, setCreatedUserEmail] = useState("");
+    // const [createdUserEmail, setCreatedUserEmail] = useState("");
     const [userCheck, setUserCheck] = useState(true);
     const [passwordShown, setPasswordShown] = useState(false);
     const [signUpError, setSignUpError] = useState();
@@ -84,16 +84,8 @@ const SignUp = () => {
         googleSignIn()
             .then((result) => {
                 const user = result.user;
-                console.log(user);
-                // const userInfo = {
-                //     name: user.displayName,
-                //     email: user.email,
-                //     image: user.photoURL,
-                //     userRole,
-                // };
-
+                // console.log(user);
                 saveUser(user.displayName, user.email, user.photoURL, userRole);
-                navigate(from, { replace: true });
             })
             .catch((error) => {
                 console.log(error.message);
@@ -113,6 +105,7 @@ const SignUp = () => {
         })
             .then((res) => res.json())
             .then((data) => {
+                navigate(from, { replace: true });
                 // console.log("userSaveDb", data);
                 // getUserToken(email);
                 // if (data.acknowledged) {

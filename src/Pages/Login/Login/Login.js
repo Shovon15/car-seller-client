@@ -3,12 +3,14 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
+import Loader from "../../Shared/Loader/Loader";
 
 const Login = () => {
     const {
         register,
         formState: { errors },
         handleSubmit,
+        isLoading,
     } = useForm();
 
     const { signIn, googleSignIn } = useContext(AuthContext);
@@ -17,6 +19,7 @@ const Login = () => {
     const [passwordShown, setPasswordShown] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
+    let userRole = "buyer";
 
     const from = location.state?.from?.pathname || "/";
 
@@ -27,7 +30,6 @@ const Login = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
-                // setLoginUserEmail(data.email);
                 navigate(from, { replace: true });
             })
             .catch((error) => {
@@ -43,13 +45,42 @@ const Login = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
-                navigate(from, { replace: true });
+                saveUser(user.displayName, user.email, userRole, user.photoURL);
             })
             .catch((error) => {
                 console.log(error.message);
                 setLoginError(error.message);
             });
     };
+
+    const saveUser = (name, email, userRole, image) => {
+        const users = { name, email, userRole, image };
+
+        fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(users),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                navigate(from, { replace: true });
+                // console.log("userSaveDb", data);
+                // getUserToken(email);
+                // if (data.acknowledged) {
+                //     setTreatment(null);
+                //     toast.success("Booking confirmed");
+                //     refetch();
+                // } else {
+                //     toast.error(data.message);
+                // }
+            });
+    };
+
+    if (isLoading) {
+        return <Loader></Loader>;
+    }
 
     const togglePassword = () => {
         setPasswordShown(!passwordShown);

@@ -49,6 +49,9 @@ const Navbar = () => {
                     <Link to="/addItems">
                         <button className="btn btn-ghost font-bold">Add Items</button>
                     </Link>
+                    <Link to="/postItems">
+                        <button className="btn btn-ghost font-bold">Posted Items</button>
+                    </Link>
                     <Link to="/bookingOrders">
                         <button className="btn btn-ghost font-bold">Booked Orders</button>
                     </Link>

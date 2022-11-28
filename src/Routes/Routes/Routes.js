@@ -12,6 +12,7 @@ import ProductDetails from "../../Pages/Home/Products/ProductDetails";
 import Products from "../../Pages/Home/Products/Products";
 import Login from "../../Pages/Login/Login/Login";
 import SignUp from "../../Pages/Login/SignUp/SignUp";
+import PostItems from "../../Pages/PostItems/PostItems";
 import NotFound from "../../Pages/Shared/NotFound/NotFound";
 import Profile from "../../Pages/UserProfile/Profile/Profile";
 import AdminRoute from "../AdminRoutes/AdminRoutes";
@@ -67,6 +68,14 @@ const router = createBrowserRouter([
                 element: (
                     <PrivateRoutes>
                         <AddItems />
+                    </PrivateRoutes>
+                ),
+            },
+            {
+                path: "/postItems",
+                element: (
+                    <PrivateRoutes>
+                        <PostItems />
                     </PrivateRoutes>
                 ),
             },

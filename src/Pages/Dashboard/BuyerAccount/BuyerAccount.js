@@ -20,6 +20,7 @@ const BuyerAccount = () => {
     });
 
     const [deletingBuyer, setDeletingBuyer] = useState();
+    // console.log(deletingBuyer);
 
     const closeModal = () => {
         setDeletingBuyer(null);
@@ -36,7 +37,7 @@ const BuyerAccount = () => {
             .then((data) => {
                 if (data.deletedCount > 0) {
                     refetch();
-                    toast.success(`Buyer ${buyers.name} deleted successfully`);
+                    toast.success(`Buyer ${deletingBuyer.name} deleted successfully`);
                 }
             });
     };
@@ -47,7 +48,7 @@ const BuyerAccount = () => {
 
     return (
         <>
-            <div>
+            <div className="mx-5">
                 <h2 className="text-3xl py-5">All Buyers</h2>
                 <div className="overflow-x-auto ">
                     <table className="table w-full dark:text-slate-700">
@@ -55,6 +56,7 @@ const BuyerAccount = () => {
                             <tr>
                                 <th></th>
                                 <th>Name</th>
+                                <th>Avatar</th>
                                 <th>Email</th>
                                 <th>Action</th>
                             </tr>
@@ -63,7 +65,10 @@ const BuyerAccount = () => {
                             {buyers.map((buyer, i) => (
                                 <tr key={buyer._id}>
                                     <th>{i + 1}</th>
-                                    <td>{buyer.name}</td>
+                                    <td className="font-bold">{buyer.name}</td>
+                                    <td>
+                                        <img src={buyer.image} alt="user-avatar" className="w-12 h-12 rounded-full" />
+                                    </td>
                                     <td>{buyer.email}</td>
                                     <td>
                                         <label

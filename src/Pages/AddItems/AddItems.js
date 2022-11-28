@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import useUser from "../../hooks/useUser";
 import Loader from "../Shared/Loader/Loader";
@@ -79,8 +79,8 @@ const AddItems = () => {
                     // getUserToken(email);
                     if (data.acknowledged) {
                         toast.success("item added successfully");
-                        data.reset();
-                        navigate("/");
+                        // data.reset();
+                        navigate("/postItems");
                     } else {
                         toast.error(data.message);
                     }

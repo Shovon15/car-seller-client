@@ -54,7 +54,7 @@ const SellerAccount = () => {
     };
 
     return (
-        <div>
+        <div className="mx-5">
             <h2 className="text-3xl py-5">All Sellers</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full dark:text-slate-800">
@@ -62,6 +62,7 @@ const SellerAccount = () => {
                         <tr>
                             <th></th>
                             <th>Name</th>
+                            <th>Avatar</th>
                             <th>Email</th>
                             <th>Verify</th>
                             <th>Action</th>
@@ -71,18 +72,23 @@ const SellerAccount = () => {
                         {sellers.map((seller, i) => (
                             <tr key={seller._id}>
                                 <th>{i + 1}</th>
-                                <td>{seller.name}</td>
+                                <td className="font-bold">{seller.name}</td>
+                                <td>
+                                    <img src={seller.image} alt="user-avatar" className="w-12 h-12 rounded-full" />
+                                </td>
                                 <td>{seller.email}</td>
                                 <td>
                                     {seller?.verify !== "true" ? (
                                         <button
                                             onClick={() => handleMakeVerified(seller._id)}
-                                            className="btn btn-xs btn-outline"
+                                            className="btn btn-xs btn-outline hover:bg-green-500 hover:border-green-500"
                                         >
                                             Verify seller
                                         </button>
                                     ) : (
-                                        <p className="btn  btn-sm">Verified</p>
+                                        <p className="btn  btn-sm btn-outline bg-green-500 border-none btn-disabled text-white">
+                                            Verified
+                                        </p>
                                     )}
                                 </td>
                                 <td>

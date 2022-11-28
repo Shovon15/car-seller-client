@@ -1,10 +1,13 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const Gadget = ({ gadget }) => {
     const { gadgetName, brandName, image, price, color, details } = gadget;
 
-    const handleGadgets = () => {};
+    const handleGadgets = () => {
+        toast.success("Under Development");
+    };
     return (
         <div className="card card-compact  bg-base-100 dark:bg-slate-600 shadow-xl">
             <figure className="w-72 h-72 ">
