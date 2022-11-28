@@ -45,7 +45,7 @@ const BookingModal = ({ product }) => {
         // and once data is saved then close the modal
         // and display success toast
 
-        fetch("http://localhost:5000/bookings", {
+        fetch("https://y-liart-nine.vercel.app/bookings", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

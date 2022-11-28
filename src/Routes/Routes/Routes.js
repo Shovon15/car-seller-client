@@ -82,7 +82,7 @@ const router = createBrowserRouter([
             {
                 path: "/products/:categoryName",
                 element: <Products />,
-                loader: ({ params }) => fetch(`http://localhost:5000/products/${params.categoryName}`),
+                loader: ({ params }) => fetch(`https://y-liart-nine.vercel.app/products/${params.categoryName}`),
             },
             {
                 path: "/products/:categoryName/:_id",
@@ -91,7 +91,8 @@ const router = createBrowserRouter([
                         <ProductDetails />
                     </PrivateRoutes>
                 ),
-                loader: ({ params }) => fetch(`http://localhost:5000/products/${params.categoryName}/${params._id}`),
+                loader: ({ params }) =>
+                    fetch(`https://y-liart-nine.vercel.app/products/${params.categoryName}/${params._id}`),
             },
         ],
     },

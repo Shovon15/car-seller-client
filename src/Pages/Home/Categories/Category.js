@@ -1,5 +1,4 @@
 import React from "react";
-import { PhotoProvider, PhotoView } from "react-photo-view";
 import { Link } from "react-router-dom";
 
 const Category = ({ category }) => {
@@ -12,11 +11,7 @@ const Category = ({ category }) => {
     return (
         <div className="card card-compact  bg-base-100 dark:bg-slate-600 shadow-xl">
             <figure>
-                <PhotoProvider>
-                    <PhotoView src={image}>
-                        <img src={image} alt="car" />
-                    </PhotoView>
-                </PhotoProvider>
+                <img src={image} alt="car" />
             </figure>
             <div className="card-body">
                 <h2 className="text-2xl font-bold">{categoryName.toUpperCase()}</h2>

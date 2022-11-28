@@ -13,7 +13,7 @@ const BuyerAccount = () => {
     } = useQuery({
         queryKey: ["buyers"],
         queryFn: async () => {
-            const res = await fetch("http://localhost:5000/buyers");
+            const res = await fetch("https://y-liart-nine.vercel.app/buyers");
             const data = await res.json();
             return data;
         },
@@ -27,7 +27,7 @@ const BuyerAccount = () => {
     };
 
     const handleDeleteBuyer = () => {
-        fetch(`http://localhost:5000/buyers/${deletingBuyer._id}`, {
+        fetch(`https://y-liart-nine.vercel.app/buyers/${deletingBuyer._id}`, {
             method: "DELETE",
             headers: {
                 // authorization: `bearer ${localStorage.getItem('accessToken')}`

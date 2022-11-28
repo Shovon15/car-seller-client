@@ -1,3 +1,23 @@
+Assignment 12 Programming Hero
+Name: Car Seller website
+
+Live website Link: https://car-resale-client.web.app/
+
+How i create Car Seller web application
+
+1. create react app
+2. react router dom library
+3. firebase login/Registration
+4. firebase hosting
+5. react icons
+6. tailwind CSS
+7. daisyUI
+8. react hot toast
+9. react context hook
+10. env.local
+11. custom hooks
+12. firebase deploy
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
