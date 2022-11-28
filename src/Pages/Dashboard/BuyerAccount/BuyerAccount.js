@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { FaTrashAlt } from "react-icons/fa";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
 import Loader from "../../Shared/Loader/Loader";
 
@@ -67,7 +68,15 @@ const BuyerAccount = () => {
                                     <th>{i + 1}</th>
                                     <td className="font-bold">{buyer.name}</td>
                                     <td>
-                                        <img src={buyer.image} alt="user-avatar" className="w-12 h-12 rounded-full" />
+                                        <PhotoProvider>
+                                            <PhotoView src={buyer.image}>
+                                                <img
+                                                    src={buyer.image}
+                                                    alt="car"
+                                                    className="cursor-pointer w-12 h-12 rounded-full"
+                                                />
+                                            </PhotoView>
+                                        </PhotoProvider>
                                     </td>
                                     <td>{buyer.email}</td>
                                     <td>

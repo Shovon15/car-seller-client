@@ -1,5 +1,6 @@
 import React from "react";
 import toast from "react-hot-toast";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import { Link } from "react-router-dom";
 
 const Gadget = ({ gadget }) => {
@@ -11,7 +12,11 @@ const Gadget = ({ gadget }) => {
     return (
         <div className="card card-compact  bg-base-100 dark:bg-slate-600 shadow-xl">
             <figure className="w-72 h-72 ">
-                <img src={image} alt="gadget" className="mx-auto" />
+                <PhotoProvider>
+                    <PhotoView src={image}>
+                        <img src={image} alt="car" className="cursor-pointer" />
+                    </PhotoView>
+                </PhotoProvider>
             </figure>
             <div className="card-body">
                 <h2 className="text-2xl font-bold">{gadgetName.toUpperCase()}</h2>

@@ -1,5 +1,6 @@
 // import React, { useContext } from "react";
 import { useContext } from "react";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 import useUser from "../../../hooks/useUser";
@@ -66,7 +67,11 @@ const ProductDetails = () => {
                         </p>
                     </div>
                     <div className="w-full md:w-8/12">
-                        <img src={image} alt="img" className="rounded-xl" />
+                        <PhotoProvider>
+                            <PhotoView src={image}>
+                                <img src={image} alt="car" className="cursor-pointer rounded-xl" />
+                            </PhotoView>
+                        </PhotoProvider>
                     </div>
                 </div>
                 <div className="mt-5">

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { FaTrashAlt } from "react-icons/fa";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import { AuthContext } from "../../context/AuthProvider";
 import ConfirmationModal from "../Shared/ConfirmationModal/ConfirmationModal";
 import Loader from "../Shared/Loader/Loader";
@@ -78,7 +79,15 @@ const PostItems = () => {
                                         <th>{i + 1}</th>
                                         <td className="font-bold">{post.modelName}</td>
                                         <td>
-                                            <img src={post.image} alt="post_Image" className="w-18 h-12 rounded-lg" />
+                                            <PhotoProvider>
+                                                <PhotoView src={post.image}>
+                                                    <img
+                                                        src={post.image}
+                                                        alt="car"
+                                                        className="cursor-pointer w-12 h-12 rounded-lg"
+                                                    />
+                                                </PhotoView>
+                                            </PhotoProvider>
                                         </td>
                                         <td>{post.categoryName}</td>
                                         <td>{post._id}</td>

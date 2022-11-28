@@ -1,4 +1,5 @@
 import React from "react";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import { Link } from "react-router-dom";
 
 const Product = ({ product }) => {
@@ -6,9 +7,11 @@ const Product = ({ product }) => {
     const { categoryName, modelName, image, price, _id } = product;
     return (
         <div className="card card-compact bg-base-100 dark:bg-slate-600 shadow-2xl mb-10">
-            <figure>
-                <img src={image} alt="img" />
-            </figure>
+            <PhotoProvider>
+                <PhotoView src={image}>
+                    <img src={image} alt="car" className="cursor-pointer" />
+                </PhotoView>
+            </PhotoProvider>
             <div className="card-body">
                 <p className="text-2xl font-bold">{modelName}</p>
                 <p className="text-xl  font-medium text-cyan-700 dark:text-slate-300">BDT: {price}</p>
