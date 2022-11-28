@@ -29,7 +29,7 @@ const ProductDetails = () => {
     } = product;
     // const { Features, color, mileage } = specification;
     return (
-        <div>
+        <div className="dark:bg-slate-600">
             <h2 className="text-center font-bold text-2xl pt-10">{modelName}</h2>
 
             <div className="mx-5 md:mx-10">
@@ -111,7 +111,10 @@ const ProductDetails = () => {
                         </p>
                     </div>
                     <div className="w-full md:w-8/12 flex justify-center items-center my-5 md:my-0">
-                        <label htmlFor="booking-modal" className="btn">
+                        <label
+                            htmlFor="booking-modal"
+                            className="btn btn-outline dark:text-white hover:bg-cyan-700 hover:border-none px-12"
+                        >
                             Booking
                         </label>
                     </div>

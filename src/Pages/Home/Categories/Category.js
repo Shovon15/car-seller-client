@@ -9,7 +9,7 @@ const Category = ({ category }) => {
     };
 
     return (
-        <div className="card card-compact  bg-base-100 shadow-xl">
+        <div className="card card-compact  bg-base-100 dark:bg-slate-600 shadow-xl">
             <figure>
                 <img src={image} alt="Shoes" />
             </figure>
@@ -20,7 +20,7 @@ const Category = ({ category }) => {
                     <Link to={`/products/${categoryName.toLowerCase()}`}>
                         <button
                             onClick={() => handleProducts(categoryName)}
-                            className="btn btn-outline hover:bg-cyan-700 hover:border-none px-12"
+                            className="btn btn-outline dark:text-white hover:bg-cyan-700 hover:border-none px-12"
                         >
                             See all items
                         </button>

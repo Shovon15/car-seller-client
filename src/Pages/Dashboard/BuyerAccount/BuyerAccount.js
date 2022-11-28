@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { FaTrashAlt } from "react-icons/fa";
 import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
 import Loader from "../../Shared/Loader/Loader";
 
@@ -48,8 +49,8 @@ const BuyerAccount = () => {
         <>
             <div>
                 <h2 className="text-3xl py-5">All Buyers</h2>
-                <div className="overflow-x-auto">
-                    <table className="table w-full">
+                <div className="overflow-x-auto ">
+                    <table className="table w-full dark:text-slate-700">
                         <thead>
                             <tr>
                                 <th></th>
@@ -68,9 +69,9 @@ const BuyerAccount = () => {
                                         <label
                                             onClick={() => setDeletingBuyer(buyer)}
                                             htmlFor="confirmation-modal"
-                                            className="btn btn-sm btn-error"
+                                            className="btn btn-outline border-none text-red-600 hover:text-slate-100  hover:bg-red-600"
                                         >
-                                            Delete
+                                            <FaTrashAlt className="w-6 h-6" />
                                         </label>
                                     </td>
                                 </tr>

@@ -84,14 +84,14 @@ const Navbar = () => {
     );
     const userItem = (
         <>
-            <button onClick={handleThemeSwitch} className="btn btn-ghost p-0 rounded-full bg-slate-400  mr-12">
+            <button onClick={handleThemeSwitch} className=" p-0 rounded-full   mr-12">
                 {theme === "dark" ? (
                     <span className=" dark:text-white">
-                        <FaSun className="w-6 h-6 mx-3" />
+                        <FaSun className="w-5 h-5 mx-3" />
                     </span>
                 ) : (
                     <span className="">
-                        <FaMoon className="w-6 h-6 mx-3" />
+                        <FaMoon className="w-5 h-5 mx-3" />
                     </span>
                 )}
             </button>
@@ -157,7 +157,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <Link to="/" className="btn btn-ghost normal-case text-xl">
-                    <img src={logo} alt="logo" className="rounded-md" />
+                    <img src={logo} alt="logo" className="rounded-md w-44 " />
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">

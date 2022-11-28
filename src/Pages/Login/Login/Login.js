@@ -57,10 +57,10 @@ const Login = () => {
 
     return (
         <div className="h-[800px] flex justify-center items-center ">
-            <div className="w-96 p-7 rounded-xl shadow-xl">
+            <div className="w-96 p-7 shadow-xl  bg-slate-300 dark:bg-slate-600 rounded-xl">
                 <h2 className="text-2xl text-center font-bold text-orange-600">Login</h2>
                 <form onSubmit={handleSubmit(handleLogin)}>
-                    <div className="form-control w-full max-w-xs">
+                    <div className="form-control w-full max-w-xs dark:text-slate-800">
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
@@ -73,7 +73,7 @@ const Login = () => {
                         />
                         {errors.email && <p className="text-red-600">{errors.email?.message}</p>}
                     </div>
-                    <div className="form-control w-full max-w-xs ">
+                    <div className="form-control w-full max-w-xs dark:text-slate-800">
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>

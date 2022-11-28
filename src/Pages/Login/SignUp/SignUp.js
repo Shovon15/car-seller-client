@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
+import Loader from "../../Shared/Loader/Loader";
 
 const SignUp = () => {
     const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
@@ -21,6 +22,7 @@ const SignUp = () => {
     const {
         register,
         handleSubmit,
+        isLoading,
         formState: { errors },
     } = useForm();
 
@@ -64,6 +66,7 @@ const SignUp = () => {
                             updateUser(userInfo)
                                 .then(() => {
                                     saveUser(data.name, data.email, userRole, image);
+                                    navigate(from, { replace: true });
                                 })
                                 .catch((err) => console.log(err));
                         })
@@ -122,6 +125,10 @@ const SignUp = () => {
             });
     };
 
+    if (isLoading) {
+        return <Loader></Loader>;
+    }
+
     // -------------------show pass-----------
 
     const togglePassword = () => {
@@ -129,7 +136,7 @@ const SignUp = () => {
     };
     return (
         <div className="h-[800px] flex justify-center items-center">
-            <div className="w-96 p-7">
+            <div className="w-96 p-7 bg-slate-300 dark:bg-slate-600 rounded-xl">
                 <h2 className="text-2xl text-center font-bold text-orange-600">Sign Up</h2>
 
                 <span onClick={toggleUser} className="flex space-x-2 justify-center items-center p-2 text-orange-600">
@@ -138,7 +145,7 @@ const SignUp = () => {
                 </span>
 
                 <form onSubmit={handleSubmit(handleSignUp)}>
-                    <div className="form-control w-full max-w-xs">
+                    <div className="form-control w-full max-w-xs dark:text-slate-800">
                         <label className="label">
                             <span className="label-text">Name</span>
                         </label>
@@ -151,7 +158,7 @@ const SignUp = () => {
                         />
                         {errors.name && <p className="text-red-500">{errors.name.message}</p>}
                     </div>
-                    <div className="form-control w-full max-w-xs">
+                    <div className="form-control w-full max-w-xs dark:text-slate-800">
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
@@ -164,7 +171,7 @@ const SignUp = () => {
                         />
                         {errors.email && <p className="text-red-500">{errors.email.message}</p>}
                     </div>
-                    <div className="form-control w-full max-w-xs">
+                    <div className="form-control w-full max-w-xs dark:text-slate-800">
                         <label className="label">
                             <span className="label-text">Photo</span>
                         </label>
@@ -177,7 +184,7 @@ const SignUp = () => {
                         />
                         {errors.image && <p className="text-red-500">{errors.image.message}</p>}
                     </div>
-                    <div className="form-control w-full max-w-xs ">
+                    <div className="form-control w-full max-w-xs dark:text-slate-800">
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>

@@ -6,7 +6,7 @@ const Gadget = ({ gadget }) => {
 
     const handleGadgets = () => {};
     return (
-        <div className="card card-compact  bg-base-100 shadow-xl">
+        <div className="card card-compact  bg-base-100 dark:bg-slate-600 shadow-xl">
             <figure className="w-72 h-72 ">
                 <img src={image} alt="gadget" className="mx-auto" />
             </figure>
@@ -20,7 +20,7 @@ const Gadget = ({ gadget }) => {
                     <Link to="/">
                         <button
                             onClick={handleGadgets}
-                            className="btn btn-outline hover:bg-cyan-700 hover:border-none px-12"
+                            className="btn btn-outline dark:text-white hover:bg-cyan-700 hover:border-none px-12"
                         >
                             details
                         </button>

@@ -3,7 +3,7 @@ import React from "react";
 const Blogs = () => {
     return (
         <>
-            <div className="card-body mx-5 md:mx-10 bg-slate-200 my-10 rounded-xl font-medium">
+            <div className="card-body mx-5 md:mx-10 bg-slate-200 dark:bg-slate-600 my-10 rounded-xl font-medium">
                 <h1 className="text-center text-2xl font-bold">
                     How many ways to manage a state <br /> in a React application?
                 </h1>
@@ -73,7 +73,7 @@ const Blogs = () => {
                     </div>
                 </div>
             </div>
-            <div className="card-body mx-5 md:mx-10 bg-slate-200 my-10 rounded-xl font-medium">
+            <div className="card-body mx-5 md:mx-10 bg-slate-200 dark:bg-slate-600 my-10 rounded-xl font-medium">
                 <h1 className="text-center text-2xl font-bold">how does prototypical inheritance work</h1>
 
                 <p className="py-2">
@@ -89,7 +89,7 @@ const Blogs = () => {
                     another through a reference pointer function.
                 </p>
             </div>
-            <div className="card-body mx-5 md:mx-10 bg-slate-200 my-10 rounded-xl font-medium">
+            <div className="card-body mx-5 md:mx-10 bg-slate-200 dark:bg-slate-600 my-10 rounded-xl font-medium">
                 <h1 className="text-center text-2xl font-bold">What is a unit test? Why should we write unit tests?</h1>
 
                 <p className="py-2">
