@@ -3,6 +3,7 @@ import DashboardLayout from "../../Layouts/Main/DashboardLayout/DashboardLayout"
 import Main from "../../Layouts/Main/Main";
 import AddItems from "../../Pages/AddItems/AddItems";
 import Blogs from "../../Pages/Blogs/Blogs";
+import BookingOrders from "../../Pages/BookingOrders/BookingOrders";
 import BookingsItem from "../../Pages/BookingsItem/BookingsItem";
 import BuyerAccount from "../../Pages/Dashboard/BuyerAccount/BuyerAccount";
 import SellerAccount from "../../Pages/Dashboard/SellerAccount/SellerAccount";
@@ -50,6 +51,14 @@ const router = createBrowserRouter([
                 element: (
                     <PrivateRoutes>
                         <BookingsItem />
+                    </PrivateRoutes>
+                ),
+            },
+            {
+                path: "/bookingOrders",
+                element: (
+                    <PrivateRoutes>
+                        <BookingOrders />
                     </PrivateRoutes>
                 ),
             },

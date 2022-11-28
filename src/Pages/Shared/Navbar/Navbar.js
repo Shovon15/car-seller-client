@@ -45,9 +45,14 @@ const Navbar = () => {
             </Link>
 
             {isUser?.userRole === "seller" && (
-                <Link to="/addItems">
-                    <button className="btn btn-ghost font-bold">Add Items</button>
-                </Link>
+                <>
+                    <Link to="/addItems">
+                        <button className="btn btn-ghost font-bold">Add Items</button>
+                    </Link>
+                    <Link to="/bookingOrders">
+                        <button className="btn btn-ghost font-bold">Booked Orders</button>
+                    </Link>
+                </>
             )}
 
             {isUser?.userRole === "buyer" && (
