@@ -60,9 +60,11 @@ const Navbar = () => {
             </Link>
             {user?.uid ? (
                 <>
-                    <Link to="/dashboard">
-                        <button className="btn btn-ghost font-bold">Dashboard</button>
-                    </Link>
+                    {isUser?.userRole === "admin" && (
+                        <Link to="/dashboard">
+                            <button className="btn btn-ghost font-bold">Dashboard</button>
+                        </Link>
+                    )}
 
                     <Link>
                         <button onClick={handleLogOut} className="btn btn-ghost font-bold">

@@ -29,6 +29,7 @@ const BookingsItem = () => {
                             <th>Phone</th>
                             {/* <th>Admin</th> */}
                             <th>Booking Date</th>
+                            <th>Payment Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,6 +41,9 @@ const BookingsItem = () => {
                                 <td>{booking.sellerEmail}</td>
                                 <td>{booking.phone}</td>
                                 <td>{booking.bookingDate}</td>
+                                <td>
+                                    <button className="btn btn-outline">pay Now</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

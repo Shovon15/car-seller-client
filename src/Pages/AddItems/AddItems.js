@@ -1,17 +1,22 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import useUser from "../../hooks/useUser";
+import Loader from "../Shared/Loader/Loader";
 //
 const AddItems = () => {
     const {
         register,
         formState: { errors },
         handleSubmit,
+        isLoading,
     } = useForm();
     const { user } = useContext(AuthContext);
     const [isUser] = useUser(user?.email);
+
+    const navigate = useNavigate();
     const imageHostKey = process.env.REACT_APP_img_KEY;
     const date = new Date();
 
@@ -19,7 +24,6 @@ const AddItems = () => {
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
     let currentDate = `${day}-${month}-${year}`;
-    // const image = "images";
 
     const handleAddItems = (data) => {
         const image = data.image[0];
@@ -74,22 +78,24 @@ const AddItems = () => {
                     console.log("saveItem", data);
                     // getUserToken(email);
                     if (data.acknowledged) {
-                        // setTreatment(null);
                         toast.success("item added successfully");
-                        // refetch();
+                        data.reset();
+                        navigate("/");
                     } else {
                         toast.error(data.message);
                     }
                 });
         };
-
-        // console.log(items);
     };
+
+    if (isLoading) {
+        return <Loader />;
+    }
     return (
         <div className="">
-            <h2 className="text-2xl text-center font-bold text-orange-600">Add Items</h2>
-            <div className="border-red-500 border-2  p-7 rounded-xl shadow-xl">
-                <form onSubmit={handleSubmit(handleAddItems)}>
+            <h2 className="text-2xl text-center font-bold text-orange-600 pt-5">Add Items</h2>
+            <div className=" p-7 rounded-xl shadow-xl">
+                <form onSubmit={handleSubmit(handleAddItems)} className="dark:text-slate-800">
                     <div className="grid grid-cols-1  md:grid-cols-2 mx-10">
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
@@ -233,7 +239,7 @@ const AddItems = () => {
 
                     <div className="flex justify-center ">
                         <input
-                            className="btn bg-orange-500 hover:bg-orange-700 border-none px-20"
+                            className="btn btn-outline dark:text-white hover:bg-cyan-700 hover:border-none px-20"
                             value="add item"
                             type="submit"
                         />

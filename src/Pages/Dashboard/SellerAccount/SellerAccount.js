@@ -77,7 +77,7 @@ const SellerAccount = () => {
                                     {seller?.verify !== "true" ? (
                                         <button
                                             onClick={() => handleMakeVerified(seller._id)}
-                                            className="btn btn-xs btn-primary"
+                                            className="btn btn-xs btn-outline"
                                         >
                                             Verify seller
                                         </button>

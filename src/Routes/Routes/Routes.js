@@ -13,6 +13,7 @@ import Login from "../../Pages/Login/Login/Login";
 import SignUp from "../../Pages/Login/SignUp/SignUp";
 import NotFound from "../../Pages/Shared/NotFound/NotFound";
 import Profile from "../../Pages/UserProfile/Profile/Profile";
+import AdminRoute from "../AdminRoutes/AdminRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
 const router = createBrowserRouter([
@@ -86,11 +87,19 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/dashboard",
-                element: <BuyerAccount />,
+                element: (
+                    <AdminRoute>
+                        <BuyerAccount />
+                    </AdminRoute>
+                ),
             },
             {
                 path: "/dashboard/sellerAccount",
-                element: <SellerAccount />,
+                element: (
+                    <AdminRoute>
+                        <SellerAccount />
+                    </AdminRoute>
+                ),
             },
         ],
     },
