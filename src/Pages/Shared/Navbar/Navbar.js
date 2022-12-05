@@ -11,9 +11,8 @@ import useUser from "../../../hooks/useUser";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-    // console.log(user?.photoURL, );
+
     const [isUser] = useUser(user?.email);
-    // console.log(user, isUser);
 
     const [theme, setTheme] = useState("light");
 
