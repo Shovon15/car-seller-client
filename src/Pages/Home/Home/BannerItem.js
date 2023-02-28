@@ -1,4 +1,6 @@
 import React from "react";
+import { FaAngleRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "./Banner.css";
 
 const BannerItem = ({ slide }) => {
@@ -21,9 +23,12 @@ const BannerItem = ({ slide }) => {
                 </p>
             </div>
             <div className="absolute flex justify-start transform -translate-y-1/2 w-2/5 left-24 top-3/4">
-                <button className="btn btn-outline text-white dark:text-white hover:bg-cyan-700 hover:border-none px-12">
-                    Categories
-                </button>
+                <Link to="/about">
+                    <button className="btn  btn-outline text-white dark:text-white hover:bg-cyan-700 hover:border-none px-12">
+                        About More
+                        <FaAngleRight className="ml-3" />
+                    </button>
+                </Link>
             </div>
             <div className="absolute flex justify-center transform -translate-y-1/2 left-5 right-5 bottom-0">
                 <a href={`#slide${prev}`} className="btn btn-circle mr-5">

@@ -63,7 +63,7 @@ const ProductDetails = () => {
                             <span className="font-bold">Price: BDT </span> {price}
                         </p>
                         <p>
-                            <span className="font-bold">Post Date:</span> {date}{" "}
+                            <span className="font-bold">Post Date:</span> {date}
                         </p>
                     </div>
                     <div className="w-full md:w-8/12">

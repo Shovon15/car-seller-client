@@ -65,6 +65,9 @@ const Navbar = () => {
             <Link to="/blogs">
                 <button className="btn btn-ghost font-bold">Blogs</button>
             </Link>
+            <Link to="/about">
+                <button className="btn btn-ghost font-bold">About Us</button>
+            </Link>
             {user?.uid ? (
                 <>
                     {isUser?.userRole === "admin" && (
