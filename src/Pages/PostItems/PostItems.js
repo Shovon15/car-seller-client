@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { FaTrashAlt } from "react-icons/fa";
+import { GrAddCircle } from "react-icons/gr";
 import { PhotoProvider, PhotoView } from "react-photo-view";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import ConfirmationModal from "../Shared/ConfirmationModal/ConfirmationModal";
 import Loader from "../Shared/Loader/Loader";
@@ -50,10 +52,17 @@ const PostItems = () => {
 
     // console.log(postedItems);
     return (
-        <div className="my-10">
-            <h2 className="text-3xl">My Posted items</h2>
+        <div className="my-10 min-h-screen ">
+            <h2 className="text-3xl font-bold ml-8">My Posted items</h2>
             {postedItems?.length === 0 ? (
-                <h1 className="py-3 text-center font-bold">you have no Post yet! Please add items.</h1>
+                <div className="flex flex-col justify-center items-center">
+                    <h1 className="py-3 text-center text-xl font-bold">You have no Post yet! Please add items.</h1>
+                    <Link to="/addItems">
+                        <button className="btn btn-info font-bold">
+                            Add Items <GrAddCircle className="w-5 h-5 mx-2" />
+                        </button>
+                    </Link>
+                </div>
             ) : (
                 <>
                     <h1 className="text-start text-lg font-bold p-5 uppercase">

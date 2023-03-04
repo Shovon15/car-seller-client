@@ -104,6 +104,11 @@ const AddItems = () => {
                             <select {...register("category")} className="input input-bordered w-full max-w-xs">
                                 <option value="suv">SUV</option>
                                 <option value="sedan">Sedan</option>
+                                <option value="hatchback">Hatchback</option>
+                                <option value="coupe">Coupe</option>
+                                <option value="crossover">Crossover</option>
+                                <option value="wagon">Wagon</option>
+                                <option value="jeep">Jeep</option>
                                 <option value="sports car">Sports Car</option>
                             </select>
                             {errors.category && <p className="text-red-500">{errors.category.message}</p>}

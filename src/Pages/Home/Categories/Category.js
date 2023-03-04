@@ -3,11 +3,11 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 import { Link } from "react-router-dom";
 
 const Category = ({ category }) => {
-    const { categoryName, title, image } = category;
+    const { categoryName, image } = category;
 
-    const handleProducts = (categoryName) => {
-        console.log(categoryName);
-    };
+    // const handleProducts = (categoryName) => {
+    //     console.log(categoryName);
+    // };
 
     return (
         <div className="card card-compact  bg-base-100 dark:bg-slate-600 shadow-xl">
@@ -18,16 +18,14 @@ const Category = ({ category }) => {
                     </PhotoView>
                 </PhotoProvider>
             </figure>
-            <div className="card-body">
-                <h2 className="text-2xl font-bold">{categoryName.toUpperCase()}</h2>
-                <h2 className="font-medium">{title}</h2>
-                <div className="card-actions justify-center pt-4">
+            <div className="card-body p-0">
+                <div className="card-actions justify-center ">
                     <Link to={`/products/${categoryName.toLowerCase()}`}>
                         <button
-                            onClick={() => handleProducts(categoryName)}
-                            className="btn btn-outline dark:text-white hover:bg-cyan-700 hover:border-none px-12"
+                            // onClick={() => handleProducts(categoryName)}
+                            className="btn btn-xs sm:btn-sm  btn-outline dark:text-white hover:bg-cyan-700 hover:border-none  glass"
                         >
-                            See all items
+                            {categoryName.toUpperCase()}
                         </button>
                     </Link>
                 </div>

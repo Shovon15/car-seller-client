@@ -3,20 +3,20 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
-import Loader from "../../Shared/Loader/Loader";
 
 const Login = () => {
     const {
         register,
         formState: { errors },
         handleSubmit,
-        isLoading,
+        // isLoading,
     } = useForm();
 
     const { signIn, googleSignIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState();
     // const [loginUserEmail, setLoginUserEmail] = useState('');
     const [passwordShown, setPasswordShown] = useState(false);
+    const [isLoading, setIsloading] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     let userRole = "buyer";
@@ -24,16 +24,19 @@ const Login = () => {
     const from = location.state?.from?.pathname || "/";
 
     const handleLogin = (data) => {
+        setIsloading(true);
         console.log(data);
         setLoginError("");
         signIn(data.email, data.password)
             .then((result) => {
                 const user = result.user;
                 console.log(user);
+                setIsloading(false);
                 navigate(from, { replace: true });
             })
             .catch((error) => {
                 console.log(error.message);
+                setIsloading(false);
                 setLoginError(error.message);
             });
     };
@@ -77,9 +80,9 @@ const Login = () => {
                 // }
             });
     };
-
-    if (isLoading) {
-        return <Loader></Loader>;
+    let value = "Login";
+    if (isLoading === true) {
+        value = "Loading...";
     }
 
     const togglePassword = () => {
@@ -130,7 +133,7 @@ const Login = () => {
                     </div>
                     <input
                         className="btn bg-orange-500 hover:bg-orange-700 border-none w-full"
-                        value="Login"
+                        value={value}
                         type="submit"
                     />
                     <div>{loginError && <p className="text-red-600">{loginError}</p>}</div>

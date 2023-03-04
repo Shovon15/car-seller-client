@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import { GrAddCircle } from "react-icons/gr";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 
 const BookingOrders = () => {
@@ -14,10 +16,19 @@ const BookingOrders = () => {
         },
     });
     return (
-        <div className="my-10">
+        <div className="my-10 min-h-screen">
             <h2 className="text-3xl">My Booked Orders</h2>
             {bookingOrder?.length === 0 ? (
-                <h1 className="py-7 font-bold text-center">you have no order yet! post items to get order.</h1>
+                <div className="flex flex-col justify-center items-center">
+                    <h1 className="py-3 text-center text-xl font-bold">
+                        You have no order yet! post items to get order.
+                    </h1>
+                    <Link to="/addItems">
+                        <button className="btn btn-info font-bold">
+                            Add Items <GrAddCircle className="w-5 h-5 mx-2" />
+                        </button>
+                    </Link>
+                </div>
             ) : (
                 <>
                     <h1 className="text-start text-lg font-bold p-5 uppercase">

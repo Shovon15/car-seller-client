@@ -4,16 +4,18 @@ import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
-import Loader from "../../Shared/Loader/Loader";
 
 const SignUp = () => {
     const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
     // const [createdUserEmail, setCreatedUserEmail] = useState("");
-    const [userCheck, setUserCheck] = useState(true);
+    // const [userCheck, setUserCheck] = useState(true);
     const [passwordShown, setPasswordShown] = useState(false);
     const [signUpError, setSignUpError] = useState();
+    const [userCheck, setUserCheck] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+    console.log("isLoading", isLoading);
 
     const from = location.state?.from?.pathname || "/";
 
@@ -22,7 +24,7 @@ const SignUp = () => {
     const {
         register,
         handleSubmit,
-        isLoading,
+        // isLoading,
         formState: { errors },
     } = useForm();
 
@@ -37,9 +39,15 @@ const SignUp = () => {
         userRole = "seller";
     }
     // console.log(userRole);
+
+    // const toggleUser = () => {
+    //     setUserCheck(!true);
+    // };
+    // console.log(userCheck);
     // -----------------------------------
 
     const handleSignUp = (data) => {
+        setIsLoading(true);
         const image = data.image[0];
         const formData = new FormData();
         formData.append("image", image);
@@ -58,6 +66,7 @@ const SignUp = () => {
                         .then((result) => {
                             const user = result.user;
                             console.log(user);
+                            setIsLoading(false);
                             toast.success("User Created Successfully.");
                             const userInfo = {
                                 displayName: data.name,
@@ -72,6 +81,7 @@ const SignUp = () => {
                         })
                         .catch((error) => {
                             console.log(error);
+                            setIsLoading(false);
                             setSignUpError(error.message);
                         });
                 }
@@ -117,9 +127,9 @@ const SignUp = () => {
                 // }
             });
     };
-
-    if (isLoading) {
-        return <Loader></Loader>;
+    let value = "signUp";
+    if (isLoading === true) {
+        value = "Loading...";
     }
 
     // -------------------show pass-----------
@@ -132,9 +142,10 @@ const SignUp = () => {
             <div className="w-96 p-7 bg-slate-300 dark:bg-slate-600 rounded-xl">
                 <h2 className="text-2xl text-center font-bold text-orange-600">Sign Up</h2>
 
-                <span onClick={toggleUser} className="flex space-x-2 justify-center items-center p-2 text-orange-600">
-                    <button className="btn btn-outline btn-sm">{userRole} </button>
-                    <p className="font-bold">Account</p>
+                <span className="flex space-x-2 justify-center items-center p-2 text-orange-600">
+                    <input onClick={toggleUser} type="checkbox" className="toggle" />
+                    {/* <button className="btn btn-outline btn-sm">{userRole} </button> */}
+                    <p className="font-bold">{userRole.toUpperCase()}</p>
                 </span>
 
                 <form onSubmit={handleSubmit(handleSignUp)}>
@@ -204,11 +215,12 @@ const SignUp = () => {
                     </div>
                     <input
                         className="btn bg-orange-500 hover:bg-orange-700 border-none w-full mt-4"
-                        value="Sign Up"
+                        value={value}
                         type="submit"
                     />
                     {signUpError && <p className="text-red-600">{signUpError}</p>}
                 </form>
+
                 <p className="p-4">
                     Already have an account
                     <Link className="text-primary px-2 hover:underline" to="/login">

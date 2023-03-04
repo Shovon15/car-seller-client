@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-// import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
@@ -13,6 +12,8 @@ const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
 
     const [isUser] = useUser(user?.email);
+    console.log("Role:", isUser.userRole);
+    // const [userChect, setUserChect] = useState("home");
 
     const [theme, setTheme] = useState("light");
 
@@ -42,25 +43,27 @@ const Navbar = () => {
             <Link to="/">
                 <button className="btn btn-ghost font-bold">Home</button>
             </Link>
-
-            {isUser?.userRole === "seller" && (
+            {user?.uid && (
                 <>
-                    <Link to="/addItems">
-                        <button className="btn btn-ghost font-bold">Add Items</button>
-                    </Link>
-                    <Link to="/postItems">
-                        <button className="btn btn-ghost font-bold">Posted Items</button>
-                    </Link>
-                    <Link to="/bookingOrders">
-                        <button className="btn btn-ghost font-bold">Booked Orders</button>
-                    </Link>
+                    {isUser?.userRole === "seller" && (
+                        <>
+                            <Link to="/addItems">
+                                <button className="btn btn-ghost font-bold">Add Items</button>
+                            </Link>
+                            <Link to="/postItems">
+                                <button className="btn btn-ghost font-bold">Posted Items</button>
+                            </Link>
+                            <Link to="/bookingOrders">
+                                <button className="btn btn-ghost font-bold">Booked Orders</button>
+                            </Link>
+                        </>
+                    )}
+                    {isUser?.userRole === "buyer" && (
+                        <Link to="/bookingItems">
+                            <button className="btn btn-ghost font-bold">Booking items</button>
+                        </Link>
+                    )}
                 </>
-            )}
-
-            {isUser?.userRole === "buyer" && (
-                <Link to="/bookingItems">
-                    <button className="btn btn-ghost font-bold">Booking items</button>
-                </Link>
             )}
             <Link to="/blogs">
                 <button className="btn btn-ghost font-bold">Blogs</button>
@@ -141,6 +144,19 @@ const Navbar = () => {
             )}
         </>
     );
+
+    // const menuItems = (
+    //     <>
+    //         <Link to="/">
+    //             <button className="btn btn-ghost font-bold">Home</button>
+    //         </Link>
+    //     </>
+    // );
+    // const userItem = (
+    //     <Link to="/">
+    //         <button className="btn btn-ghost font-bold">Home</button>
+    //     </Link>
+    // );
 
     return (
         <div className="navbar border-b ">
