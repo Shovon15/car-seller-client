@@ -18,119 +18,117 @@ import NotFound from "../../Pages/Shared/NotFound/NotFound";
 import Profile from "../../Pages/UserProfile/Profile/Profile";
 import AdminRoute from "../AdminRoutes/AdminRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
+import UserProfile from "../../Pages/Dashboard/UserProfile/UserProfile";
+import Faq from "../../Pages/FAQ/Faq";
 
 const router = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <Main />,
+    children: [
+      {
         path: "/",
-        element: <Main />,
-        children: [
-            {
-                path: "/",
-                element: <Home />,
-            },
-            {
-                path: "/login",
-                element: <Login />,
-            },
-            {
-                path: "/signup",
-                element: <SignUp />,
-            },
-            {
-                path: "/blogs",
-                element: <Blogs />,
-            },
-            {
-                path: "/about",
-                element: <About />,
-            },
-            {
-                path: "/profile",
-                element: (
-                    <PrivateRoutes>
-                        <Profile />
-                    </PrivateRoutes>
-                ),
-            },
-            {
-                path: "/bookingItems",
-                element: (
-                    <PrivateRoutes>
-                        <BookingsItem />
-                    </PrivateRoutes>
-                ),
-            },
-            {
-                path: "/bookingOrders",
-                element: (
-                    <PrivateRoutes>
-                        <BookingOrders />
-                    </PrivateRoutes>
-                ),
-            },
-            {
-                path: "/addItems",
-                element: (
-                    <PrivateRoutes>
-                        <AddItems />
-                    </PrivateRoutes>
-                ),
-            },
-            {
-                path: "/postItems",
-                element: (
-                    <PrivateRoutes>
-                        <PostItems />
-                    </PrivateRoutes>
-                ),
-            },
-            {
-                path: "/products/:categoryName",
-                element: <Products />,
-                loader: ({ params }) => fetch(`https://y-liart-nine.vercel.app/products/${params.categoryName}`),
-            },
-            {
-                path: "/products/:categoryName/:_id",
-                element: (
-                    <PrivateRoutes>
-                        <ProductDetails />
-                    </PrivateRoutes>
-                ),
-                loader: ({ params }) =>
-                    fetch(`https://y-liart-nine.vercel.app/products/${params.categoryName}/${params._id}`),
-            },
-        ],
-    },
-    {
-        path: "/dashboard",
+        element: <Home />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
+      {
+        path: "/blog",
+        element: <Blogs />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/faq",
+        element: <Faq />,
+      },
+      {
+        path: "/profile",
         element: (
-            <PrivateRoutes>
-                <DashboardLayout></DashboardLayout>
-            </PrivateRoutes>
+          <PrivateRoutes>
+            <Profile />
+          </PrivateRoutes>
         ),
-        children: [
-            {
-                path: "/dashboard",
-                element: (
-                    <AdminRoute>
-                        <BuyerAccount />
-                    </AdminRoute>
-                ),
-            },
-            {
-                path: "/dashboard/sellerAccount",
-                element: (
-                    <AdminRoute>
-                        <SellerAccount />
-                    </AdminRoute>
-                ),
-            },
-        ],
-    },
-    {
-        path: "*",
-        element: <NotFound />,
-    },
+      },
+
+      {
+        path: "/products/:categoryName",
+        element: <Products />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/products/${params.categoryName}`),
+      },
+      {
+        path: "/products/:categoryName/:_id",
+        element: (
+          <PrivateRoutes>
+            <ProductDetails />
+          </PrivateRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `http://localhost:5000/products/${params.categoryName}/${params._id}`
+          ),
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoutes>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        path: "/dashboard/",
+        element: <UserProfile />,
+      },
+      {
+        path: "/dashboard/bookingItems",
+        element: <BookingsItem />,
+      },
+      {
+        path: "/dashboard/bookingOrders",
+        element: <BookingOrders />,
+      },
+      {
+        path: "/dashboard/addItems",
+        element: <AddItems />,
+      },
+      {
+        path: "/dashboard/managePost",
+        element: <PostItems />,
+      },
+      {
+        path: "/dashboard/buyerAccount",
+        element: (
+          <AdminRoute>
+            <BuyerAccount />
+          </AdminRoute>
+        ),
+      },
+      // {
+      //   path: "/dashboard/sellerAccount",
+      //   element: (
+      //     <AdminRoute>
+      //       <SellerAccount />
+      //     </AdminRoute>
+      //   ),
+      // },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ]);
 
 export default router;

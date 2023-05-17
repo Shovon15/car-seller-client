@@ -53,7 +53,7 @@ const CarSlider = () => {
   ];
   return (
     <div className="flex flex-col-reverse md:flex-row min-h-96 p-5 md:p-10">
-      <div className="w-full md:w-1/2 flex flex-col gap-4 ">
+      <div className="w-full md:w-1/2 flex flex-col gap-4 pr-5">
         <h1 className="text-3xl md:text-5xl font-bold mt-5 md:mt-0">
           Make Your Dreams <br /> Come True
         </h1>

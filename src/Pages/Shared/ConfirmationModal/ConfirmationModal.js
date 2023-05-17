@@ -1,31 +1,56 @@
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+} from "@material-tailwind/react";
 import React from "react";
 
-const ConfirmationModal = ({ modalData, title, message, successAction, closeModal, successButtonName }) => {
-    return (
-        <>
-            <div className="">
-                <input type="checkbox" id="confirmation-modal" className="modal-toggle" />
-                <div className="modal">
-                    <div className="modal-box dark:bg-slate-600">
-                        <h3 className="font-bold text-lg">{title}</h3>
-                        <p className="py-4">{message}</p>
-                        <div className="modal-action">
-                            <label
-                                onClick={() => successAction(modalData)}
-                                htmlFor="confirmation-modal"
-                                className="btn btn-primary bg-red-500 hover:bg-red-700"
-                            >
-                                {successButtonName}
-                            </label>
-                            <button onClick={closeModal} className="btn btn-outline">
-                                cancel
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+const ConfirmationModal = ({
+  modalData,
+  title,
+  message,
+  successAction,
+  closeModal,
+  handleOpen,
+  open,
+}) => {
+  console.log(message);
+  return (
+    <>
+      <Dialog
+        open={open}
+        handler={handleOpen}
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+      >
+        <DialogHeader className="text-red-500">{message}</DialogHeader>
+        <DialogBody divider>
+          Warning: Deleting this post is permanent and cannot be undone.
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={closeModal}
+            className="mr-1"
+          >
+            <span>Cancel</span>
+          </Button>
+          <Button
+            variant="gradient"
+            color="green"
+            onClick={() => successAction(modalData)}
+          >
+            <span>Confirm</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
+    </>
+  );
 };
 
 export default ConfirmationModal;

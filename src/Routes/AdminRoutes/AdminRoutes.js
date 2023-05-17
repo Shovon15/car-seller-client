@@ -8,19 +8,19 @@ import Loader from "../../Pages/Shared/Loader/Loader";
 // import Loading from '../../Pages/Shared/Loading/Loading';
 
 const AdminRoute = ({ children }) => {
-    const { user, loading } = useContext(AuthContext);
-    const [isAdmin, isAdminLoading] = useAdmin(user?.email);
-    const location = useLocation();
+  const { user, loading } = useContext(AuthContext);
+  const [isAdmin, isAdminLoading] = useAdmin(user?.email);
+  const location = useLocation();
 
-    if (loading || isAdminLoading) {
-        return <Loader></Loader>;
-    }
+  if (loading || isAdminLoading) {
+    return <Loader />;
+  }
 
-    if (user && isAdmin) {
-        return children;
-    }
+  if (user && isAdmin) {
+    return children;
+  }
 
-    return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
+  return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
 };
 
 export default AdminRoute;

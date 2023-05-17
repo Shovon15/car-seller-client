@@ -1,156 +1,170 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
+import {
+  Button,
+  Card,
+  Input,
+  Spinner,
+  Typography,
+} from "@material-tailwind/react";
+import img from "../../../assets/sticker/log-in.png";
 
 const Login = () => {
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-        // isLoading,
-    } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    // isLoading,
+  } = useForm();
 
-    const { signIn, googleSignIn } = useContext(AuthContext);
-    const [loginError, setLoginError] = useState();
-    // const [loginUserEmail, setLoginUserEmail] = useState('');
-    const [passwordShown, setPasswordShown] = useState(false);
-    const [isLoading, setIsloading] = useState(false);
-    const location = useLocation();
-    const navigate = useNavigate();
-    let userRole = "buyer";
+  const { signIn, googleSignIn } = useContext(AuthContext);
+  const [loginError, setLoginError] = useState();
+  // const [loginUserEmail, setLoginUserEmail] = useState('');
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [isLoading, setIsloading] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  let userRole = "buyer";
 
-    const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
 
-    const handleLogin = (data) => {
-        setIsloading(true);
-        console.log(data);
-        setLoginError("");
-        signIn(data.email, data.password)
-            .then((result) => {
-                const user = result.user;
-                console.log(user);
-                setIsloading(false);
-                navigate(from, { replace: true });
-            })
-            .catch((error) => {
-                console.log(error.message);
-                setIsloading(false);
-                setLoginError(error.message);
-            });
-    };
+  const handleLogin = (data) => {
+    setIsloading(true);
+    console.log(data);
+    setLoginError("");
+    signIn(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        setIsloading(false);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setIsloading(false);
+        setLoginError(error.message);
+      });
+  };
 
-    const handleGoogleSignIn = () => {
-        // console.log(data);
-        setLoginError(""); //for previous error reset
-        googleSignIn()
-            .then((result) => {
-                const user = result.user;
-                console.log(user);
-                saveUser(user.displayName, user.email, userRole, user.photoURL);
-            })
-            .catch((error) => {
-                console.log(error.message);
-                setLoginError(error.message);
-            });
-    };
+  const handleGoogleSignIn = () => {
+    // console.log(data);
+    setLoginError(""); //for previous error reset
+    googleSignIn()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        saveUser(user.displayName, user.email, userRole, user.photoURL);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setLoginError(error.message);
+      });
+  };
 
-    const saveUser = (name, email, userRole, image) => {
-        const users = { name, email, userRole, image };
+  const saveUser = (name, email, userRole, image) => {
+    const users = { name, email, userRole, image };
 
-        fetch("https://y-liart-nine.vercel.app/users", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(users),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                navigate(from, { replace: true });
-                // console.log("userSaveDb", data);
-                // getUserToken(email);
-                // if (data.acknowledged) {
-                //     setTreatment(null);
-                //     toast.success("Booking confirmed");
-                //     refetch();
-                // } else {
-                //     toast.error(data.message);
-                // }
-            });
-    };
-    let value = "Login";
-    if (isLoading === true) {
-        value = "Loading...";
-    }
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(users),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        navigate(from, { replace: true });
+        // console.log("userSaveDb", data);
+        // getUserToken(email);
+        // if (data.acknowledged) {
+        //     setTreatment(null);
+        //     toast.success("Booking confirmed");
+        //     refetch();
+        // } else {
+        //     toast.error(data.message);
+        // }
+      });
+  };
+  let value = "Login";
+  if (isLoading === true) {
+    value = <Spinner color="green" className="mx-auto " />;
+  }
 
-    const togglePassword = () => {
-        setPasswordShown(!passwordShown);
-    };
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
 
-    return (
-        <div className="h-[800px] flex justify-center items-center ">
-            <div className="w-96 p-7 shadow-xl  bg-slate-300 dark:bg-slate-600 rounded-xl">
-                <h2 className="text-2xl text-center font-bold text-orange-600">Login</h2>
-                <form onSubmit={handleSubmit(handleLogin)}>
-                    <div className="form-control w-full max-w-xs dark:text-slate-800">
-                        <label className="label">
-                            <span className="label-text">Email</span>
-                        </label>
-                        <input
-                            type="text"
-                            {...register("email", {
-                                required: "Email Address is required",
-                            })}
-                            className="input input-bordered w-full max-w-xs"
-                        />
-                        {errors.email && <p className="text-red-600">{errors.email?.message}</p>}
-                    </div>
-                    <div className="form-control w-full max-w-xs dark:text-slate-800">
-                        <label className="label">
-                            <span className="label-text">Password</span>
-                        </label>
-                        <div className="relative">
-                            <input
-                                type={passwordShown ? "text" : "password"}
-                                {...register("password", {
-                                    required: "Password is required",
-                                    minLength: { value: 6, message: "Password must be 6 characters or longer" },
-                                })}
-                                className="input input-bordered w-full max-w-xs"
-                            />
-                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                <span onClick={togglePassword} className="cursor-pointer">
-                                    {passwordShown === true ? <FaEye /> : <FaEyeSlash />}
-                                </span>
-                            </div>
-                        </div>
-                        {errors.password && <p className="text-red-600">{errors.password?.message}</p>}
-                        <label className="label">
-                            <span className="label-text">Forget Password?</span>
-                        </label>
-                    </div>
-                    <input
-                        className="btn bg-orange-500 hover:bg-orange-700 border-none w-full"
-                        value={value}
-                        type="submit"
-                    />
-                    <div>{loginError && <p className="text-red-600">{loginError}</p>}</div>
-                </form>
-                <p className="p-4">
-                    New to Car Seller
-                    <Link className="text-primary px-2 hover:underline" to="/signup">
-                        Create new Account
-                    </Link>
-                </p>
-                <div className="divider">OR</div>
-                <button onClick={handleGoogleSignIn} className="btn btn-outline w-full">
-                    CONTINUE WITH GOOGLE
-                </button>
-            </div>
+  return (
+    <div className="flex justify-center py-5">
+      <Card color="transparent" shadow={false}>
+        <div className="mx-auto flex flex-col gap-3">
+          <Typography variant="h4" color="blue-gray">
+            Login
+          </Typography>
+          <img src={img} alt="..." className="w-24 h-24" />
         </div>
-    );
+
+        <form
+          onSubmit={handleSubmit(handleLogin)}
+          className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+        >
+          <div className="mb-4 flex flex-col gap-6 text-start">
+            <div>
+              <Input
+                size="lg"
+                label="email"
+                type="text"
+                {...register("email", {
+                  required: "Email is Required",
+                })}
+              />
+              {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+              )}
+            </div>
+            <div className="relative">
+              <Input
+                size="lg"
+                label="password"
+                type={passwordShown ? "text" : "password"}
+                {...register("password", {
+                  required: "password is Required",
+                })}
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center h-12">
+                <span
+                  onClick={togglePassword}
+                  className="cursor-pointer text-xl"
+                >
+                  {passwordShown === true ? <VscEye /> : <VscEyeClosed />}
+                </span>
+              </div>
+              {errors.password && (
+                <p className="text-red-500">{errors.password.message}</p>
+              )}
+            </div>
+          </div>
+
+          <Button value={value} type="submit" className="mt-6" fullWidth>
+            {value}
+          </Button>
+          {loginError && <p className="text-red-600">{loginError.slice(10)}</p>}
+          <Typography color="gray" className="mt-4 text-center font-normal">
+            Don't have an account? {""}
+            <Link
+              to="/signup"
+              className="font-medium text-blue-500 transition-colors hover:text-blue-700"
+            >
+              Sign In
+            </Link>
+          </Typography>
+        </form>
+      </Card>
+    </div>
+  );
 };
 
 export default Login;
