@@ -5,7 +5,7 @@ import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 import useUser from "../../../hooks/useUser";
 import { BsSpeedometer2 } from "react-icons/bs";
-import { GiCarSeat } from "react-icons/gi";
+import { BsFillChatRightDotsFill } from "react-icons/bs";
 
 import BookingModal from "./BookingModal/BookingModal";
 import engineImg from "../../../assets/icons/car-engine.png";
@@ -22,6 +22,7 @@ import {
   TabsHeader,
   Typography,
 } from "@material-tailwind/react";
+import OutlinedButton from "../../../Component/Button/OutlinedButton";
 
 const ProductDetails = () => {
   const product = useLoaderData();
@@ -30,6 +31,7 @@ const ProductDetails = () => {
   const [isUser] = useUser(user?.email);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
+  // console.log(product);
 
   const {
     categoryName,
@@ -46,6 +48,7 @@ const ProductDetails = () => {
     purchaseYear,
     sellerImage,
     sellerName,
+    sellerEmail,
     sellerVerification,
   } = product;
 
@@ -92,11 +95,23 @@ const ProductDetails = () => {
   );
   const sellerInfo = (
     <div>
-      <img src={sellerImage} alt="...." className="w-20 h-20 rounded-full" />
+      <div className="flex gap-5 items-center">
+        <img
+          src={sellerImage}
+          alt="...."
+          className="w-20 h-20 rounded-full ring-2 ring-blue-500"
+        />
+        <div className="flex flex-col">
+          <p className="font-bold">{sellerName}</p>
+          <p>{sellerEmail}</p>
+        </div>
+      </div>
+
+      <p className=""> Post Date: {date}</p>
       <p>{sellerName}</p>
-      <p>{sellerName}</p>
-      <p>{sellerName}</p>
-      <p>{sellerName}</p>
+      <div>
+        <BsFillChatRightDotsFill />
+      </div>
     </div>
   );
   const data = [
@@ -131,12 +146,14 @@ const ProductDetails = () => {
       <div className="flex justify-start gap-5 items-center">
         <img src={image} alt="..." className="w-[600px]" />
         <div>
-          <p>{price}</p>
+          <p className=" font-bold">
+            Price<span className="text-primary"> {price}</span> BDT
+          </p>
           <p>ratting</p>
           <Button
-            onClick={handleOpen}
             variant="outlined"
-            className="focus:ring-none"
+            onClick={handleOpen}
+            className="px-12 border-primary text-primary"
           >
             Booking Now
           </Button>

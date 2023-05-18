@@ -63,6 +63,7 @@ export default function Faq() {
       <>
         {items.map((item, index) => (
           <Accordion
+            key={index}
             open={open === index}
             icon={<Icon id={index} open={open} />}
             animate={customAnimation}

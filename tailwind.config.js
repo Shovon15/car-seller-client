@@ -6,14 +6,14 @@ module.exports = withMT({
   theme: {
     extend: {
       colors: {
-        primary: "#dbdbd3",
+        primary: "#ef1d26",
         secondary: "#121212",
         buttonColor: "#2196F3",
         textPrimary: "#121212",
       },
     },
     fontFamily: {
-      sans: ["Raleway", "sans-serif"],
+      sans: ["Roboto", "sans-serif"],
     },
   },
   plugins: [require("daisyui")],

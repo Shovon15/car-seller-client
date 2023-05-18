@@ -25,12 +25,12 @@ const Sidebar = () => {
   // console.log(openSidebar);
   const { user } = useContext(AuthContext);
   const [isUser] = useUser(user?.email);
-  console.log(isUser?.userRole);
-  let currentUser = false;
+  // console.log(isUser?.userRole);
+  let currentUser = false; //-------------------------------------need to fix
   if (isUser?.userRole === "admin") {
     currentUser = true;
   }
-  console.log(currentUser);
+  // console.log(currentUser);
 
   const [openClass, setOpenClass] = useState("w-full");
 

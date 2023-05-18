@@ -1,38 +1,60 @@
+import { Typography } from "@material-tailwind/react";
 import React from "react";
 import { FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import img from "../../../assets/images/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="footer p-10 bg-gray-900 text-white">
-      <div>
-        <span className="footer-title">Services</span>
-        <Link className="link link-hover">Branding</Link>
-        <Link className="link link-hover">Design</Link>
-        <Link className="link link-hover">Marketing</Link>
-        <Link className="link link-hover">Advertisement</Link>
+    <footer className="w-full bg-white p-8">
+      <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between">
+        <img src={img} alt="logo-ct" className="w-32" />
+        <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
+          <li>
+            <Typography
+              as="a"
+              href="#"
+              color="blue-gray"
+              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+            >
+              About Us
+            </Typography>
+          </li>
+          <li>
+            <Typography
+              as="a"
+              href="#"
+              color="blue-gray"
+              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+            >
+              License
+            </Typography>
+          </li>
+          <li>
+            <Typography
+              as="a"
+              href="#"
+              color="blue-gray"
+              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+            >
+              Contribute
+            </Typography>
+          </li>
+          <li>
+            <Typography
+              as="a"
+              href="#"
+              color="blue-gray"
+              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+            >
+              Contact Us
+            </Typography>
+          </li>
+        </ul>
       </div>
-      <div>
-        <span className="footer-title">Company</span>
-        <Link className="link link-hover">About us</Link>
-        <Link className="link link-hover">Contact</Link>
-        <Link className="link link-hover">Jobs</Link>
-        <Link className="link link-hover">Press kit</Link>
-      </div>
-      <div>
-        <span className="footer-title">Social</span>
-        <div className="grid grid-flow-col gap-4 ">
-          <Link>
-            <FaTwitter className="w-8 h-8" />
-          </Link>
-          <Link>
-            <FaYoutube className="w-8 h-8" />
-          </Link>
-          <Link>
-            <FaFacebookF className="w-8 h-8" />
-          </Link>
-        </div>
-      </div>
+      <hr className="my-8 border-blue-gray-50" />
+      <Typography color="blue-gray" className="text-center font-normal">
+        &copy; 2023 Material Tailwind
+      </Typography>
     </footer>
   );
 };

@@ -1,37 +1,45 @@
+import { Typography } from "@material-tailwind/react";
 import React from "react";
-import { PhotoProvider, PhotoView } from "react-photo-view";
+import Carousel from "react-elastic-carousel";
+
 import { Link } from "react-router-dom";
 
-const Category = ({ category }) => {
-    const { categoryName, image } = category;
+const Category = ({ categories }) => {
+  const carouselRef = React.createRef(null);
+  let resetTimeout;
 
-    // const handleProducts = (categoryName) => {
-    //     console.log(categoryName);
-    // };
-
-    return (
-        <div className="card card-compact  bg-base-100 dark:bg-slate-600 shadow-xl">
-            <figure>
-                <PhotoProvider>
-                    <PhotoView src={image}>
-                        <img src={image} alt="car" className="cursor-pointer" />
-                    </PhotoView>
-                </PhotoProvider>
-            </figure>
-            <div className="card-body p-0">
-                <div className="card-actions justify-center ">
-                    <Link to={`/products/${categoryName.toLowerCase()}`}>
-                        <button
-                            // onClick={() => handleProducts(categoryName)}
-                            className="btn btn-xs sm:btn-sm  btn-outline dark:text-white hover:bg-cyan-700 hover:border-none  glass"
-                        >
-                            {categoryName.toUpperCase()}
-                        </button>
-                    </Link>
-                </div>
-            </div>
-        </div>
-    );
+  return (
+    <Carousel
+      ref={carouselRef}
+      enableMouseSwipe={true}
+      itemsToShow={7}
+      pagination={false}
+      enableAutoPlay={true}
+      autoPlaySpeed={2500}
+      onNextEnd={({ index }) => {
+        // console.log("index", index, "length", items.length);
+        if (index === 7) {
+          clearTimeout(resetTimeout);
+          resetTimeout = setTimeout(() => {
+            carouselRef?.current?.goTo(0);
+          }, 2000); // same time
+        }
+      }}
+    >
+      {categories.map((category, i) => (
+        <Link
+          to={`products/${category.categoryName.toLowerCase()}`}
+          key={i}
+          className="mx-2"
+        >
+          <img className="rounded-md" src={category.image} alt="..." />
+          <Typography variant="h6" className="text-center ">
+            {category.categoryName}
+          </Typography>
+        </Link>
+      ))}
+    </Carousel>
+  );
 };
 
 export default Category;

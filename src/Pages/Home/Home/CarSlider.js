@@ -77,7 +77,7 @@ const CarSlider = () => {
           enableAutoPlay={true}
           autoPlaySpeed={2500}
           onNextEnd={({ index }) => {
-            console.log("index", index, "length", items.length);
+            // console.log("index", index, "length", items.length);
             if (index === 5) {
               clearTimeout(resetTimeout);
               resetTimeout = setTimeout(() => {

@@ -4,7 +4,15 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import useUser from "../../hooks/useUser";
-import { Spinner } from "@material-tailwind/react";
+import {
+  Button,
+  Input,
+  Option,
+  Select,
+  Spinner,
+  Textarea,
+} from "@material-tailwind/react";
+import OutlinedButton from "../../Component/Button/OutlinedButton";
 //
 const AddItems = () => {
   const {
@@ -26,6 +34,7 @@ const AddItems = () => {
   let currentDate = `${day}-${month}-${year}`;
 
   const handleAddItems = (data) => {
+    // console.log("Test Data", data);
     const image = data.image[0];
     const formData = new FormData();
     formData.append("image", image);
@@ -91,12 +100,191 @@ const AddItems = () => {
   if (isLoading) {
     return <Spinner color="green" className="m-auto" />;
   }
+
+  const category = [
+    "suv",
+    "sedan",
+    "crossover",
+    "jeep",
+    "sports car",
+    "wagon",
+    "coupe",
+  ];
+  const condition = ["New", "Excellent", "Good", "Fiar"];
+
   return (
     <div className="">
-      <h2 className="text-2xl text-center font-bold text-orange-600 pt-5">
+      <h2 className="text-2xl text-center font-bold text-black pt-5">
         Add Items
       </h2>
-      <div className=" p-7 rounded-xl shadow-xl">
+      <form onSubmit={handleSubmit(handleAddItems)}>
+        <div className="grid grid-cols-2 gap-5 p-5">
+          <div>
+            <select
+              {...register("category", {
+                required: "Category is Required",
+              })}
+              color="lightBlue"
+              size="regular"
+              placeholder="Select option"
+              className="w-full py-3 border rounded-md cursor-text border-gray-400 focus:border-2 focus:border-blue-500"
+            >
+              {category.map((item, i) => (
+                <option value={item} className="text-start" key={i}>
+                  {item}
+                </option>
+              ))}
+            </select>
+            {errors.category && (
+              <p className="text-red-500">{errors.category.message}</p>
+            )}
+          </div>
+
+          <div>
+            <input
+              labe="image"
+              type="file"
+              className="input input-bordered  w-full py-2 "
+              {...register("image", {
+                required: "Photo is Required",
+              })}
+            />
+            {errors.image && (
+              <p className="text-red-500">{errors.image.message}</p>
+            )}
+          </div>
+
+          <div>
+            <Input
+              label="Car Model"
+              size="lg"
+              type="text"
+              {...register("modelName", {
+                required: "Model is Required",
+              })}
+            />
+            {errors.modelName && (
+              <span className="text-red-500">{errors.modelName.message}</span>
+            )}
+          </div>
+
+          <div>
+            <Input
+              label="Car Mileage"
+              size="lg"
+              type="text"
+              {...register("mileage", {
+                required: "Mileage is Required",
+              })}
+            />
+            {errors.mileage && (
+              <span className="text-red-500">{errors.mileage.message}</span>
+            )}
+          </div>
+          <div>
+            <select
+              {...register("condition", {
+                required: "Condition is Required",
+              })}
+              color="lightBlue"
+              size="regular"
+              className="w-full py-3 border rounded-md cursor-text border-gray-400 focus:border-2 focus:border-blue-500"
+            >
+              {condition.map((item, i) => (
+                <option value={item} className="text-start" key={i}>
+                  {item}
+                </option>
+              ))}
+            </select>
+            {errors.condition && (
+              <p className="text-red-500">{errors.condition.message}</p>
+            )}
+          </div>
+          <div>
+            <Input
+              label="Location"
+              size="lg"
+              type="text"
+              {...register("location", {
+                required: "Location is Required",
+              })}
+            />
+            {errors.location && (
+              <span className="text-red-500">{errors.location.message}</span>
+            )}
+          </div>
+          <div>
+            <Input
+              label="Year of Purchase"
+              size="lg"
+              type="text"
+              {...register("purchase", {
+                required: "Purchase is Required",
+              })}
+            />
+            {errors.purchase && (
+              <span className="text-red-500">{errors.purchase.message}</span>
+            )}
+          </div>
+          <div>
+            <Input
+              label="Car Color"
+              size="lg"
+              type="text"
+              {...register("color", {
+                required: "Color is Required",
+              })}
+            />
+            {errors.color && (
+              <span className="text-red-500">{errors.color.message}</span>
+            )}
+          </div>
+          <div>
+            <Input
+              label="Car Price"
+              size="lg"
+              type="text"
+              {...register("price", {
+                required: "Price is Required",
+              })}
+            />
+            {errors.price && (
+              <span className="text-red-500">{errors.price.message}</span>
+            )}
+          </div>
+          <div>
+            <Input
+              label="Phone"
+              size="lg"
+              type="text"
+              {...register("phone", {
+                required: "Phone is Required",
+              })}
+            />
+            {errors.phone && (
+              <span className="text-red-500">{errors.phone.message}</span>
+            )}
+          </div>
+        </div>
+        <div className="px-5">
+          <Textarea
+            label="Desciption"
+            {...register("description", {
+              required: "Description is Required",
+            })}
+          />
+          {errors.description && (
+            <span className="text-red-500">{errors.description.message}</span>
+          )}
+        </div>
+        <div className="flex justify-center pt-5">
+          <Button type="submit">Add</Button>
+          {/* <OutlinedButton type="submit" className="px-24">
+            Add Item
+          </OutlinedButton> */}
+        </div>
+      </form>
+      {/* <div className=" p-7 rounded-xl shadow-xl">
         <form
           onSubmit={handleSubmit(handleAddItems)}
           className="dark:text-slate-800"
@@ -280,8 +468,8 @@ const AddItems = () => {
               type="submit"
             />
           </div>
-        </form>
-      </div>
+        </form> 
+      </div>*/}
     </div>
   );
 };
