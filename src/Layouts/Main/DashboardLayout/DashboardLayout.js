@@ -21,7 +21,7 @@ const DashboardLayout = () => {
           <Sidebar />
         </div>
         <div className="w-full">
-          <div className="min-h-screen pl-2 md:pl-5">
+          <div className="min-h-max pl-2 md:pl-5">
             <Outlet />
           </div>
           <Footer />

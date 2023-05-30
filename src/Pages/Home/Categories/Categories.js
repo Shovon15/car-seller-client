@@ -18,8 +18,8 @@ const Categories = () => {
   }
   // console.log(categories);
   return (
-    <div className="my-10 ">
-      <h1 className="text-center text-2xl font-bold p-5">Categories</h1>
+    <div className="">
+      <h1 className="text-center text-2xl font-bold pb-3">Car Categories</h1>
       <Category categories={categories}></Category>
     </div>
   );

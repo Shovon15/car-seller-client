@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { FaTrashAlt } from "react-icons/fa";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
+import { toast } from "react-toastify";
+import { showSuccessToast } from "../../Shared/Toast/toaster";
 
 const SellerAccount = () => {
   const { data: sellers = [], refetch } = useQuery({
@@ -28,7 +30,7 @@ const SellerAccount = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          toast.success(" successfully verified.");
+          showSuccessToast(" successfully verified.");
           refetch();
         }
       });
@@ -45,7 +47,7 @@ const SellerAccount = () => {
       .then((data) => {
         if (data.deletedCount > 0) {
           refetch();
-          toast.success(`Seller ${deletingSeller.name} deleted successfully`);
+          showSuccessToast(`Seller ${deletingSeller.name} deleted successfully`);
         }
       });
   };

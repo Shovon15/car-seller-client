@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
@@ -13,6 +12,8 @@ import {
 } from "@material-tailwind/react";
 import img from "../../../assets/sticker/log-in.png";
 import googleicon from "../../../assets/images/google.png";
+import { toast } from "react-toastify";
+import { showSuccessToast } from "../../Shared/Toast/toaster";
 
 const SignUp = () => {
   const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
@@ -76,7 +77,7 @@ const SignUp = () => {
               const user = result.user;
               console.log(user);
               setIsLoading(false);
-              toast.success("User Created Successfully.");
+              showSuccessToast("User Created Successfully.");
               const userInfo = {
                 displayName: data.name,
                 image: image,
@@ -194,7 +195,7 @@ const SignUp = () => {
                 {...register("image", {
                   required: "Photo is Required",
                 })}
-                className="input input-bordered w-full max-w-xs py-2 "
+                className="input input-bordered w-full  py-2 border border-gray-500 rounded-md"
               />
               {errors.image && (
                 <p className="text-red-500">{errors.image.message}</p>
@@ -239,7 +240,7 @@ const SignUp = () => {
         <Button
           onClick={handleGoogleSignIn}
           variant="outlined"
-          className="mt-6 flex justify-center items-center"
+          className="mt-6 flex justify-center items-center focus:ring-0"
           fullWidth
         >
           <img src={googleicon} alt="..." className="w-5 h-5 " />

@@ -1,6 +1,7 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import Product from "./Product";
+import ProductCard from "../../../Component/Card/ProductCard";
 
 const Products = () => {
   const products = useLoaderData();
@@ -16,7 +17,7 @@ const Products = () => {
       )}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5 my-5 md:mx-10">
         {products.map((product) => (
-          <Product key={product._id} product={product}></Product>
+          <ProductCard key={product._id} product={product}></ProductCard>
         ))}
       </div>
     </div>

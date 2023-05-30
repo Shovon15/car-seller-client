@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
-import toast from "react-hot-toast";
 import { FaTrashAlt } from "react-icons/fa";
 import { GrAddCircle } from "react-icons/gr";
 import { PhotoProvider, PhotoView } from "react-photo-view";
@@ -9,6 +8,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import ConfirmationModal from "../Shared/ConfirmationModal/ConfirmationModal";
 import Loader from "../Shared/Loader/Loader";
 import { Button, Card, Typography } from "@material-tailwind/react";
+import { showSuccessToast } from "../Shared/Toast/toaster";
 
 const PostItems = () => {
   const { user } = useContext(AuthContext);
@@ -47,7 +47,9 @@ const PostItems = () => {
         if (data.deletedCount > 0) {
           refetch();
           closeModal();
-          toast.success(`Post ${deletingPost.modelName} deleted successfully`);
+          showSuccessToast(
+            `Post ${deletingPost.modelName} deleted successfully`
+          );
         }
       });
   };
@@ -76,8 +78,8 @@ const PostItems = () => {
             You have no Post yet! Please add items.
           </h1>
           <Link to="/dashboard/addItems">
-            <Button className="btn btn-info font-bold">
-              Add Items <GrAddCircle className="w-5 h-5 mx-2" />
+            <Button className="btn btn-info font-bold flex">
+              Add Items <GrAddCircle className="w-4 h-4 mx-2 text-white" />
             </Button>
           </Link>
         </div>
@@ -185,7 +187,7 @@ const PostItems = () => {
                         htmlFor="confirmation-modal"
                         className="btn btn-outline border-none text-red-600 hover:text-slate-100  hover:bg-red-600"
                       >
-                        <FaTrashAlt className="w-6 h-6" />
+                        <FaTrashAlt className="w-6 h-6 cursor-pointer" />
                       </label>
                     </td>
                   </tr>

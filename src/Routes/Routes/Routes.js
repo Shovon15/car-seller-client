@@ -15,11 +15,12 @@ import Login from "../../Pages/Login/Login/Login";
 import SignUp from "../../Pages/Login/SignUp/SignUp";
 import PostItems from "../../Pages/PostItems/PostItems";
 import NotFound from "../../Pages/Shared/NotFound/NotFound";
-import Profile from "../../Pages/UserProfile/Profile/Profile";
+// import Profile from "../../Pages/UserProfile/Profile/Profile";
 import AdminRoute from "../AdminRoutes/AdminRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 import UserProfile from "../../Pages/Dashboard/UserProfile/UserProfile";
 import Faq from "../../Pages/FAQ/Faq";
+import ProductsFilterPage from "../../Pages/ProductPage/ProductsFilterPage";
 
 const router = createBrowserRouter([
   {
@@ -51,17 +52,26 @@ const router = createBrowserRouter([
         element: <Faq />,
       },
       {
-        path: "/profile",
-        element: (
-          <PrivateRoutes>
-            <Profile />
-          </PrivateRoutes>
-        ),
+        path: "/product",
+        element: <ProductsFilterPage />,
+        // loader: () => fetch("http://localhost:5000/products"),
       },
+      // {
+      //   path: "/profile",
+      //   element: (
+      //     <PrivateRoutes>
+      //       <Profile />
+      //     </PrivateRoutes>
+      //   ),
+      // },
 
       {
         path: "/products/:categoryName",
-        element: <Products />,
+        element: (
+          <PrivateRoutes>
+            <Products />
+          </PrivateRoutes>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/products/${params.categoryName}`),
       },

@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { FaTrashAlt } from "react-icons/fa";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
 import Loader from "../../Shared/Loader/Loader";
+import { toast } from "react-toastify";
+import { showSuccessToast } from "../../Shared/Toast/toaster";
 
 const BuyerAccount = () => {
   const {
@@ -38,7 +40,7 @@ const BuyerAccount = () => {
       .then((data) => {
         if (data.deletedCount > 0) {
           refetch();
-          toast.success(`Buyer ${deletingBuyer.name} deleted successfully`);
+          showSuccessToast(`Buyer ${deletingBuyer.name} deleted successfully`);
         }
       });
   };

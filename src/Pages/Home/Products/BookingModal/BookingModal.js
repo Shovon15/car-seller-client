@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../context/AuthProvider";
 import {
@@ -14,6 +13,8 @@ import {
 } from "@material-tailwind/react";
 
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { showErrorToast, showSuccessToast } from "../../../Shared/Toast/toaster";
 
 const BookingModal = ({ product, open, handleOpen }) => {
   const { modelName, _id, sellerName, sellerEmail } = product;
@@ -57,14 +58,15 @@ const BookingModal = ({ product, open, handleOpen }) => {
       .then((data) => {
         console.log(data);
         if (data.acknowledged) {
-          toast.success("Booking confirmed");
+          showSuccessToast("Booking confirmed");
           // refetch();
           navigate("/dashboard/bookingItems");
         } else {
-          toast.error(data.message);
+          showErrorToast(data.message);
         }
       });
   };
+ 
 
   return (
     <>
@@ -143,67 +145,6 @@ const BookingModal = ({ product, open, handleOpen }) => {
           </Card>
         </form>
       </Dialog>
-      {/* <input type="checkbox" id="booking-modal" className="modal-toggle" />
-      <div className="modal ">
-        <div className="modal-box relative dark:bg-slate-400">
-          <label
-            htmlFor="booking-modal"
-            className="btn btn-sm btn-circle absolute right-2 top-2"
-          >
-            ✕
-          </label>
-          <h3 className="text-lg font-bold ">{modelName}</h3>
-          <form
-            onSubmit={handleBooking}
-            className="grid grid-cols-1 gap-3 mt-3"
-          >
-            <label className="label">
-              <span className="label-text">Name</span>
-            </label>
-            <input
-              name="name"
-              value={user?.displayName}
-              type="text"
-              className="input w-full input-bordered dark:text-slate-800"
-              disabled
-            />
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              name="email"
-              value={user?.email}
-              type="email"
-              className="input w-full input-bordered dark:text-slate-800"
-              disabled
-            />
-            <label className="label">
-              <span className="label-text">Phone</span>
-            </label>
-            <input
-              name="phone"
-              type="text"
-              placeholder="Phone Number"
-              className="input w-full input-bordered dark:text-slate-800"
-            />
-            <label className="label">
-              <span className="label-text">Location</span>
-            </label>
-            <input
-              name="location"
-              type="text"
-              placeholder="Your location"
-              className="input w-full input-bordered dark:text-slate-800"
-            />
-            <br />
-            <input
-              className="btn btn-accent w-full"
-              type="submit"
-              value="Submit"
-            />
-          </form>
-        </div>
-      </div> */}
     </>
   );
 };

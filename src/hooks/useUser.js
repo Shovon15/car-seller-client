@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const useUser = (email) => {
   const [isUser, setIsUser] = useState(false);
   const [isUserLoading, setIsUserLoading] = useState(true);
+  // console.log(isUser, email);
 
   useEffect(() => {
     if (email) {

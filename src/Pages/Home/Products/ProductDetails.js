@@ -6,6 +6,7 @@ import { AuthContext } from "../../../context/AuthProvider";
 import useUser from "../../../hooks/useUser";
 import { BsSpeedometer2 } from "react-icons/bs";
 import { BsFillChatRightDotsFill } from "react-icons/bs";
+import "./productDetails.css";
 
 import BookingModal from "./BookingModal/BookingModal";
 import engineImg from "../../../assets/icons/car-engine.png";
@@ -15,6 +16,7 @@ import {
   Button,
   Card,
   CardBody,
+  Rating,
   Tab,
   TabPanel,
   Tabs,
@@ -22,7 +24,7 @@ import {
   TabsHeader,
   Typography,
 } from "@material-tailwind/react";
-import OutlinedButton from "../../../Component/Button/OutlinedButton";
+import ProductComments from "./ProductComments/ProductComments";
 
 const ProductDetails = () => {
   const product = useLoaderData();
@@ -31,9 +33,9 @@ const ProductDetails = () => {
   const [isUser] = useUser(user?.email);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
-  // console.log(product);
 
   const {
+    _id,
     categoryName,
     modelName,
     color,
@@ -50,7 +52,9 @@ const ProductDetails = () => {
     sellerName,
     sellerEmail,
     sellerVerification,
+    carInfo,
   } = product;
+  const productImage = product?.image;
 
   const carSpecification = (
     <div className="flex justify-center gap-10">
@@ -88,7 +92,7 @@ const ProductDetails = () => {
             Seating
             <br /> Capacity
           </Typography>
-          <Typography>{mileage} Seater</Typography>
+          <Typography>{carInfo.seatCapacity} Seater</Typography>
         </CardBody>
       </Card>
     </div>
@@ -116,24 +120,26 @@ const ProductDetails = () => {
   );
   const data = [
     {
-      label: "HTML",
-      value: "html",
-      desc: `It really matters and then like it really doesn't matter.
-      What matters is the people who are sparked by it. And the people
-      who are like offended by it, it doesn't matter.`,
-    },
-    {
+      no: 1,
       label: "Specifications",
       value: "specifications",
       desc: carSpecification,
     },
+    {
+      no: 2,
+      label: "Specific",
+      value: "specific",
+      desc: carSpecification,
+    },
 
     {
+      no: 3,
       label: "Description",
       value: "description",
-      desc: description,
+      desc: carInfo.description,
     },
     {
+      no: 4,
       label: "Seller Info",
       value: "seller",
       desc: sellerInfo,
@@ -145,11 +151,16 @@ const ProductDetails = () => {
       <h2 className="text-center font-bold text-2xl ">{modelName}</h2>
       <div className="flex justify-start gap-5 items-center">
         <img src={image} alt="..." className="w-[600px]" />
-        <div>
+        <div className="flex flex-col gap-4">
+          <h1 className="font-bold text-3xl">{modelName}</h1>
+          <div className="flex gap-2">
+            <Rating />
+            <p className="text-sm">rating 4.5</p>
+          </div>
           <p className=" font-bold">
             Price<span className="text-primary"> {price}</span> BDT
           </p>
-          <p>ratting</p>
+
           <Button
             variant="outlined"
             onClick={handleOpen}
@@ -160,9 +171,14 @@ const ProductDetails = () => {
         </div>
       </div>
       <div>
-        <Tabs id="custom-animation" value="html" className="m-5 md:m-10">
+        {/* <ProductDetailTab /> */}
+        <Tabs
+          id="custom-animation"
+          value="specifications"
+          className="m-5 md:m-10"
+        >
           <TabsHeader>
-            {data.map(({ label, value }) => (
+            {data.map(({ label, value, no }) => (
               <Tab key={value} value={value}>
                 {label}
               </Tab>
@@ -182,6 +198,9 @@ const ProductDetails = () => {
             ))}
           </TabsBody>
         </Tabs>
+      </div>
+      <div>
+        <ProductComments id={_id} />
       </div>
       <BookingModal
         open={open}

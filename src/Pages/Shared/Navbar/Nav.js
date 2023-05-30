@@ -15,11 +15,27 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 import useUser from "../../../hooks/useUser";
 import userPng from "../../../assets/images/user-png.png";
+import { useQuery } from "@tanstack/react-query";
+import { FcSettings } from "react-icons/fc";
 
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false);
-  const { user, logOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+
   const [isUser] = useUser(user?.email);
+  // const { data: users = [], refetch } = useQuery({
+  //   queryKey: ["users"],
+  //   queryFn: async () => {
+  //     const res = await fetch(`http://localhost:5000/users/${isUser?.email}`);
+  //     const data = await res.json();
+  //     return data;
+  //   },
+  // });
+  // refetch();
+  // console.log(user?.email);
+  // console.log(isUser?.image);
+  // console.log(users?.email);
+  // console.log(users);
 
   useEffect(() => {
     window.addEventListener(
@@ -55,10 +71,10 @@ const Nav = () => {
       </NavLink>
 
       <NavLink
-        to="/about"
+        to="/product"
         className="text-gray-800 font-semibold  duration-500 cursor-pointer p-1"
       >
-        About
+        Porducts
       </NavLink>
       <NavLink
         to="/blog"
@@ -91,15 +107,20 @@ const Nav = () => {
           </span>
           {user?.uid ? (
             <>
-              <Link to="/dashboard/">
-                <Tooltip content="Dashboard">
-                  {user?.email ? (
+              {user?.email ? (
+                <div className="flex gap-2 items-center">
+                  <Tooltip content={isUser?.name}>
                     <Avatar src={isUser?.image} alt="avatar" />
-                  ) : (
-                    <Avatar src={userPng} alt="avatar" />
-                  )}
-                </Tooltip>
-              </Link>
+                  </Tooltip>
+                  <Tooltip content="dashboard">
+                    <Link to="/dashboard/">
+                      <FcSettings className="w-8 h-8 transition  hover:rotate-45" />
+                    </Link>
+                  </Tooltip>
+                </div>
+              ) : (
+                <Avatar src={userPng} alt="avatar" />
+              )}
             </>
           ) : (
             <>

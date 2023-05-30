@@ -1,13 +1,14 @@
 import React from "react";
-import toast from "react-hot-toast";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { showSuccessToast } from "../Shared/Toast/toaster";
 
 const Gadget = ({ gadget }) => {
     const { gadgetName, brandName, image, price, color, details } = gadget;
 
     const handleGadgets = () => {
-        toast.success("Under Development");
+        showSuccessToast("Under Development");
     };
     return (
         <div className="card card-compact  bg-base-100 dark:bg-slate-600 shadow-xl">

@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import img from "../../../assets/sticker/log-in.png";
+import googleicon from "../../../assets/images/google.png";
 
 const Login = () => {
   const {
@@ -81,7 +82,7 @@ const Login = () => {
         // getUserToken(email);
         // if (data.acknowledged) {
         //     setTreatment(null);
-        //     toast.success("Booking confirmed");
+            // showSuccessToast("Booking confirmed");
         //     refetch();
         // } else {
         //     toast.error(data.message);
@@ -162,6 +163,14 @@ const Login = () => {
             </Link>
           </Typography>
         </form>
+        <Button
+          onClick={handleGoogleSignIn}
+          variant="outlined"
+          className="mt-6 flex justify-center items-center focus:ring-0"
+          fullWidth
+        >
+          <img src={googleicon} alt="..." className="w-5 h-5 " />
+        </Button>
       </Card>
     </div>
   );

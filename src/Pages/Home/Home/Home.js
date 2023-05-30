@@ -3,6 +3,8 @@ import Gadgets from "../../Gadgets/Gadgets";
 import Categories from "../Categories/Categories";
 import Banner from "./Banner";
 import CarSlider from "./CarSlider";
+import SearchSection from "../SearchSection/SearchSection";
+import RecentProduct from "../RecentProduct/RecentProduct";
 
 const Home = () => {
   return (
@@ -10,7 +12,8 @@ const Home = () => {
       {/* <Banner /> */}
       <CarSlider />
       <Categories />
-      {/* <Gadgets /> */}
+      {/* <SearchSection /> */}
+      <RecentProduct />
     </div>
   );
 };
