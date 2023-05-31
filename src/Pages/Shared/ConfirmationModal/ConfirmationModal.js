@@ -16,7 +16,7 @@ const ConfirmationModal = ({
   handleOpen,
   open,
 }) => {
-  console.log(message);
+  // console.log(message);
   return (
     <>
       <Dialog

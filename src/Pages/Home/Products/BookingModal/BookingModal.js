@@ -45,7 +45,7 @@ const BookingModal = ({ product, open, handleOpen }) => {
     data.sellerName = sellerName;
     data.sellerEmail = sellerEmail;
     data.productId = _id;
-    console.log(data);
+    // console.log(data);
 
     fetch("http://localhost:5000/bookings", {
       method: "POST",
@@ -56,7 +56,7 @@ const BookingModal = ({ product, open, handleOpen }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.acknowledged) {
           showSuccessToast("Booking confirmed");
           // refetch();
@@ -80,7 +80,7 @@ const BookingModal = ({ product, open, handleOpen }) => {
           <Card className="mx-auto w-full ">
             <CardHeader
               variant="gradient"
-              color="blue"
+              color="red"
               className="mb-4 grid h-12 place-items-center"
             >
               <Typography variant="h4" color="white">
@@ -113,6 +113,7 @@ const BookingModal = ({ product, open, handleOpen }) => {
                   size="lg"
                   label="Phone"
                   type="text"
+                  error 
                   {...register("phone", {
                     required: "phone Number is Required",
                   })}
@@ -125,6 +126,7 @@ const BookingModal = ({ product, open, handleOpen }) => {
                 <Input
                   size="lg"
                   label="Location"
+                  error 
                   type="text"
                   {...register("location", {
                     required: "location is Required",
@@ -138,7 +140,7 @@ const BookingModal = ({ product, open, handleOpen }) => {
               </div>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button variant="gradient" type="submit" value="Submit" fullWidth>
+              <Button variant="outlined" className="border-primary text-primary" type="submit" value="Submit" fullWidth>
                 Booking
               </Button>
             </CardFooter>

@@ -18,7 +18,7 @@ const BookingOrders = () => {
       return data;
     },
   });
-  console.log(bookingOrder);
+  // console.log(bookingOrder);
   const TABLE_HEAD = [
     "No.",
     "Booking Person",

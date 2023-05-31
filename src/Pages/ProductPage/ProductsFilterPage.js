@@ -6,31 +6,33 @@ import ProductCard from "../../Component/Card/ProductCard";
 axios.defaults.baseURL = "http://localhost:5000/";
 
 const ProductsFilterPage = () => {
-  //   const products = useLoaderData();
-  //   console.log(products, "products");
+  const [limit, setLimit] = useState(10);
   const initialValues = {
     categoryName: "",
     modelName: "",
     modelYear: "",
     condition: "",
     color: "",
+    // limit: limit,
   };
+
   const [values, setValues] = useState(initialValues);
   const [services, setServices] = useState([]);
-  const handleClick = () => {
+
+  const handleReset = () => {
     setValues(initialValues);
+    setLimit(10)
   };
 
   const handleInputChange = (e) => {
-    // isLoading(true);
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
     axios
-      .post("search", values)
+      .post("search", {values,limit})
       .then((res) => {
-        console.log(res.data, "res");
+        // console.log(res.data, "res");
         setServices(res.data);
       })
       .catch((error) => {
@@ -38,12 +40,16 @@ const ProductsFilterPage = () => {
       });
 
     return () => values;
-  }, [values]);
-  //   console.log(values, "values");
+  }, [values,limit]);
 
-  // const search = () => {
-  //   console.log(values.categoryName);
-  // };
+  const handleLoadMore = (e) => {
+    // Increase the limit value
+    setLimit(limit + 10);
+    setValues({...values});
+  };
+
+  // console.log(services.length,limit);
+
   const category = [
     "",
     "suv",
@@ -58,8 +64,9 @@ const ProductsFilterPage = () => {
 
   return (
     <div className="px-5 md:px-10">
-      <h1 className="text-center font-bold text-2xl"> Filter</h1>
-
+      <h1 className="text-center font-bold text-2xl text-primary pt-2">
+        Available Products
+      </h1>
       <form className="grid grid-cols-3 md:grid-cols-6 gap-8 items-center my-5 px-5">
         <div className="relative">
           <label className="absolute mx-2 px-2 -top-2 text-sm text-blue-500 bg-gray-200">
@@ -108,22 +115,38 @@ const ProductsFilterPage = () => {
           label="color"
         />
 
-        <Button type="button" onClick={handleClick}>
+        <Button type="button" onClick={handleReset}>
           Clear field
         </Button>
       </form>
       {services.length === 0 ? (
         <>
-          <h1 className="text-center font-bold my-10">No product Available. Please change your filter options!</h1>
+          <h1 className="text-center font-bold my-10">
+            No product Available. Please change your filter options!
+          </h1>
         </>
       ) : (
-        <div className="grid md:grid-cols-4 gap-5 mb-5 md:mb-10">
-          {services.map((item, i) => (
-            <ProductCard product={item} key={i} />
-          ))}
-        </div>
+        <>
+          <div className="grid md:grid-cols-4 gap-5 mb-5 md:mb-10">
+            {services.map((item, i) => (
+              <ProductCard product={item} key={i} />
+            ))}
+          </div>
+          {
+            services.length >= limit &&(
+              <div className="flex justify-center mb-10">
+            <Button
+              variant="outlined"
+              onClick={handleLoadMore}
+              className="px-12 border-primary border-2 text-primary focus:ring-0"
+            >
+              View more
+            </Button>
+          </div>
+            )
+          }
+        </>
       )}
-     
     </div>
   );
 };

@@ -11,7 +11,8 @@ import { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import { HiOutlinePencilSquare } from "react-icons/hi2";
+// import { HiOutlinePencilSquare } from "react-icons/hi2";
+import { BsPencilSquare } from "react-icons/bs";
 import { CgErase } from "react-icons/cg";
 import { MdEditCalendar } from "react-icons/md";
 import { DashboardContext } from "../../context/DashboardContext";
@@ -25,10 +26,10 @@ const Sidebar = () => {
   const { user } = useContext(AuthContext);
   const [isUser] = useUser(user?.email);
   // console.log(isUser?.userRole);
-  let currentUser = false; //-------------------------------------need to fix
-  if (isUser?.userRole === "admin") {
-    currentUser = true;
-  }
+  // let currentUser = false; //-------------------------------------need to fix
+  // if (isUser?.userRole === "admin") {
+  //   currentUser = true;
+  // }
   // console.log(currentUser);
 
   const [openClass, setOpenClass] = useState("w-12");
@@ -54,45 +55,45 @@ const Sidebar = () => {
       document.removeEventListener("mousedown", handler);
     };
   });
-  const menus = [
-    {
-      name: "Profile Info",
-      link: "/dashboard/",
-      icon: <CgProfile />,
-      user: currentUser,
-    },
-    {
-      name: "Create Post",
-      link: "/dashboard/addItems",
-      icon: <HiOutlinePencilSquare />,
-      user: currentUser,
-    },
-    {
-      name: "Manage My Posts",
-      link: "/dashboard/managePost",
-      icon: <CgErase />,
-      user: currentUser,
-    },
-    {
-      name: "Booked orders",
-      link: "/dashboard/bookingOrders",
-      icon: <MdEditCalendar />,
-      user: currentUser,
-    },
-    {
-      name: "Your Booking orders",
-      link: "/dashboard/bookingItems",
-      icon: <MdEditCalendar />,
-      user: currentUser,
-    },
+  // const menus = [
+  //   {
+  //     name: "Profile Info",
+  //     link: "/dashboard/",
+  //     icon: <CgProfile />,
+  //     user: currentUser,
+  //   },
+  //   {
+  //     name: "Create Post",
+  //     link: "/dashboard/addItems",
+  //     icon:<BsPencilSquare />,
+  //     user: currentUser,
+  //   },
+  //   {
+  //     name: "Manage My Posts",
+  //     link: "/dashboard/managePost",
+  //     icon: <CgErase />,
+  //     user: currentUser,
+  //   },
+  //   {
+  //     name: "Booked orders",
+  //     link: "/dashboard/bookingOrders",
+  //     icon: <MdEditCalendar />,
+  //     user: currentUser,
+  //   },
+  //   {
+  //     name: "Your Booking orders",
+  //     link: "/dashboard/bookingItems",
+  //     icon: <MdEditCalendar />,
+  //     user: currentUser,
+  //   },
 
-    {
-      name: "Account Management",
-      link: "/dashboard/buyerAccount",
-      icon: <MdOutlineManageAccounts />,
-      user: currentUser,
-    },
-  ];
+  //   {
+  //     name: "Account Management",
+  //     link: "/dashboard/buyerAccount",
+  //     icon: <MdOutlineManageAccounts />,
+  //     user: currentUser,
+  //   },
+  // ];
 
   return (
     <Card
@@ -203,7 +204,7 @@ const Sidebar = () => {
           >
             <ListItem>
               <ListItemPrefix>
-                <HiOutlinePencilSquare className="text-2xl"/>
+                <BsPencilSquare  className="text-2xl"/>
               </ListItemPrefix>
               <p
                 className={`whitespace-pre duration-500 ${

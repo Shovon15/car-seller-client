@@ -40,7 +40,7 @@ const UserProfile = () => {
   // console.log(users, "user from useQuery");
 
   return (
-    <div className="mx-5 md:mx-10 mb-5 md:mb-10 ">
+    <div className="mx-5 md:mx-10 mb-5 md:mb-10 min-h-max">
       <h1 className="text-center font-bold text-xl p-5">User Profile</h1>
       <div className="flex gap-5">
         <div className="flex flex-col gap-3">

@@ -25,7 +25,7 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("isLoading", isLoading);
+  // console.log("isLoading", isLoading);
 
   const from = location.state?.from?.pathname || "/";
 
@@ -68,14 +68,14 @@ const SignUp = () => {
     })
       .then((res) => res.json())
       .then((imgData) => {
-        console.log(imgData);
+        // console.log(imgData);
         if (imgData.success) {
           let image = imgData.data.url;
           setSignUpError("");
           createUser(data.email, data.password)
             .then((result) => {
-              const user = result.user;
-              console.log(user);
+              // const user = result.user;
+              // console.log(user);
               setIsLoading(false);
               showSuccessToast("User Created Successfully.");
               const userInfo = {
@@ -90,7 +90,7 @@ const SignUp = () => {
                 .catch((err) => console.log(err));
             })
             .catch((error) => {
-              console.log(error);
+              // console.log(error);
               setIsLoading(false);
               setSignUpError(error.message);
             });
@@ -108,7 +108,7 @@ const SignUp = () => {
         saveUser(user.displayName, user.email, user.photoURL, userRole);
       })
       .catch((error) => {
-        console.log(error.message);
+        // console.log(error.message);
         setSignUpError(error.message);
       });
   };
@@ -126,7 +126,7 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((data) => {
         navigate(from, { replace: true });
-        console.log("userSaveDb", data);
+        // console.log("userSaveDb", data);
         // getUserToken(email);
         // if (data.acknowledged) {
         //     setTreatment(null);

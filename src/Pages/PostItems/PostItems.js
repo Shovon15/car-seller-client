@@ -26,7 +26,7 @@ const PostItems = () => {
         `http://localhost:5000/sellerPost/${user?.email}`
       );
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       return data;
     },
   });

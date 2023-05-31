@@ -8,6 +8,7 @@ import { Button, Input, Spinner, Textarea } from "@material-tailwind/react";
 import OutlinedButton from "../../Component/Button/OutlinedButton";
 import { toast } from "react-toastify";
 import { showErrorToast, showSuccessToast } from "../Shared/Toast/toaster";
+import Loader from "../Shared/Loader/Loader";
 
 //
 const AddItems = () => {
@@ -87,7 +88,7 @@ const AddItems = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log("saveItem", data);
+          // console.log("saveItem", data);
           // getUserToken(email);
           if (data.acknowledged) {
             showSuccessToast("item added successfully");
@@ -101,20 +102,21 @@ const AddItems = () => {
   };
 
   if (isLoading) {
-    return <Spinner color="green" className="m-auto" />;
+    return <Loader />;
   }
 
   const category = [
     "suv",
     "sedan",
     "crossover",
+    "hatchback",
     "jeep",
     "sports car",
     "wagon",
     "coupe",
     "pickup",
   ];
-  const condition = ["New", "Excellent", "Good", "Fiar"];
+  const condition = ["New", "Excellent", "Good", "Fair"];
   const transmission = ["Automatic", "Manual", "CVT Transmissions"];
   const fuelType = ["Gasoline", "Diesel", "CNG", "Electric"];
 

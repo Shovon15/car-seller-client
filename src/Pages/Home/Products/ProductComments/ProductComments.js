@@ -5,15 +5,16 @@ import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../../context/AuthProvider";
 import Comments from "./Comments";
-import { Button, Textarea } from "@material-tailwind/react";
+import { Button, Rating, Textarea, Typography } from "@material-tailwind/react";
 import useUser from "../../../../hooks/useUser";
 import {
   showErrorToast,
   showSuccessToast,
 } from "../../../Shared/Toast/toaster";
 
-const ProductComments = ({ id }) => {
+const ProductComments = ({ id, ratingRefetch }) => {
   const [commentError, setCommentError] = useState();
+  const [rated, setRated] = useState(4);
   const { user } = useContext(AuthContext);
   const [isUser] = useUser(user?.email);
 
@@ -22,7 +23,7 @@ const ProductComments = ({ id }) => {
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
-  // console.log(isUser);
+  // console.log(rated);
 
   const {
     register,
@@ -43,18 +44,19 @@ const ProductComments = ({ id }) => {
       return data;
     },
   });
-  console.log(comments);
+  // console.log(comments);
 
   const handleAddComment = (data) => {
     const userComment = {
       postId: id,
       comment: data.comment,
+      rating: rated,
       userImage: isUser?.image,
       userName: isUser?.name,
       userEmail: isUser?.email,
       date: currentDate,
     };
-    console.log(userComment);
+    // console.log(userComment);
     saveComment(userComment);
   };
 
@@ -72,7 +74,9 @@ const ProductComments = ({ id }) => {
         if (data.acknowledged) {
           showSuccessToast("Comment added successfully");
           refetch();
+          ratingRefetch();
           reset();
+          setRated(4);
         } else {
           setCommentError(data.message);
           showErrorToast(data.message);
@@ -85,24 +89,33 @@ const ProductComments = ({ id }) => {
   return (
     <>
       {comments.length === 0 ? (
-        <h1 className="font-semibold mx-5 lg:mx-10 my-5">No comment add yet</h1>
+        <h1 className="font-semibold mx-5 lg:mx-10 ">
+          Add first review for this product!
+        </h1>
       ) : (
-        <h1 className="font-semibold mx-5 lg:mx-10 my-5">
-          Total {comments.length} people comment here
+        <h1 className="font-semibold mx-5 lg:mx-12">
+          Total {comments.length} people review here
         </h1>
       )}
-      <div className="flex flex-col-reverse md:flex-row mx-5 md:mx-10 p-10">
+      <div className="flex flex-col  mx-5 md:mx-10 py-2">
         <div className="w-full md:w-4/12 grid grid-cols-1 gap-5">
           {comments.map((comment) => (
             <Comments key={comment._id} comments={comment}></Comments>
           ))}
         </div>
-        <div className="w-full md:w-8/12 ">
+        <div className="w-full md:w-4/12 mt-5">
           <form onSubmit={handleSubmit(handleAddComment)}>
-            <div className="form-control w-full  dark:text-slate-800">
+            <div className="form-control w-full p-5 dark:text-slate-800">
               <label className="label">
-                <span className="font-bold text-xl">Comment Here</span>
+                <span className="font-bold text-xl">Review Here</span>
               </label>
+              <div className="flex justify-end items-center gap-2 m-5">
+                <Typography className="font-medium">Review Point:</Typography>
+                <Rating value={4} onChange={(value) => setRated(value)} />
+                <Typography color="blue-gray" className="font-medium">
+                  {rated}.0 Rated
+                </Typography>
+              </div>
               <div className="w-96">
                 <Textarea
                   label="Message"
@@ -114,12 +127,12 @@ const ProductComments = ({ id }) => {
                   <p className="text-red-500">{errors.comment.message}</p>
                 )}
               </div>
-             
-            </div>
-            {commentError && <p className="text-red-600">{commentError}</p>}
-            <div className="mb-10 md:mb-0">
-             
-              <Button type="submit">Send</Button>
+              {commentError && <p className="text-red-600">{commentError}</p>}
+              {/* <div className="mb-10 md:mb-0"> */}
+              <Button type="submit" className="px-12">
+                Send
+              </Button>
+              {/* </div> */}
             </div>
           </form>
         </div>

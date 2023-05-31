@@ -26,7 +26,7 @@ const BookingsItem = () => {
     "Payment Status",
   ];
 
-  console.log(bookings?.length, "..............................");
+  // console.log(bookings?.length, "..............................");
   return (
     <div className="my-10">
       <h2 className="text-3xl py-5">Booking Items</h2>

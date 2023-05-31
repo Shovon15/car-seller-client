@@ -26,7 +26,7 @@ export default function Faq() {
   ];
   const handleOpen = (value) => {
     setOpen(open === value ? "" : value);
-    console.log(value);
+    // console.log(value);
   };
 
   function Icon({ id, open }) {

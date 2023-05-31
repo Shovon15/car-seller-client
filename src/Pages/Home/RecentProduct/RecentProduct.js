@@ -18,7 +18,7 @@ const RecentProduct = () => {
   if (isLoading) {
     return <Loader />;
   }
-  console.log(recentProducts);
+  // console.log(recentProducts);
   return (
     <div>
       <h1 className="font-bold text-2xl text-center pt-5">Recent Products</h1>

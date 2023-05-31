@@ -107,7 +107,30 @@ const Nav = () => {
           </span>
           {user?.uid ? (
             <>
-              {user?.email ? (
+              {isUser?.image === undefined ? (
+                <div className="flex gap-2 items-center">
+                  <Tooltip content="user">
+                    <Avatar src={userPng} alt="avatar" />
+                  </Tooltip>
+                  <Tooltip content="dashboard">
+                    <Link to="/dashboard/">
+                      <FcSettings className="w-8 h-8 transition  hover:rotate-45" />
+                    </Link>
+                  </Tooltip>
+                </div>
+              ) : (
+                <div className="flex gap-2 items-center">
+                  <Tooltip content={isUser?.name}>
+                    <Avatar src={isUser?.image} alt="avatar" />
+                  </Tooltip>
+                  <Tooltip content="dashboard">
+                    <Link to="/dashboard/">
+                      <FcSettings className="w-8 h-8 transition  hover:rotate-45" />
+                    </Link>
+                  </Tooltip>
+                </div>
+              )}
+              {/* {user?.email ? (
                 <div className="flex gap-2 items-center">
                   <Tooltip content={isUser?.name}>
                     <Avatar src={isUser?.image} alt="avatar" />
@@ -120,7 +143,7 @@ const Nav = () => {
                 </div>
               ) : (
                 <Avatar src={userPng} alt="avatar" />
-              )}
+              )} */}
             </>
           ) : (
             <>

@@ -1,5 +1,5 @@
 // import React, { useContext } from "react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
@@ -25,36 +25,51 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import ProductComments from "./ProductComments/ProductComments";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../../Shared/Loader/Loader";
+import RatingStar from "./RatingStar";
 
 const ProductDetails = () => {
   const product = useLoaderData();
 
   const { user } = useContext(AuthContext);
+  // const { rating, setRating } = useState(0);
   const [isUser] = useUser(user?.email);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
-
   const {
     _id,
-    categoryName,
     modelName,
-    color,
-    condition,
     date,
-    description,
     image,
-    location,
     mileage,
-    phone,
-    price,
-    purchaseYear,
     sellerImage,
     sellerName,
     sellerEmail,
-    sellerVerification,
     carInfo,
   } = product;
-  const productImage = product?.image;
+  // console.log(product);
+
+  const [rating, setRating] = useState(0);
+
+  const {
+    data: postRating = {},
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["postRating"],
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:5000/rating/${_id}`);
+      const data = await res.json();
+      return data;
+    },
+    onSuccess: (data) => {
+      setRating(data.rating);
+      // console.log(data.rating,"data");
+    },
+  });
+
+  // console.log(rating,"rating");
 
   const carSpecification = (
     <div className="flex justify-center gap-10">
@@ -64,16 +79,15 @@ const ProductDetails = () => {
           <Typography variant="h5" color="blue-gray" className="mb-2">
             Mileage
           </Typography>
-          <Typography>{mileage}Kpl</Typography>
+          <Typography>{carInfo.mileagePerl} Kpl</Typography>
         </CardBody>
       </Card>
       <Card>
         <CardBody className="flex flex-col justify-center items-center">
           <img src={fuelImg} alt="..." className="w-10" />
           <Typography variant="h5" color="blue-gray" className="mb-2">
-            Fuel Type
+            {carInfo.fuelType}
           </Typography>
-          <Typography>{mileage}Kpl</Typography>
         </CardBody>
       </Card>
       <Card>
@@ -150,24 +164,32 @@ const ProductDetails = () => {
     <div>
       <h2 className="text-center font-bold text-2xl ">{modelName}</h2>
       <div className="flex justify-start gap-5 items-center">
-        <img src={image} alt="..." className="w-[600px]" />
+        <PhotoProvider>
+          <PhotoView src={image}>
+            <img src={image} alt="..." className="w-[500px] rounded-md m-10" />
+          </PhotoView>
+        </PhotoProvider>
         <div className="flex flex-col gap-4">
           <h1 className="font-bold text-3xl">{modelName}</h1>
           <div className="flex gap-2">
-            <Rating />
-            <p className="text-sm">rating 4.5</p>
+            {/* <Rating value={rating} readonly /> */}
+            <RatingStar rating={rating} />
+            {/* <p>{Math.ceil(rating.toFixed(2))} Rated</p> */}
+            {/* <p className="text-sm">rating 4.5</p> */}
           </div>
           <p className=" font-bold">
-            Price<span className="text-primary"> {price}</span> BDT
+            Price<span className="text-primary"> {carInfo.price}</span> BDT
           </p>
 
-          <Button
-            variant="outlined"
-            onClick={handleOpen}
-            className="px-12 border-primary text-primary"
-          >
-            Booking Now
-          </Button>
+          {sellerEmail !== isUser?.email && (
+            <Button
+              variant="outlined"
+              onClick={handleOpen}
+              className="px-12 border-primary text-primary"
+            >
+              Booking Now
+            </Button>
+          )}
         </div>
       </div>
       <div>
@@ -175,11 +197,11 @@ const ProductDetails = () => {
         <Tabs
           id="custom-animation"
           value="specifications"
-          className="m-5 md:m-10"
+          className="m-5 md:m-10 bg-white rounded-md"
         >
           <TabsHeader>
             {data.map(({ label, value, no }) => (
-              <Tab key={value} value={value}>
+              <Tab key={value} value={value} className="font-bold">
                 {label}
               </Tab>
             ))}
@@ -200,7 +222,7 @@ const ProductDetails = () => {
         </Tabs>
       </div>
       <div>
-        <ProductComments id={_id} />
+        <ProductComments ratingRefetch={refetch} id={_id} />
       </div>
       <BookingModal
         open={open}

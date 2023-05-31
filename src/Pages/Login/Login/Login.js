@@ -34,17 +34,15 @@ const Login = () => {
 
   const handleLogin = (data) => {
     setIsloading(true);
-    console.log(data);
     setLoginError("");
     signIn(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
         setIsloading(false);
         navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.log(error.message);
+        // console.log(error.message);
         setIsloading(false);
         setLoginError(error.message);
       });
@@ -56,11 +54,11 @@ const Login = () => {
     googleSignIn()
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user);
         saveUser(user.displayName, user.email, userRole, user.photoURL);
       })
       .catch((error) => {
-        console.log(error.message);
+        // console.log(error.message);
         setLoginError(error.message);
       });
   };
