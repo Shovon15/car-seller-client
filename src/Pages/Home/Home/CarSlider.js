@@ -24,6 +24,7 @@ import img12 from "../../../assets/banner/image12.png";
 // import img13 from "../../../assets/banner/sedan.png";
 // import img14 from "../../../assets/banner/sports-car-red.png";
 import PrimaryButton from "../../../Component/Button/PrimaryButton";
+import { Link } from "react-router-dom";
 
 const CarSlider = () => {
   const carouselRef = React.createRef(null);
@@ -86,16 +87,25 @@ const CarSlider = () => {
   ];
   return (
     <div className="flex flex-col-reverse md:flex-row min-h-96 p-5">
-      <div className="w-full md:w-1/2 flex flex-col justify-center gap-4 pr-5">
-        <h1 className="text-3xl md:text-5xl font-bold mt-5 md:mt-0">
-          Make Your Dreams <br /> Come True
+      <div className="w-full md:w-1/2 flex flex-col justify-center gap-4 md:pr-5">
+        <h1 className="text-3xl md:text-5xl text-textPrimary font-extrabold mt-0 md:mt-0">
+          One-Stop Destination for Buying and Selling Quality Cars.
         </h1>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s
+        <p className="text-lg text-justify">
+          Welcome to our premier car selling website! Buy or sell reconditioned
+          and new cars effortlessly. Our user-friendly platform allows you to
+          create selling posts and manage them with ease. We value your
+          feedback, fostering a trustworthy and transparent community. Join us
+          and be part of a vibrant community of car enthusiasts.
         </p>
-        <PrimaryButton className="mr-auto">About Us</PrimaryButton>
+        <div className="flex flex-col items-center md:flex-row gap-2">
+          <Link to="product">
+            <PrimaryButton className=" px-12">Products</PrimaryButton>
+          </Link>
+          <Link to="/about">
+            <PrimaryButton className=" px-12">About Us</PrimaryButton>
+          </Link>
+        </div>
       </div>
       <div className="w-full md:w-1/2">
         <Carousel

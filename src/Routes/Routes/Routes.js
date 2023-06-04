@@ -7,7 +7,6 @@ import Blogs from "../../Pages/Blogs/Blogs";
 import BookingOrders from "../../Pages/BookingOrders/BookingOrders";
 import BookingsItem from "../../Pages/BookingsItem/BookingsItem";
 import BuyerAccount from "../../Pages/Dashboard/BuyerAccount/BuyerAccount";
-import SellerAccount from "../../Pages/Dashboard/SellerAccount/SellerAccount";
 import Home from "../../Pages/Home/Home/Home";
 import ProductDetails from "../../Pages/Home/Products/ProductDetails";
 import Products from "../../Pages/Home/Products/Products";
@@ -15,7 +14,6 @@ import Login from "../../Pages/Login/Login/Login";
 import SignUp from "../../Pages/Login/SignUp/SignUp";
 import PostItems from "../../Pages/PostItems/PostItems";
 import NotFound from "../../Pages/Shared/NotFound/NotFound";
-// import Profile from "../../Pages/UserProfile/Profile/Profile";
 import AdminRoute from "../AdminRoutes/AdminRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 import UserProfile from "../../Pages/Dashboard/UserProfile/UserProfile";
@@ -54,16 +52,8 @@ const router = createBrowserRouter([
       {
         path: "/product",
         element: <ProductsFilterPage />,
-        // loader: () => fetch("http://localhost:5000/products"),
+        // loader: () => fetch("https://y-shovon15.vercel.app/products"),
       },
-      // {
-      //   path: "/profile",
-      //   element: (
-      //     <PrivateRoutes>
-      //       <Profile />
-      //     </PrivateRoutes>
-      //   ),
-      // },
 
       {
         path: "/products/:categoryName",
@@ -73,7 +63,9 @@ const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/products/${params.categoryName}`),
+          fetch(
+            `https://y-shovon15.vercel.app/products/${params.categoryName}`
+          ),
       },
       {
         path: "/products/:categoryName/:_id",
@@ -84,7 +76,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `http://localhost:5000/products/${params.categoryName}/${params._id}`
+            `https://y-shovon15.vercel.app/products/${params.categoryName}/${params._id}`
           ),
       },
     ],
@@ -125,14 +117,6 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
-      // {
-      //   path: "/dashboard/sellerAccount",
-      //   element: (
-      //     <AdminRoute>
-      //       <SellerAccount />
-      //     </AdminRoute>
-      //   ),
-      // },
     ],
   },
   {

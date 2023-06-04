@@ -23,7 +23,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
-  // console.log(rated);
+  console.log(rated);
 
   const {
     register,
@@ -39,7 +39,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
   } = useQuery({
     queryKey: ["comments"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/comments/${id}`);
+      const res = await fetch(`https://y-shovon15.vercel.app/comments/${id}`);
       const data = await res.json();
       return data;
     },
@@ -61,7 +61,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
   };
 
   const saveComment = (userComment) => {
-    fetch("http://localhost:5000/comments", {
+    fetch("https://y-shovon15.vercel.app/comments", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -72,7 +72,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
       .then((data) => {
         // console.log("saveItem", data);
         if (data.acknowledged) {
-          showSuccessToast("Comment added successfully");
+          showSuccessToast("Review added successfully");
           refetch();
           ratingRefetch();
           reset();
@@ -97,7 +97,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
           Total {comments.length} people review here
         </h1>
       )}
-      <div className="flex flex-col  mx-5 md:mx-10 py-2">
+      <div className="flex flex-col md:mx-10 py-2">
         <div className="w-full md:w-4/12 grid grid-cols-1 gap-5">
           {comments.map((comment) => (
             <Comments key={comment._id} comments={comment}></Comments>
@@ -109,14 +109,14 @@ const ProductComments = ({ id, ratingRefetch }) => {
               <label className="label">
                 <span className="font-bold text-xl">Review Here</span>
               </label>
-              <div className="flex justify-end items-center gap-2 m-5">
+              <div className="flex justify-start items-center gap-2 md:m-2">
                 <Typography className="font-medium">Review Point:</Typography>
-                <Rating value={4} onChange={(value) => setRated(value)} />
+                <Rating value={rated} onChange={(value) => setRated(value)} />
                 <Typography color="blue-gray" className="font-medium">
                   {rated}.0 Rated
                 </Typography>
               </div>
-              <div className="w-96">
+              <div className="max-w-80">
                 <Textarea
                   label="Message"
                   {...register("comment", {

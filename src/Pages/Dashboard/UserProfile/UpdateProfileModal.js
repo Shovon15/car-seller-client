@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import {
   Button,
@@ -11,8 +11,10 @@ import {
 } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import { showErrorToast, showSuccessToast } from "../../Shared/Toast/toaster";
+import { DashboardContext } from "../../../context/DashboardContext";
 
 const UpdateProfileModal = ({ user, open, setOpen, handleOpen, refetch }) => {
+  const { windowWidth } = useContext(DashboardContext);
   const {
     register,
     handleSubmit,
@@ -47,7 +49,7 @@ const UpdateProfileModal = ({ user, open, setOpen, handleOpen, refetch }) => {
       image: data,
     };
 
-    fetch(`http://localhost:5000/users/${user?.email}`, {
+    fetch(`https://y-shovon15.vercel.app/users/${user?.email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -66,11 +68,15 @@ const UpdateProfileModal = ({ user, open, setOpen, handleOpen, refetch }) => {
         }
       });
   };
+  let size = "xl";
+  if (windowWidth > 920) {
+    size = "xs";
+  }
 
   return (
     <>
       <Dialog
-        size="xs"
+        size={size}
         open={open}
         handler={handleOpen}
         className="bg-transparent shadow-none"

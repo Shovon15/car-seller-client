@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
-import Navbar from "../../../Pages/Shared/Navbar/Navbar";
 import { DashboardContext } from "../../../context/DashboardContext";
 import Sidebar from "../../../Pages/Dashboard/Sidebar";
 import Footer from "../../../Pages/Shared/Footer/Footer";

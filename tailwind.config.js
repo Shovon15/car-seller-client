@@ -9,11 +9,11 @@ module.exports = withMT({
         primary: "#ef1d26",
         secondary: "#121212",
         buttonColor: "#2196F3",
-        textPrimary: "#121212",
+        textPrimary: "#001F3F",
       },
     },
     fontFamily: {
-      sans: ["Roboto", "sans-serif"],
+      sans: ["Nunito", "sans-serif"],
     },
   },
   // plugins: [require("daisyui")],

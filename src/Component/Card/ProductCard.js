@@ -57,7 +57,9 @@ const ProductCard = ({ product }) => {
           </PhotoProvider>
         </CardHeader>
         <CardBody className="p-2">
-          <Typography variant="h5">{modelName}</Typography>
+          <Typography variant="h5" className="text-textPrimary">
+            {modelName}
+          </Typography>
           <div className="grid grid-cols-2 p-2 ">
             <div className="flex gap-2">
               <RiSteering2Fill className="text-primary text-xl" />

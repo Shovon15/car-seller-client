@@ -79,7 +79,7 @@ const AddItems = () => {
       });
 
     const saveItem = (items) => {
-      fetch("http://localhost:5000/products", {
+      fetch("https://y-shovon15.vercel.app/products", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -117,7 +117,7 @@ const AddItems = () => {
     "pickup",
   ];
   const condition = ["New", "Excellent", "Good", "Fair"];
-  const transmission = ["Automatic", "Manual", "CVT Transmissions"];
+  const transmission = ["Automatic", "Manual", "CVT"];
   const fuelType = ["Gasoline", "Diesel", "CNG", "Electric"];
 
   return (
@@ -372,10 +372,15 @@ const AddItems = () => {
           )}
         </div>
         <div className="flex justify-center pt-5 mb-5 ">
-          <Button variant="outlined" type="submit" className="px-12 border-primary text-primary font-extrabold focus:ring-0">Add Item</Button>
+          <Button
+            variant="outlined"
+            type="submit"
+            className="px-12 border-primary text-primary font-extrabold focus:ring-0"
+          >
+            Add Item
+          </Button>
         </div>
       </form>
-      
     </div>
   );
 };

@@ -4,18 +4,44 @@ import { AuthContext } from "../../context/AuthProvider";
 import { Button, Card, Typography } from "@material-tailwind/react";
 import { GrAddCircle } from "react-icons/gr";
 import { Link } from "react-router-dom";
+import Loader from "../Shared/Loader/Loader";
 
 const BookingsItem = () => {
   const { user } = useContext(AuthContext);
 
-  const { data: bookings = [] } = useQuery({
+  // const { data: bookings = [] } = useQuery({
+  //   queryKey: ["bookings"],
+  //   queryFn: async () => {
+  //     const res = await fetch(`https://y-shovon15.vercel.app/bookings/${user?.email}`);
+  //     const data = await res.json();
+  //     return data;
+  //   },
+  // });
+  const headers = {
+    authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    "Content-Type": "application/json",
+  };
+
+  const {
+    data: bookings = [],
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["bookings"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/bookings/${user?.email}`);
+      const res = await fetch(
+        `https://y-shovon15.vercel.app/bookings/${user?.email}`,
+        {
+          headers,
+        }
+      );
       const data = await res.json();
       return data;
     },
   });
+  if (isLoading) {
+    <Loader />;
+  }
   const TABLE_HEAD = [
     "No.",
     "Model Name",
@@ -44,8 +70,8 @@ const BookingsItem = () => {
       ) : (
         <>
           <h1 className="text-start text-lg font-bold p-5 uppercase">
-            You have posted Total {bookings.length}{" "}
-            {bookings.length === 1 ? "post" : "posts"}
+            You have booked Total {bookings.length}{" "}
+            {bookings.length === 1 ? "product" : "products"}
           </h1>
           <Card className="overflow-scroll h-full w-full">
             <table className="w-full min-w-max table-auto text-left">

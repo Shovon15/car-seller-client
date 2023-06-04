@@ -3,6 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { RouterProvider } from "react-router-dom";
 import router from "./Routes/Routes/Routes";
+import ScrollButton from "./Component/Button/ScrollButton";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <div className="max-w-[1440px] mx-auto ">
         <RouterProvider router={router}/>
         <ToastContainer />
+        <ScrollButton/>
       </div>
     </div>
   );

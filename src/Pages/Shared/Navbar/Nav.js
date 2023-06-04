@@ -1,8 +1,7 @@
 import { useState, useEffect, useContext, useRef } from "react";
+import "./nav.css";
 import {
   Navbar,
-  MobileNav,
-  Typography,
   Button,
   IconButton,
   Tooltip,
@@ -10,12 +9,12 @@ import {
   Collapse,
 } from "@material-tailwind/react";
 
-import logo from "../../../assets/images/logo.png";
+import logo from "../../../assets/logo/logo_carXchange.png";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 import useUser from "../../../hooks/useUser";
-import userPng from "../../../assets/images/user-png.png";
-import { useQuery } from "@tanstack/react-query";
+import userPng from "../../../assets/sticker/user.png";
+// import { useQuery } from "@tanstack/react-query";
 import { FcSettings } from "react-icons/fc";
 
 const Nav = () => {
@@ -26,7 +25,7 @@ const Nav = () => {
   // const { data: users = [], refetch } = useQuery({
   //   queryKey: ["users"],
   //   queryFn: async () => {
-  //     const res = await fetch(`http://localhost:5000/users/${isUser?.email}`);
+  //     const res = await fetch(`https://y-shovon15.vercel.app/users/${isUser?.email}`);
   //     const data = await res.json();
   //     return data;
   //   },
@@ -65,26 +64,26 @@ const Nav = () => {
     <ul className="mb-4 mt-4 flex flex-col gap-4 lg:mb-0 lg:mt-0 lg:flex-row items-start lg:items-center">
       <NavLink
         to="/"
-        className="text-gray-800 font-semibold duration-500 cursor-pointer p-1"
+        className="text-gray-800 font-bold duration-500 cursor-pointer p-1"
       >
         Home
       </NavLink>
 
       <NavLink
         to="/product"
-        className="text-gray-800 font-semibold  duration-500 cursor-pointer p-1"
+        className="text-gray-800 font-bold  duration-500 cursor-pointer p-1"
       >
         Porducts
       </NavLink>
       <NavLink
         to="/blog"
-        className="text-gray-800 font-semibold  duration-500 cursor-pointer p-1"
+        className="text-gray-800 font-bold  duration-500 cursor-pointer p-1"
       >
         Blog
       </NavLink>
       <NavLink
         to="/faq"
-        className="text-gray-800 font-semibold  duration-500 cursor-pointer p-1"
+        className="text-gray-800 font-bold  duration-500 cursor-pointer p-1"
       >
         FAQ
       </NavLink>
@@ -97,7 +96,7 @@ const Nav = () => {
       ref={menuRef}
     >
       <div className="flex items-center justify-between text-blue-gray-900">
-        <Link to="/" className="cursor-pointer">
+        <Link to="/" className="cursor-pointer px-2">
           <img className="w-36" src={logo} alt="..." />
         </Link>
         <div className="flex items-center gap-2">
@@ -130,25 +129,11 @@ const Nav = () => {
                   </Tooltip>
                 </div>
               )}
-              {/* {user?.email ? (
-                <div className="flex gap-2 items-center">
-                  <Tooltip content={isUser?.name}>
-                    <Avatar src={isUser?.image} alt="avatar" />
-                  </Tooltip>
-                  <Tooltip content="dashboard">
-                    <Link to="/dashboard/">
-                      <FcSettings className="w-8 h-8 transition  hover:rotate-45" />
-                    </Link>
-                  </Tooltip>
-                </div>
-              ) : (
-                <Avatar src={userPng} alt="avatar" />
-              )} */}
             </>
           ) : (
             <>
               <Link to="/login">
-                <Button className="rounded-md text-sm hidden lg:inline-block">
+                <Button className="bg-primary hidden lg:inline-block">
                   Login
                 </Button>
               </Link>
@@ -196,9 +181,18 @@ const Nav = () => {
       </div>
       <Collapse className="flex flex-col text-black text-start" open={openNav}>
         {navList}
-        <Button variant="gradient" fullWidth className="rounded-full ">
-          Login
-        </Button>
+        {user?.uid ? (
+          <></>
+        ) : (
+          <Link to="/login">
+            <Button
+              fullWidth
+              className="rounded-md bg-primary text-sm  lg:inline-block"
+            >
+              Login
+            </Button>
+          </Link>
+        )}
       </Collapse>
     </Navbar>
   );

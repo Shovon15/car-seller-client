@@ -10,7 +10,7 @@ const RecentProduct = () => {
   const { data: recentProducts = [], isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/products");
+      const res = await fetch("https://y-shovon15.vercel.app/products");
       const data = await res.json();
       return data;
     },
@@ -23,7 +23,7 @@ const RecentProduct = () => {
     <div>
       <h1 className="font-bold text-2xl text-center pt-5">Recent Products</h1>
       <div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-10 my-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mx-10 my-5">
           {recentProducts.map((product, i) => (
             <ProductCard product={product} key={i} />
           ))}

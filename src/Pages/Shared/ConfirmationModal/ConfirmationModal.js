@@ -5,21 +5,26 @@ import {
   DialogFooter,
   DialogHeader,
 } from "@material-tailwind/react";
-import React from "react";
+import React, { useContext } from "react";
+import { DashboardContext } from "../../../context/DashboardContext";
 
 const ConfirmationModal = ({
   modalData,
-  title,
   message,
   successAction,
   closeModal,
   handleOpen,
   open,
 }) => {
-  // console.log(message);
+  const { windowWidth } = useContext(DashboardContext);
+  let size = "xl";
+  if (windowWidth > 920) {
+    size = "md";
+  }
   return (
     <>
       <Dialog
+        size={size}
         open={open}
         handler={handleOpen}
         animate={{

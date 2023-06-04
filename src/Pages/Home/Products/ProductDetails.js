@@ -59,7 +59,7 @@ const ProductDetails = () => {
   } = useQuery({
     queryKey: ["postRating"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/rating/${_id}`);
+      const res = await fetch(`https://y-shovon15.vercel.app/rating/${_id}`);
       const data = await res.json();
       return data;
     },
@@ -162,20 +162,20 @@ const ProductDetails = () => {
 
   return (
     <div>
-      <h2 className="text-center font-bold text-2xl ">{modelName}</h2>
-      <div className="flex justify-start gap-5 items-center">
+      <div className="flex flex-col md:flex-row justify-start gap-5 items-center">
         <PhotoProvider>
           <PhotoView src={image}>
-            <img src={image} alt="..." className="w-[500px] rounded-md m-10" />
+            <img
+              src={image}
+              alt="..."
+              className="w-[500px] rounded-md md:p-5"
+            />
           </PhotoView>
         </PhotoProvider>
         <div className="flex flex-col gap-4">
-          <h1 className="font-bold text-3xl">{modelName}</h1>
+          <h1 className="font-bold text-3xl text-primary">{modelName}</h1>
           <div className="flex gap-2">
-            {/* <Rating value={rating} readonly /> */}
             <RatingStar rating={rating} />
-            {/* <p>{Math.ceil(rating.toFixed(2))} Rated</p> */}
-            {/* <p className="text-sm">rating 4.5</p> */}
           </div>
           <p className=" font-bold">
             Price<span className="text-primary"> {carInfo.price}</span> BDT

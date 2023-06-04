@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../context/AuthProvider";
 import {
@@ -14,14 +14,19 @@ import {
 
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { showErrorToast, showSuccessToast } from "../../../Shared/Toast/toaster";
+import {
+  showErrorToast,
+  showSuccessToast,
+} from "../../../Shared/Toast/toaster";
+import { DashboardContext } from "../../../../context/DashboardContext";
 
 const BookingModal = ({ product, open, handleOpen }) => {
   const { modelName, _id, sellerName, sellerEmail } = product;
   const { user } = useContext(AuthContext);
+  const { windowWidth } = useContext(DashboardContext);
   const navigate = useNavigate();
 
-  // console.log(product);
+  // console.log(windowWidth, "from dialogue");
   const {
     register,
     handleSubmit,
@@ -47,7 +52,7 @@ const BookingModal = ({ product, open, handleOpen }) => {
     data.productId = _id;
     // console.log(data);
 
-    fetch("http://localhost:5000/bookings", {
+    fetch("https://y-shovon15.vercel.app/bookings", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -66,12 +71,16 @@ const BookingModal = ({ product, open, handleOpen }) => {
         }
       });
   };
- 
+  // ------------dialogue size-----------------
+  let size = "xl";
+  if (windowWidth > 920) {
+    size = "xs";
+  }
 
   return (
     <>
       <Dialog
-        size="xs"
+        size={size}
         open={open}
         handler={handleOpen}
         className="bg-transparent shadow-none"
@@ -113,7 +122,7 @@ const BookingModal = ({ product, open, handleOpen }) => {
                   size="lg"
                   label="Phone"
                   type="text"
-                  error 
+                  error
                   {...register("phone", {
                     required: "phone Number is Required",
                   })}
@@ -126,7 +135,7 @@ const BookingModal = ({ product, open, handleOpen }) => {
                 <Input
                   size="lg"
                   label="Location"
-                  error 
+                  error
                   type="text"
                   {...register("location", {
                     required: "location is Required",
@@ -140,7 +149,13 @@ const BookingModal = ({ product, open, handleOpen }) => {
               </div>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button variant="outlined" className="border-primary text-primary" type="submit" value="Submit" fullWidth>
+              <Button
+                variant="outlined"
+                className="border-primary text-primary"
+                type="submit"
+                value="Submit"
+                fullWidth
+              >
                 Booking
               </Button>
             </CardFooter>

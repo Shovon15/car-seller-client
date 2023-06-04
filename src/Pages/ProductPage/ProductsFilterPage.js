@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 import ProductCard from "../../Component/Card/ProductCard";
-axios.defaults.baseURL = "http://localhost:5000/";
+axios.defaults.baseURL = "https://y-shovon15.vercel.app/";
 
 const ProductsFilterPage = () => {
   const [limit, setLimit] = useState(10);
@@ -21,7 +21,7 @@ const ProductsFilterPage = () => {
 
   const handleReset = () => {
     setValues(initialValues);
-    setLimit(10)
+    setLimit(10);
   };
 
   const handleInputChange = (e) => {
@@ -30,7 +30,7 @@ const ProductsFilterPage = () => {
 
   useEffect(() => {
     axios
-      .post("search", {values,limit})
+      .post("search", { values, limit })
       .then((res) => {
         // console.log(res.data, "res");
         setServices(res.data);
@@ -40,12 +40,12 @@ const ProductsFilterPage = () => {
       });
 
     return () => values;
-  }, [values,limit]);
+  }, [values, limit]);
 
   const handleLoadMore = (e) => {
     // Increase the limit value
     setLimit(limit + 10);
-    setValues({...values});
+    setValues({ ...values });
   };
 
   // console.log(services.length,limit);
@@ -67,7 +67,7 @@ const ProductsFilterPage = () => {
       <h1 className="text-center font-bold text-2xl text-primary pt-2">
         Available Products
       </h1>
-      <form className="grid grid-cols-3 md:grid-cols-6 gap-8 items-center my-5 px-5">
+      <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-2 items-center my-5 md:px-5">
         <div className="relative">
           <label className="absolute mx-2 px-2 -top-2 text-sm text-blue-500 bg-gray-200">
             Category
@@ -115,8 +115,13 @@ const ProductsFilterPage = () => {
           label="color"
         />
 
-        <Button type="button" onClick={handleReset}>
-          Clear field
+        <Button
+          variant="outlined"
+          className="border-primary text-primary px-2"
+          type="button"
+          onClick={handleReset}
+        >
+          Reset
         </Button>
       </form>
       {services.length === 0 ? (
@@ -132,19 +137,17 @@ const ProductsFilterPage = () => {
               <ProductCard product={item} key={i} />
             ))}
           </div>
-          {
-            services.length >= limit &&(
-              <div className="flex justify-center mb-10">
-            <Button
-              variant="outlined"
-              onClick={handleLoadMore}
-              className="px-12 border-primary border-2 text-primary focus:ring-0"
-            >
-              View more
-            </Button>
-          </div>
-            )
-          }
+          {services.length >= limit && (
+            <div className="flex justify-center mb-10">
+              <Button
+                variant="outlined"
+                onClick={handleLoadMore}
+                className="px-12 border-primary border-2 text-primary focus:ring-0"
+              >
+                View more
+              </Button>
+            </div>
+          )}
         </>
       )}
     </div>

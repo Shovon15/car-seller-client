@@ -13,7 +13,9 @@ const UserProfile = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users/${user?.email}`);
+      const res = await fetch(
+        `https://y-shovon15.vercel.app/users/${user?.email}`
+      );
       // const data = await res.json();
       const data = await res.json();
       // console.log(data, "data from queryfn");
@@ -42,13 +44,23 @@ const UserProfile = () => {
   return (
     <div className="mx-5 md:mx-10 mb-5 md:mb-10 min-h-max">
       <h1 className="text-center font-bold text-xl p-5">User Profile</h1>
-      <div className="flex gap-5">
-        <div className="flex flex-col gap-3">
+      <div className=" ">
+        <div className="flex flex-col md:flex-row gap-3 md:mb-5">
           <img
             src={image}
             alt="avatar"
             className="w-32 h-32 rounded-full ring-2 ring-green-500"
           />
+          <div className="flex flex-col">
+            <h1 className="text-xl font-bold  text-primary">
+              Name: {capitalizeFirstLetter(name)}
+            </h1>
+            <h1 className="text-xl ">
+              Role: {capitalizeFirstLetter(userRole)}
+            </h1>
+          </div>
+        </div>
+        <div className="flex flex-col mt-6 md:mt-0 gap-2 w-44">
           <Button onClick={handleOpen} variant="outlined">
             Update Photo
           </Button>
@@ -60,12 +72,6 @@ const UserProfile = () => {
             Logout
             <FiLogOut className="w-4 h-4" />
           </Button>
-        </div>
-        <div>
-          <h1 className="text-xl font-bold py-5 text-primary">
-            Name: {capitalizeFirstLetter(name)}
-          </h1>
-          <h1 className="text-xl pb-5">Role:{userRole}</h1>
         </div>
       </div>
       <div>

@@ -9,6 +9,7 @@ import ConfirmationModal from "../Shared/ConfirmationModal/ConfirmationModal";
 import Loader from "../Shared/Loader/Loader";
 import { Button, Card, Typography } from "@material-tailwind/react";
 import { showSuccessToast } from "../Shared/Toast/toaster";
+import { showErrorToast } from "../Shared/Toast/toaster";
 
 const PostItems = () => {
   const { user } = useContext(AuthContext);
@@ -23,7 +24,7 @@ const PostItems = () => {
     queryKey: ["postedItems"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/sellerPost/${user?.email}`
+        `https://y-shovon15.vercel.app/sellerPost/${user?.email}`
       );
       const data = await res.json();
       // console.log(data);
@@ -36,7 +37,7 @@ const PostItems = () => {
   };
 
   const handleDeletePost = () => {
-    fetch(`http://localhost:5000/sellerPost/${deletingPost._id}`, {
+    fetch(`https://y-shovon15.vercel.app/sellerPost/${deletingPost._id}`, {
       method: "DELETE",
       headers: {
         // authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -178,7 +179,16 @@ const PostItems = () => {
                         color="blue"
                         className="font-medium"
                       >
-                        Edit
+                        <Button
+                          variant="outlined"
+                          size="sm"
+                          onClick={() =>
+                            showErrorToast("Under Development !!!")
+                          }
+                          className="focus:ring-0"
+                        >
+                          Edit
+                        </Button>
                       </Typography>
                     </td>
                     <td className="p-4">

@@ -12,6 +12,7 @@ import {
 } from "@material-tailwind/react";
 import img from "../../../assets/sticker/log-in.png";
 import googleicon from "../../../assets/images/google.png";
+import useToken from "../../../hooks/useToken";
 
 const Login = () => {
   const {
@@ -26,11 +27,17 @@ const Login = () => {
   // const [loginUserEmail, setLoginUserEmail] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
   const [isLoading, setIsloading] = useState(false);
+  // const [createdUserEmail, setCreatedUserEmail] = useState("");
+  // const [token] = useToken(createdUserEmail);
   const location = useLocation();
   const navigate = useNavigate();
   let userRole = "buyer";
 
   const from = location.state?.from?.pathname || "/";
+
+  // if (token) {
+  //   navigate(from, { replace: true });
+  // }
 
   const handleLogin = (data) => {
     setIsloading(true);
@@ -66,7 +73,7 @@ const Login = () => {
   const saveUser = (name, email, userRole, image) => {
     const users = { name, email, userRole, image };
 
-    fetch("http://localhost:5000/users", {
+    fetch("https://y-shovon15.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -75,18 +82,23 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        navigate(from, { replace: true });
-        // console.log("userSaveDb", data);
-        // getUserToken(email);
-        // if (data.acknowledged) {
-        //     setTreatment(null);
-            // showSuccessToast("Booking confirmed");
-        //     refetch();
-        // } else {
-        //     toast.error(data.message);
-        // }
+        // setCreatedUserEmail(email);
+        getUserToken(email);
       });
   };
+
+  const getUserToken = (email) => {
+    fetch(`https://y-shovon15.vercel.app/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("accessToken", data.accessToken);
+          // setToken(data.accessToken);
+          navigate(from, { replace: true });
+        }
+      });
+  };
+
   let value = "Login";
   if (isLoading === true) {
     value = <Spinner color="green" className="mx-auto " />;
@@ -100,7 +112,7 @@ const Login = () => {
     <div className="flex justify-center py-5">
       <Card color="transparent" shadow={false}>
         <div className="mx-auto flex flex-col gap-3">
-          <Typography variant="h4" color="blue-gray">
+          <Typography variant="h3" color="blue-gray ">
             Login
           </Typography>
           <img src={img} alt="..." className="w-24 h-24" />
@@ -147,7 +159,12 @@ const Login = () => {
             </div>
           </div>
 
-          <Button value={value} type="submit" className="mt-6" fullWidth>
+          <Button
+            value={value}
+            type="submit"
+            className="mt-6 bg-primary"
+            fullWidth
+          >
             {value}
           </Button>
           {loginError && <p className="text-red-600">{loginError.slice(10)}</p>}
@@ -164,10 +181,11 @@ const Login = () => {
         <Button
           onClick={handleGoogleSignIn}
           variant="outlined"
-          className="mt-6 flex justify-center items-center focus:ring-0"
+          className="mt-6 flex justify-center items-center gap-2 focus:ring-0"
           fullWidth
         >
           <img src={googleicon} alt="..." className="w-5 h-5 " />
+          <p>Google sign in</p>
         </Button>
       </Card>
     </div>

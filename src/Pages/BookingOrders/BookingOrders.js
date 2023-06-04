@@ -12,7 +12,7 @@ const BookingOrders = () => {
     queryKey: ["bookingOrder"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/bookingOrder/${user?.email}`
+        `https://y-shovon15.vercel.app/bookingOrder/${user?.email}`
       );
       const data = await res.json();
       return data;
