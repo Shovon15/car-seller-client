@@ -12,7 +12,7 @@ const BookingOrders = () => {
     queryKey: ["bookingOrder"],
     queryFn: async () => {
       const res = await fetch(
-        `https://y-shovon15.vercel.app/bookingOrder/${user?.email}`
+        `http://localhost:5000/bookingOrder/${user?.email}`
       );
       const data = await res.json();
       return data;
@@ -29,8 +29,8 @@ const BookingOrders = () => {
     "Booking Date",
   ];
   return (
-    <div className="my-10 min-h-screen">
-      <h2 className="text-3xl">My Booked Orders</h2>
+    <div className="my-10 min-h-96">
+      <h2 className="text-3xl font-bold text-primary">My Booked Orders</h2>
       {bookingOrder?.length === 0 ? (
         <div className="flex flex-col justify-center items-center">
           <h1 className="py-3 text-center text-xl font-bold">

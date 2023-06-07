@@ -1,22 +1,24 @@
 // import React, { useContext } from "react";
 import { useContext, useEffect, useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 import useUser from "../../../hooks/useUser";
 import { BsSpeedometer2 } from "react-icons/bs";
-import { BsFillChatRightDotsFill } from "react-icons/bs";
-import "./productDetails.css";
-
+import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
+import { IoColorPaletteOutline } from "react-icons/io5";
+import { BsShieldFillCheck } from "react-icons/bs";
 import BookingModal from "./BookingModal/BookingModal";
 import engineImg from "../../../assets/icons/car-engine.png";
 import fuelImg from "../../../assets/icons/fuel.png";
 import seatImg from "../../../assets/icons/car-seat.png";
+import carImg from "../../../assets/icons/car.png";
+import "./productDetails.css";
+
 import {
   Button,
   Card,
   CardBody,
-  Rating,
   Tab,
   TabPanel,
   Tabs,
@@ -30,36 +32,20 @@ import Loader from "../../Shared/Loader/Loader";
 import RatingStar from "./RatingStar";
 
 const ProductDetails = () => {
-  const product = useLoaderData();
-
+  const { category, id } = useParams();
+  const [productData, setProductData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
-  // const { rating, setRating } = useState(0);
   const [isUser] = useUser(user?.email);
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen((cur) => !cur);
-  const {
-    _id,
-    modelName,
-    date,
-    image,
-    mileage,
-    sellerImage,
-    sellerName,
-    sellerEmail,
-    carInfo,
-  } = product;
-  // console.log(product);
-
   const [rating, setRating] = useState(0);
 
-  const {
-    data: postRating = {},
-    refetch,
-    isLoading,
-  } = useQuery({
+  const handleOpen = () => setOpen((cur) => !cur);
+
+  const { data: postRating = {}, refetch } = useQuery({
     queryKey: ["postRating"],
     queryFn: async () => {
-      const res = await fetch(`https://y-shovon15.vercel.app/rating/${_id}`);
+      const res = await fetch(`http://localhost:5000/rating/${id}`);
       const data = await res.json();
       return data;
     },
@@ -69,23 +55,107 @@ const ProductDetails = () => {
     },
   });
 
-  // console.log(rating,"rating");
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/products/${category}/${id}`
+        );
+        const data = await response.json();
+
+        setProductData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    fetchProductData();
+  }, [category, id]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (!productData) {
+    return (
+      <div className="text-red-500 p-5">Error: Unable to fetch product data.</div>
+    );
+  }
+  // console.log(productData, "productData from product details");
+
+  // --------------------------------------------------------
+
+  const {
+    _id,
+    modelName,
+    categoryName,
+    date,
+    image,
+    sellerVerification,
+    color,
+    condition,
+    modelYear,
+    sellerImage,
+    sellerName,
+    sellerEmail,
+    carInfo,
+  } = productData;
+  // console.log(product);
 
   const carSpecification = (
-    <div className="flex justify-center gap-10">
+    <div className="flex flex-col md:flex-row justify-center gap-5">
+      <Card>
+        <CardBody className="flex flex-col justify-center items-center">
+          <BsFileEarmarkSpreadsheet className="text-3xl  text-black" />
+          <Typography variant="h5" color="blue-gray" className="mb-2">
+            Condition
+          </Typography>
+          <Typography className="text-primary font-semibold">
+            {condition}
+          </Typography>
+        </CardBody>
+      </Card>
+      <Card>
+        <CardBody className="flex flex-col justify-center items-center">
+          <img src={carImg} alt="..." className="w-10" />
+          <Typography variant="h5" color="blue-gray" className="mb-2">
+            Model Year
+          </Typography>
+          <Typography className="text-primary font-semibold">
+            {modelYear}
+          </Typography>
+        </CardBody>
+      </Card>
+      <Card>
+        <CardBody className="flex flex-col justify-center items-center">
+          <IoColorPaletteOutline className="text-3xl text-black" />
+          <Typography variant="h5" color="blue-gray" className="mb-2">
+            Car Color
+          </Typography>
+          <Typography className="text-primary font-semibold">
+            {color}
+          </Typography>
+        </CardBody>
+      </Card>
       <Card>
         <CardBody className="flex flex-col justify-center items-center">
           <BsSpeedometer2 className="text-3xl text-black" />
           <Typography variant="h5" color="blue-gray" className="mb-2">
             Mileage
           </Typography>
-          <Typography>{carInfo.mileagePerl} Kpl</Typography>
+          <Typography className="text-primary font-semibold">
+            {carInfo.mileagePerl} Kpl
+          </Typography>
         </CardBody>
       </Card>
       <Card>
         <CardBody className="flex flex-col justify-center items-center">
-          <img src={fuelImg} alt="..." className="w-10" />
+          <img src={fuelImg} alt="..." className="w-8" />
           <Typography variant="h5" color="blue-gray" className="mb-2">
+            Fuel Type
+          </Typography>
+          <Typography className="text-primary font-semibold">
             {carInfo.fuelType}
           </Typography>
         </CardBody>
@@ -94,9 +164,11 @@ const ProductDetails = () => {
         <CardBody className="flex flex-col justify-center items-center">
           <img src={engineImg} alt="..." className="w-10" />
           <Typography variant="h5" color="blue-gray" className="mb-2">
-            Engine
+            transmission
           </Typography>
-          <Typography>{mileage}cc</Typography>
+          <Typography className="text-primary font-semibold">
+            {carInfo.transmission}
+          </Typography>
         </CardBody>
       </Card>
       <Card>
@@ -106,31 +178,38 @@ const ProductDetails = () => {
             Seating
             <br /> Capacity
           </Typography>
-          <Typography>{carInfo.seatCapacity} Seater</Typography>
+          <Typography className="text-primary font-semibold">
+            {carInfo.seatCapacity} Seater
+          </Typography>
         </CardBody>
       </Card>
     </div>
   );
   const sellerInfo = (
     <div>
-      <div className="flex gap-5 items-center">
+      <div className="flex  gap-5 items-center">
         <img
           src={sellerImage}
           alt="...."
           className="w-20 h-20 rounded-full ring-2 ring-blue-500"
         />
         <div className="flex flex-col">
-          <p className="font-bold">{sellerName}</p>
-          <p>{sellerEmail}</p>
+          <p className="font-bold text-2xl text-primary">{sellerName}</p>
+          <p className="font-bold">{sellerEmail}</p>
+          {sellerVerification === "true" && (
+            <div className="flex gap-2 text-blue-500 items-center">
+              <p className="font-bold ">verified Seller</p>
+              <BsShieldFillCheck className="font-bold w-6 h-6" />
+            </div>
+          )}
         </div>
       </div>
-
       <p className=""> Post Date: {date}</p>
-      <p>{sellerName}</p>
-      <div>
-        <BsFillChatRightDotsFill />
-      </div>
     </div>
+  );
+
+  const carDescription = (
+    <p className="text-lg indent-8 ">{carInfo.description}</p>
   );
   const data = [
     {
@@ -141,24 +220,21 @@ const ProductDetails = () => {
     },
     {
       no: 2,
-      label: "Specific",
-      value: "specific",
-      desc: carSpecification,
-    },
-
-    {
-      no: 3,
       label: "Description",
       value: "description",
-      desc: carInfo.description,
+      desc: carDescription,
     },
     {
-      no: 4,
+      no: 3,
       label: "Seller Info",
       value: "seller",
       desc: sellerInfo,
     },
   ];
+
+  function capitalizeFirstLetter(word) {
+    return word?.charAt(0).toUpperCase() + word?.slice(1);
+  }
 
   return (
     <div>
@@ -173,7 +249,12 @@ const ProductDetails = () => {
           </PhotoView>
         </PhotoProvider>
         <div className="flex flex-col gap-4">
-          <h1 className="font-bold text-3xl text-primary">{modelName}</h1>
+          <h1 className="font-bold text-3xl text-primary">
+            {capitalizeFirstLetter(modelName)}
+          </h1>
+          <h1 className="font-bold text-xl ">
+            Category: {capitalizeFirstLetter(categoryName)}
+          </h1>
           <div className="flex gap-2">
             <RatingStar rating={rating} />
           </div>
@@ -181,7 +262,7 @@ const ProductDetails = () => {
             Price<span className="text-primary"> {carInfo.price}</span> BDT
           </p>
 
-          {sellerEmail !== isUser?.email && (
+          {sellerEmail !== isUser?.email && isUser?.userRole !== "admin" && (
             <Button
               variant="outlined"
               onClick={handleOpen}
@@ -193,7 +274,6 @@ const ProductDetails = () => {
         </div>
       </div>
       <div>
-        {/* <ProductDetailTab /> */}
         <Tabs
           id="custom-animation"
           value="specifications"
@@ -227,7 +307,7 @@ const ProductDetails = () => {
       <BookingModal
         open={open}
         handleOpen={handleOpen}
-        product={product}
+        product={productData}
       ></BookingModal>
     </div>
   );

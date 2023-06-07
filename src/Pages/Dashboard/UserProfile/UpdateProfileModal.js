@@ -49,7 +49,7 @@ const UpdateProfileModal = ({ user, open, setOpen, handleOpen, refetch }) => {
       image: data,
     };
 
-    fetch(`https://y-shovon15.vercel.app/users/${user?.email}`, {
+    fetch(`http://localhost:5000/users/${user?.email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

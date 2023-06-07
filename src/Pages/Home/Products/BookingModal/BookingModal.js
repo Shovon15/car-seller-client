@@ -21,12 +21,12 @@ import {
 import { DashboardContext } from "../../../../context/DashboardContext";
 
 const BookingModal = ({ product, open, handleOpen }) => {
-  const { modelName, _id, sellerName, sellerEmail } = product;
+  const { modelName, _id, sellerName, sellerEmail, carInfo } = product;
   const { user } = useContext(AuthContext);
   const { windowWidth } = useContext(DashboardContext);
   const navigate = useNavigate();
 
-  // console.log(windowWidth, "from dialogue");
+  // console.log(carInfo.price, "from dialogue");
   const {
     register,
     handleSubmit,
@@ -40,6 +40,7 @@ const BookingModal = ({ product, open, handleOpen }) => {
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
+  const price = carInfo?.price.replace(/,/g, "");
 
   const handleBooking = (data) => {
     // const formData = new FormData();
@@ -50,9 +51,10 @@ const BookingModal = ({ product, open, handleOpen }) => {
     data.sellerName = sellerName;
     data.sellerEmail = sellerEmail;
     data.productId = _id;
+    data.price = parseInt(price);
     // console.log(data);
 
-    fetch("https://y-shovon15.vercel.app/bookings", {
+    fetch("http://localhost:5000/bookings", {
       method: "POST",
       headers: {
         "content-type": "application/json",

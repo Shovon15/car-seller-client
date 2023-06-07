@@ -2,27 +2,23 @@ import React from "react";
 import Carousel from "react-elastic-carousel";
 import SlideCard from "../../../Component/SlideCard";
 import "./Slider.css";
-import img1 from "../../../assets/banner/image1.png";
-import img2 from "../../../assets/banner/image2.png";
-import img3 from "../../../assets/banner/image3.jpg";
-import img4 from "../../../assets/banner/image4.jpg";
-import img5 from "../../../assets/banner/image5.png";
-import img6 from "../../../assets/banner/image6.png";
-import img7 from "../../../assets/banner/image7.png";
-import img8 from "../../../assets/banner/image8.png";
-import img9 from "../../../assets/banner/image9.png";
-import img10 from "../../../assets/banner/image10.png";
-import img11 from "../../../assets/banner/image11.png";
-import img12 from "../../../assets/banner/image12.png";
+import img1 from "../../../assets/banner/banner-1.png";
+import img2 from "../../../assets/banner/banner-2.png";
+import img3 from "../../../assets/banner/banner-3.png";
+import img4 from "../../../assets/banner/banner-4.png";
+import img5 from "../../../assets/banner/banner-5.png";
+import img6 from "../../../assets/banner/banner-6.png";
+import img7 from "../../../assets/banner/banner-7.png";
+import img8 from "../../../assets/banner/banner-8.png";
+import img9 from "../../../assets/banner/banner-9.png";
+import img10 from "../../../assets/banner/banner-10.png";
+// import img11 from "../../../assets/banner/banner-11.png";
+import img12 from "../../../assets/banner/banner-12.png";
+import img13 from "../../../assets/banner/banner-13.png";
+import img14 from "../../../assets/banner/banner-14.png";
+import img15 from "../../../assets/banner/banner-15.png";
+import img16 from "../../../assets/banner/banner-16.png";
 
-// import img7 from "../../../assets/banner/image2.png";
-// import img8 from "../../../assets/banner/img-2-wrangler-jeep.jpg";
-// import img9 from "../../../assets/banner/image6.jpg";
-// import img10 from "../../../assets/banner/nissan-car-removebg-preview.png";
-// import img11 from "../../../assets/banner/image5.png";
-// import img12 from "../../../assets/banner/pickup-removebg-preview.png";
-// import img13 from "../../../assets/banner/sedan.png";
-// import img14 from "../../../assets/banner/sports-car-red.png";
 import PrimaryButton from "../../../Component/Button/PrimaryButton";
 import { Link } from "react-router-dom";
 
@@ -78,11 +74,23 @@ const CarSlider = () => {
     {
       img: img10,
     },
-    {
-      img: img11,
-    },
+    // {
+    //   img: img11,
+    // },
     {
       img: img12,
+    },
+    {
+      img: img13,
+    },
+    {
+      img: img14,
+    },
+    {
+      img: img15,
+    },
+    {
+      img: img16,
     },
   ];
   return (

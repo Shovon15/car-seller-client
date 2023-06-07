@@ -19,11 +19,15 @@ import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 import UserProfile from "../../Pages/Dashboard/UserProfile/UserProfile";
 import Faq from "../../Pages/FAQ/Faq";
 import ProductsFilterPage from "../../Pages/ProductPage/ProductsFilterPage";
+import Payment from "../../Pages/Dashboard/Payment/Payment";
+import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
+import AddBlog from "../../Pages/Blogs/AddBlog";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <DisplayError />,
     children: [
       {
         path: "/",
@@ -52,7 +56,7 @@ const router = createBrowserRouter([
       {
         path: "/product",
         element: <ProductsFilterPage />,
-        // loader: () => fetch("https://y-shovon15.vercel.app/products"),
+        // loader: () => fetch("http://localhost:5000/products"),
       },
 
       {
@@ -63,9 +67,7 @@ const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://y-shovon15.vercel.app/products/${params.categoryName}`
-          ),
+          fetch(`http://localhost:5000/products/${params.categoryName}`),
       },
       {
         path: "/products/:categoryName/:_id",
@@ -76,7 +78,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://y-shovon15.vercel.app/products/${params.categoryName}/${params._id}`
+            `http://localhost:5000/products/${params.categoryName}/${params._id}`
           ),
       },
     ],
@@ -88,6 +90,7 @@ const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoutes>
     ),
+    errorElement: <DisplayError />,
     children: [
       {
         path: "/dashboard/",
@@ -108,6 +111,16 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/managePost",
         element: <PostItems />,
+      },
+      {
+        path: "/dashboard/manageBlog",
+        element: <AddBlog />,
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: <Payment />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/booking/${params.id}`),
       },
       {
         path: "/dashboard/buyerAccount",

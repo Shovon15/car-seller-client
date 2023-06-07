@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 import ProductCard from "../../Component/Card/ProductCard";
-axios.defaults.baseURL = "https://y-shovon15.vercel.app/";
+import CardSkeleton from "../Shared/Skeleton/CardSkeleton";
+axios.defaults.baseURL = "http://localhost:5000/";
 
 const ProductsFilterPage = () => {
   const [limit, setLimit] = useState(10);
@@ -15,6 +16,7 @@ const ProductsFilterPage = () => {
     color: "",
     // limit: limit,
   };
+  const [isLoading, setIsLoading] = useState(false);
 
   const [values, setValues] = useState(initialValues);
   const [services, setServices] = useState([]);
@@ -29,6 +31,7 @@ const ProductsFilterPage = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     axios
       .post("search", { values, limit })
       .then((res) => {
@@ -37,6 +40,9 @@ const ProductsFilterPage = () => {
       })
       .catch((error) => {
         // console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Set isLoading to false after the request completes (either success or error)
       });
 
     return () => values;
@@ -61,6 +67,8 @@ const ProductsFilterPage = () => {
     "coupe",
     "pickup",
   ];
+
+  // console.log(isLoading, "isLoading");
 
   return (
     <div className="px-5 md:px-10">
@@ -124,29 +132,37 @@ const ProductsFilterPage = () => {
           Reset
         </Button>
       </form>
-      {services.length === 0 ? (
+      {isLoading === true ? (
         <>
-          <h1 className="text-center font-bold my-10">
-            No product Available. Please change your filter options!
-          </h1>
+          <CardSkeleton />
         </>
       ) : (
         <>
-          <div className="grid md:grid-cols-4 gap-5 mb-5 md:mb-10">
-            {services.map((item, i) => (
-              <ProductCard product={item} key={i} />
-            ))}
-          </div>
-          {services.length >= limit && (
-            <div className="flex justify-center mb-10">
-              <Button
-                variant="outlined"
-                onClick={handleLoadMore}
-                className="px-12 border-primary border-2 text-primary focus:ring-0"
-              >
-                View more
-              </Button>
-            </div>
+          {services.length === 0 ? (
+            <>
+              <h1 className="text-center font-bold my-10">
+                No product Available. Please change your filter options!
+              </h1>
+            </>
+          ) : (
+            <>
+              <div className="grid md:grid-cols-4 gap-5 mb-5 md:mb-10">
+                {services.map((item, i) => (
+                  <ProductCard product={item} key={i} />
+                ))}
+              </div>
+              {services.length >= limit && (
+                <div className="flex justify-center mb-10">
+                  <Button
+                    variant="outlined"
+                    onClick={handleLoadMore}
+                    className="px-12 border-primary border-2 text-primary focus:ring-0"
+                  >
+                    View more
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </>
       )}

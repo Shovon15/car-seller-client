@@ -5,18 +5,19 @@ import ProductCard from "../../../Component/Card/ProductCard";
 import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../../Component/Button/PrimaryButton";
+import CardSkeleton from "../../Shared/Skeleton/CardSkeleton";
 
 const RecentProduct = () => {
   const { data: recentProducts = [], isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await fetch("https://y-shovon15.vercel.app/products");
+      const res = await fetch("http://localhost:5000/products");
       const data = await res.json();
       return data;
     },
   });
   if (isLoading) {
-    return <Loader />;
+    return <CardSkeleton />;
   }
   // console.log(recentProducts);
   return (

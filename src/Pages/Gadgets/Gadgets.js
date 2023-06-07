@@ -7,7 +7,7 @@ const Gadgets = () => {
   const { data: gadgets = [], isLoading } = useQuery({
     queryKey: ["gadgets"],
     queryFn: async () => {
-      const res = await fetch("https://y-shovon15.vercel.app/gadgets");
+      const res = await fetch("http://localhost:5000/gadgets");
       const data = await res.json();
       return data;
     },

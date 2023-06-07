@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -12,33 +12,25 @@ import {
 } from "@material-tailwind/react";
 import img from "../../../assets/sticker/log-in.png";
 import googleicon from "../../../assets/images/google.png";
-import { toast } from "react-toastify";
 import { showSuccessToast } from "../../Shared/Toast/toaster";
-import useToken from "../../../hooks/useToken";
 
 const SignUp = () => {
-  const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
-  // const [createdUserEmail, setCreatedUserEmail] = useState("");
-  // const [userCheck, setUserCheck] = useState(true);
+  const { createUser, updateUser, googleSignIn, user } =
+    useContext(AuthContext);
+
   const [passwordShown, setPasswordShown] = useState(false);
   const [signUpError, setSignUpError] = useState();
-  const [userCheck, setUserCheck] = useState(true);
+  // const [userCheck, setUserCheck] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  // const [createdUserEmail, setCreatedUserEmail] = useState("");
-  // ---------------------------------⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️-lots of problem here-------
-  // const [token] = useToken(createdUserEmail);
+
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log("isLoading", isLoading);
-  // console.log(createdUserEmail, "createdUserEmail from signup");
+  let userRole = "buyer";
 
   const from = location.state?.from?.pathname || "/";
 
   const imageHostKey = process.env.REACT_APP_img_KEY;
 
-  // if (token) {
-  //   navigate(from, { replace: true });
-  // }
   const {
     register,
     handleSubmit,
@@ -46,16 +38,11 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  // -------------------check buyer/seller-------------
-  let userRole = "buyer";
-  const toggleUser = () => {
-    setUserCheck(!userCheck);
-  };
-  if (userCheck === true) {
-    userRole = "buyer";
-  } else {
-    userRole = "seller";
-  }
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  });
 
   // -----------------------------------
 
@@ -80,7 +67,7 @@ const SignUp = () => {
               // const user = result.user;
               // console.log(user);
               setIsLoading(false);
-              showSuccessToast("Signup Successfully.");
+              // showSuccessToast("Signup Successfully.");
               const userInfo = {
                 displayName: data.name,
                 image: image,
@@ -108,8 +95,8 @@ const SignUp = () => {
     googleSignIn()
       .then((result) => {
         const user = result.user;
-        // console.log(user);
-        saveUser(user.displayName, user.email, user.photoURL, userRole);
+        // console.log(user, "user from signup");
+        saveUser(user.displayName, user.email, userRole, user.photoURL);
       })
       .catch((error) => {
         // console.log(error.message);
@@ -120,7 +107,7 @@ const SignUp = () => {
   const saveUser = (name, email, userRole, image) => {
     const users = { name, email, userRole, image };
 
-    fetch("https://y-shovon15.vercel.app/users", {
+    fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -132,10 +119,11 @@ const SignUp = () => {
         // console.log(email, "email from data");
         // setCreatedUserEmail(email);
         getUserToken(email);
+        showSuccessToast("Signup Successfully.");
       });
   };
   const getUserToken = (email) => {
-    fetch(`https://y-shovon15.vercel.app/jwt?email=${email}`)
+    fetch(`http://localhost:5000/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {

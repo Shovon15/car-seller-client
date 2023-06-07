@@ -55,7 +55,6 @@ const AddItems = () => {
             sellerEmail: isUser.email,
             sellerVerification: isUser?.verify || "",
             date: currentDate,
-
             categoryName: data.category,
             image,
             modelName: data.modelName,
@@ -79,7 +78,7 @@ const AddItems = () => {
       });
 
     const saveItem = (items) => {
-      fetch("https://y-shovon15.vercel.app/products", {
+      fetch("http://localhost:5000/products", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -220,19 +219,6 @@ const AddItems = () => {
             )}
           </div>
 
-          {/* <div>
-            <Input
-              label="Car Mileage"
-              size="lg"
-              type="text"
-              {...register("mileage", {
-                required: "Mileage is Required",
-              })}
-            />
-            {errors.mileage && (
-              <span className="text-red-500">{errors.mileage.message}</span>
-            )}
-          </div> */}
           <div className="relative">
             <label className="absolute mx-2 px-2 -top-2 text-sm text-blue-500 bg-gray-200">
               Car Condition

@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
+import { redirect } from "react-router-dom";
 import {
   Button,
   Card,
@@ -12,7 +13,7 @@ import {
 } from "@material-tailwind/react";
 import img from "../../../assets/sticker/log-in.png";
 import googleicon from "../../../assets/images/google.png";
-import useToken from "../../../hooks/useToken";
+import { showSuccessToast } from "../../Shared/Toast/toaster";
 
 const Login = () => {
   const {
@@ -22,22 +23,25 @@ const Login = () => {
     // isLoading,
   } = useForm();
 
-  const { signIn, googleSignIn } = useContext(AuthContext);
+  const { user, signIn, googleSignIn } = useContext(AuthContext);
   const [loginError, setLoginError] = useState();
-  // const [loginUserEmail, setLoginUserEmail] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
   const [isLoading, setIsloading] = useState(false);
-  // const [createdUserEmail, setCreatedUserEmail] = useState("");
-  // const [token] = useToken(createdUserEmail);
+
   const location = useLocation();
   const navigate = useNavigate();
   let userRole = "buyer";
 
   const from = location.state?.from?.pathname || "/";
-
-  // if (token) {
-  //   navigate(from, { replace: true });
+  console.log(user, "user");
+  // if (user) {
+  //   navigate("/");
   // }
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  });
 
   const handleLogin = (data) => {
     setIsloading(true);
@@ -46,6 +50,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         setIsloading(false);
+        showSuccessToast("Login Successfully.");
         navigate(from, { replace: true });
       })
       .catch((error) => {
@@ -73,7 +78,7 @@ const Login = () => {
   const saveUser = (name, email, userRole, image) => {
     const users = { name, email, userRole, image };
 
-    fetch("https://y-shovon15.vercel.app/users", {
+    fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -84,11 +89,12 @@ const Login = () => {
       .then((data) => {
         // setCreatedUserEmail(email);
         getUserToken(email);
+        showSuccessToast("Login Successfully.");
       });
   };
 
   const getUserToken = (email) => {
-    fetch(`https://y-shovon15.vercel.app/jwt?email=${email}`)
+    fetch(`http://localhost:5000/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {
@@ -112,7 +118,7 @@ const Login = () => {
     <div className="flex justify-center py-5">
       <Card color="transparent" shadow={false}>
         <div className="mx-auto flex flex-col gap-3">
-          <Typography variant="h3" color="blue-gray ">
+          <Typography variant="h3" className="text-primary font-bold">
             Login
           </Typography>
           <img src={img} alt="..." className="w-24 h-24" />

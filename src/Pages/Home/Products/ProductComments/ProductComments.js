@@ -23,7 +23,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
-  console.log(rated);
+  // console.log(rated);
 
   const {
     register,
@@ -39,7 +39,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
   } = useQuery({
     queryKey: ["comments"],
     queryFn: async () => {
-      const res = await fetch(`https://y-shovon15.vercel.app/comments/${id}`);
+      const res = await fetch(`http://localhost:5000/comments/${id}`);
       const data = await res.json();
       return data;
     },
@@ -61,7 +61,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
   };
 
   const saveComment = (userComment) => {
-    fetch("https://y-shovon15.vercel.app/comments", {
+    fetch("http://localhost:5000/comments", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -129,7 +129,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
               </div>
               {commentError && <p className="text-red-600">{commentError}</p>}
               {/* <div className="mb-10 md:mb-0"> */}
-              <Button type="submit" className="px-12">
+              <Button type="submit" className="px-12 bg-primary">
                 Send
               </Button>
               {/* </div> */}

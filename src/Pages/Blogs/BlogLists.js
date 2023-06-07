@@ -1,79 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
+import { Button, Card, Typography } from "@material-tailwind/react";
+import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { GrAddCircle } from "react-icons/gr";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthProvider";
-import ConfirmationModal from "../Shared/ConfirmationModal/ConfirmationModal";
-import Loader from "../Shared/Loader/Loader";
-import { Button, Card, Typography } from "@material-tailwind/react";
-import { showSuccessToast } from "../Shared/Toast/toaster";
 import { showErrorToast } from "../Shared/Toast/toaster";
 
-const PostItems = () => {
-  const { user } = useContext(AuthContext);
-
-  const [deletingPost, setDeletingPost] = useState();
-
-  const {
-    data: postedItems = [],
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ["postedItems"],
-    queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:5000/sellerPost/${user?.email}`
-      );
-      const data = await res.json();
-      // console.log(data);
-      return data;
-    },
-  });
-
-  const closeModal = () => {
-    setDeletingPost(null);
-  };
-
-  const handleDeletePost = () => {
-    fetch(`http://localhost:5000/sellerPost/${deletingPost._id}`, {
-      method: "DELETE",
-      headers: {
-        // authorization: `bearer ${localStorage.getItem('accessToken')}`
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount > 0) {
-          refetch();
-          closeModal();
-          showSuccessToast(
-            `Post ${deletingPost.modelName} deleted successfully`
-          );
-        }
-      });
-  };
-
-  if (isLoading) {
-    return <Loader></Loader>;
-  }
+const BlogLists = ({ blogData }) => {
   const TABLE_HEAD = [
     "No.",
-    "Post name",
-    "Post image",
-    "Post Category",
-    "Product Id",
-    "Post Date",
+    "Blog Heading",
+    "Blog image",
+    "Blog Date",
     "Edit",
     "Delete",
   ];
-
-  // console.log(postedItems);
   return (
-    <div className="my-10 min-h-96 ">
-      <h2 className="text-3xl font-bold text-primary ml-8">My Posted items</h2>
-      {postedItems?.length === 0 ? (
+    <div>
+      {blogData?.length === 0 ? (
         <div className="flex flex-col justify-center items-center">
           <h1 className="py-3 text-center text-xl font-bold">
             You have no Post yet! Please add items.
@@ -87,8 +31,8 @@ const PostItems = () => {
       ) : (
         <>
           <h1 className="text-start text-lg font-bold p-5 uppercase">
-            You have posted Total {postedItems.length}{" "}
-            {postedItems.length === 1 ? "post" : "posts"}
+            You have posted Total {blogData.length}{" "}
+            {blogData.length === 1 ? "post" : "posts"}
           </h1>
 
           <Card className="overflow-scroll h-full w-full">
@@ -112,7 +56,7 @@ const PostItems = () => {
                 </tr>
               </thead>
               <tbody>
-                {postedItems.map((post, i) => (
+                {blogData.map((blog, i) => (
                   <tr key={i} className="even:bg-blue-gray-50/50">
                     <td className="p-4">
                       <Typography
@@ -130,14 +74,14 @@ const PostItems = () => {
                         color="blue-gray"
                         className="font-bold"
                       >
-                        {post.modelName}
+                        {blog.heading}
                       </Typography>
                     </td>
                     <td className="p-4">
                       <PhotoProvider>
-                        <PhotoView src={post.image}>
+                        <PhotoView src={blog.image}>
                           <img
-                            src={post.image}
+                            src={blog.image}
                             alt="car"
                             className="cursor-pointer w-12 h-12 rounded-lg"
                           />
@@ -148,27 +92,9 @@ const PostItems = () => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-bold"
-                      >
-                        {post.categoryName}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
                         className="font-normal"
                       >
-                        {post._id}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {post.date}
+                        {blog.date}
                       </Typography>
                     </td>
                     <td className="p-4">
@@ -193,7 +119,8 @@ const PostItems = () => {
                     </td>
                     <td className="p-4">
                       <label
-                        onClick={() => setDeletingPost(post)}
+                        onClick={() => showErrorToast("Under Development !!!")}
+                        // onClick={() => setDeletingPost(post)}
                         htmlFor="confirmation-modal"
                         className="btn btn-outline border-none text-red-600 hover:text-slate-100  hover:bg-red-600"
                       >
@@ -207,21 +134,8 @@ const PostItems = () => {
           </Card>
         </>
       )}
-
-      {deletingPost && (
-        <ConfirmationModal
-          title={`Are you sure you want to delete?`}
-          message={deletingPost.modelName}
-          successAction={handleDeletePost}
-          // successButtonName="Delete"
-          modalData={deletingPost}
-          closeModal={closeModal}
-          handleOpen
-          open
-        ></ConfirmationModal>
-      )}
     </div>
   );
 };
 
-export default PostItems;
+export default BlogLists;

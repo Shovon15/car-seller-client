@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { Button, Card, Typography } from "@material-tailwind/react";
-import { GrAddCircle } from "react-icons/gr";
+import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Loader from "../Shared/Loader/Loader";
 
@@ -12,7 +12,7 @@ const BookingsItem = () => {
   // const { data: bookings = [] } = useQuery({
   //   queryKey: ["bookings"],
   //   queryFn: async () => {
-  //     const res = await fetch(`https://y-shovon15.vercel.app/bookings/${user?.email}`);
+  //     const res = await fetch(`http://localhost:5000/bookings/${user?.email}`);
   //     const data = await res.json();
   //     return data;
   //   },
@@ -29,12 +29,9 @@ const BookingsItem = () => {
   } = useQuery({
     queryKey: ["bookings"],
     queryFn: async () => {
-      const res = await fetch(
-        `https://y-shovon15.vercel.app/bookings/${user?.email}`,
-        {
-          headers,
-        }
-      );
+      const res = await fetch(`http://localhost:5000/bookings/${user?.email}`, {
+        headers,
+      });
       const data = await res.json();
       return data;
     },
@@ -49,21 +46,26 @@ const BookingsItem = () => {
     "Seller Email",
     "Phone",
     "Booking Date",
+    "price",
     "Payment Status",
+    "Transection Id",
   ];
 
-  // console.log(bookings?.length, "..............................");
+  console.log(bookings, "..............................");
   return (
     <div className="my-10">
-      <h2 className="text-3xl py-5">Booking Items</h2>
+      <h2 className="text-3xl font-bold text-primary py-5">
+        Product You Have Booked
+      </h2>
       {bookings?.length === 0 ? (
         <div className="flex flex-col justify-center items-center">
           <h1 className="py-3 text-center text-xl font-bold">
-            You have no Booking Order yet! Please add items.
+            You have no Booking items yet! Please book items.
           </h1>
-          <Link to="/dashboard/addItems">
+          <Link to="/product">
             <Button className="btn btn-info font-bold flex">
-              Add Items <GrAddCircle className="w-4 h-4 mx-2 text-white" />
+              view Items{" "}
+              <MdOutlineProductionQuantityLimits className="w-4 h-4 mx-2 text-white" />
             </Button>
           </Link>
         </div>
@@ -74,7 +76,7 @@ const BookingsItem = () => {
             {bookings.length === 1 ? "product" : "products"}
           </h1>
           <Card className="overflow-scroll h-full w-full">
-            <table className="w-full min-w-max table-auto text-left">
+            <table className="w-full table-auto text-left">
               <thead>
                 <tr>
                   {TABLE_HEAD.map((head) => (
@@ -85,7 +87,7 @@ const BookingsItem = () => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal leading-none opacity-70"
+                        className="font-bold leading-none opacity-70"
                       >
                         {head}
                       </Typography>
@@ -96,7 +98,7 @@ const BookingsItem = () => {
               <tbody>
                 {bookings.map((booking, index) => (
                   <tr key={index} className="even:bg-blue-gray-50/50">
-                    <td className="p-4">
+                    <td className="p-2">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -105,7 +107,7 @@ const BookingsItem = () => {
                         {index + 1}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-2">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -114,7 +116,7 @@ const BookingsItem = () => {
                         {booking.modelName}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-2">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -123,7 +125,7 @@ const BookingsItem = () => {
                         {booking.sellerName}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-2">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -132,7 +134,7 @@ const BookingsItem = () => {
                         {booking.sellerEmail}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-2">
                       <Typography
                         as="a"
                         href="#"
@@ -142,7 +144,7 @@ const BookingsItem = () => {
                         {booking.phone}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-2">
                       <Typography
                         as="a"
                         href="#"
@@ -152,15 +154,44 @@ const BookingsItem = () => {
                         {booking.bookingDate}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-2">
                       <Typography
                         as="a"
                         href="#"
                         variant="small"
-                        color="blue"
+                        className="font-bold"
+                      >
+                        {booking.price}
+                      </Typography>
+                    </td>
+                    <td className="p-2">
+                      {booking.price && !booking.paid && (
+                        <Link to={`/dashboard/payment/${booking._id}`}>
+                          <Button variant="outlined" className="p-2 border-primary text-primary">Pay Now</Button>
+                        </Link>
+                      )}
+                      {booking.price && booking.paid && (
+                        <Button
+                          variant="outlined"
+                          className="text-green-800 border-green-800 p-2"
+                          disabled
+                        >
+                          Paid
+                        </Button>
+                      )}
+                    </td>
+                    <td className="p-2">
+                      <Typography
+                        as="a"
+                        href="#"
+                        variant="small"
                         className="font-medium"
                       >
-                        pay now
+                        {booking?.transactionId ? (
+                          <>{booking.transactionId}</>
+                        ) : (
+                          <>N/A</>
+                        )}
                       </Typography>
                     </td>
                   </tr>

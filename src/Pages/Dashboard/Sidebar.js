@@ -10,6 +10,7 @@ import React, { useEffect, useMemo, useState, useContext } from "react";
 import { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { MdOutlineManageAccounts } from "react-icons/md";
+import { MdPostAdd } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 // import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { BsPencilSquare } from "react-icons/bs";
@@ -22,15 +23,9 @@ import "./sidebar.css";
 
 const Sidebar = () => {
   const { openSidebar, setOpenSidebar } = useContext(DashboardContext);
-  // console.log(openSidebar);
+
   const { user } = useContext(AuthContext);
   const [isUser] = useUser(user?.email);
-  // console.log(isUser?.userRole);
-  // let currentUser = false; //-------------------------------------need to fix
-  // if (isUser?.userRole === "admin") {
-  //   currentUser = true;
-  // }
-  // console.log(currentUser);
 
   const [openClass, setOpenClass] = useState("w-12");
 
@@ -173,7 +168,7 @@ const Sidebar = () => {
           >
             <ListItem>
               <ListItemPrefix>
-                <CgProfile className="text-2xl"/>
+                <CgProfile className="text-2xl" />
               </ListItemPrefix>
               <p
                 className={`whitespace-pre duration-500 ${
@@ -204,7 +199,7 @@ const Sidebar = () => {
           >
             <ListItem>
               <ListItemPrefix>
-                <BsPencilSquare  className="text-2xl"/>
+                <BsPencilSquare className="text-2xl" />
               </ListItemPrefix>
               <p
                 className={`whitespace-pre duration-500 ${
@@ -235,7 +230,7 @@ const Sidebar = () => {
           >
             <ListItem>
               <ListItemPrefix>
-              <CgErase className="text-2xl"/>
+                <CgErase className="text-2xl" />
               </ListItemPrefix>
 
               <p
@@ -267,7 +262,7 @@ const Sidebar = () => {
           >
             <ListItem>
               <ListItemPrefix>
-                <MdEditCalendar className="text-2xl"/>
+                <MdEditCalendar className="text-2xl" />
               </ListItemPrefix>
 
               <p
@@ -280,7 +275,10 @@ const Sidebar = () => {
             </ListItem>
           </Tooltip>
         </NavLink>
-        <NavLink
+       {
+        isUser?.userRole !== "admin" &&(
+          <>
+           <NavLink
           to="/dashboard/bookingItems"
           className={({ isActive }) =>
             isActive
@@ -299,7 +297,7 @@ const Sidebar = () => {
           >
             <ListItem>
               <ListItemPrefix>
-                <MdEditCalendar className="text-2xl"/>
+                <MdEditCalendar className="text-2xl" />
               </ListItemPrefix>
 
               <p
@@ -307,43 +305,79 @@ const Sidebar = () => {
                   !openSidebar && "opacity-0 translate-x-28 overflow-hidden"
                 }`}
               >
-                Your Booking Order
+                Your Booking Products
               </p>
             </ListItem>
           </Tooltip>
         </NavLink>
+          </>
+        )
+       }
         {isUser?.userRole === "admin" && (
-          <NavLink
-            to="/dashboard/buyerAccount"
-            className={({ isActive }) =>
-              isActive
-                ? `bg-gray-300 rounded-md ease-in-out font-bold ${openClass}`
-                : `${openClass} `
-            }
-          >
-            <Tooltip
-              content="Account Management"
-              placement="right"
-              className={`${openSidebar ? "hidden" : "block"}`}
-              animate={{
-                mount: { scale: 1, y: 0 },
-                unmount: { scale: 0, y: 25 },
-              }}
+          <>
+            <NavLink
+              to="/dashboard/manageBlog"
+              className={({ isActive }) =>
+                isActive
+                  ? `bg-gray-300 rounded-md ease-in-out font-bold ${openClass}`
+                  : `${openClass} `
+              }
             >
-              <ListItem>
-                <ListItemPrefix>
-                  <MdOutlineManageAccounts className="text-2xl"/>
-                </ListItemPrefix>
-                <p
-                  className={`whitespace-pre duration-500 ${
-                    !openSidebar && "opacity-0 translate-x-28 overflow-hidden"
-                  }`}
-                >
-                  Account Management
-                </p>
-              </ListItem>
-            </Tooltip>
-          </NavLink>
+              <Tooltip
+                content="Blog Management"
+                placement="right"
+                className={`${openSidebar ? "hidden" : "block"}`}
+                animate={{
+                  mount: { scale: 1, y: 0 },
+                  unmount: { scale: 0, y: 25 },
+                }}
+              >
+                <ListItem>
+                  <ListItemPrefix>
+                    <MdPostAdd className="text-2xl" />
+                  </ListItemPrefix>
+                  <p
+                    className={`whitespace-pre duration-500 ${
+                      !openSidebar && "opacity-0 translate-x-28 overflow-hidden"
+                    }`}
+                  >
+                    Blog Management
+                  </p>
+                </ListItem>
+              </Tooltip>
+            </NavLink>
+            <NavLink
+              to="/dashboard/buyerAccount"
+              className={({ isActive }) =>
+                isActive
+                  ? `bg-gray-300 rounded-md ease-in-out font-bold ${openClass}`
+                  : `${openClass} `
+              }
+            >
+              <Tooltip
+                content="Account Management"
+                placement="right"
+                className={`${openSidebar ? "hidden" : "block"}`}
+                animate={{
+                  mount: { scale: 1, y: 0 },
+                  unmount: { scale: 0, y: 25 },
+                }}
+              >
+                <ListItem>
+                  <ListItemPrefix>
+                    <MdOutlineManageAccounts className="text-2xl" />
+                  </ListItemPrefix>
+                  <p
+                    className={`whitespace-pre duration-500 ${
+                      !openSidebar && "opacity-0 translate-x-28 overflow-hidden"
+                    }`}
+                  >
+                    Account Management
+                  </p>
+                </ListItem>
+              </Tooltip>
+            </NavLink>
+          </>
         )}
       </List>
     </Card>

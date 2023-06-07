@@ -17,7 +17,7 @@ const BuyerAccount = () => {
   } = useQuery({
     queryKey: ["buyers"],
     queryFn: async () => {
-      const res = await fetch("https://y-shovon15.vercel.app/buyers");
+      const res = await fetch("http://localhost:5000/buyers");
       const data = await res.json();
       return data;
     },
@@ -33,7 +33,7 @@ const BuyerAccount = () => {
 
   const handleMakeVerified = (id) => {
     console.log(id);
-    fetch(`https://y-shovon15.vercel.app/user/${id}`, {
+    fetch(`http://localhost:5000/user/${id}`, {
       method: "PUT",
       headers: {
         // authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -49,7 +49,7 @@ const BuyerAccount = () => {
   };
 
   const handleDeleteBuyer = () => {
-    fetch(`https://y-shovon15.vercel.app/buyers/${deletingBuyer._id}`, {
+    fetch(`http://localhost:5000/buyers/${deletingBuyer._id}`, {
       method: "DELETE",
       headers: {
         // authorization: `bearer ${localStorage.getItem('accessToken')}`

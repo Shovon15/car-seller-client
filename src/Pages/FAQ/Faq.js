@@ -9,6 +9,26 @@ export default function Faq() {
   const [open, setOpen] = useState(0);
   const items = [
     {
+      title: "How often should I get my car serviced?",
+      content:
+        " It is generally recommended to have your car serviced every 6 months or every 5,000 to 7,500 miles, depending on the manufacturer's guidelines. Regular servicing helps ensure optimal performance, safety, and longevity of your vehicle.",
+    },
+    {
+      title: "What type of oil should I use in my car?",
+      content:
+        "The type of oil your car requires depends on the engine and its specifications. Most modern cars use either conventional oil, synthetic oil, or a blend of the two. Refer to your car's owner's manual to determine the recommended oil type and viscosity for your specific vehicle.",
+    },
+    {
+      title: " How often should I change my car's tires?",
+      content:
+        "Tire replacement intervals vary depending on several factors, such as tire type, driving conditions, and your driving habits. However, it is generally recommended to replace tires every 5 to 6 years or when the tread depth reaches 2/32 of an inch. Regularly inspect your tires for signs of wear and consider replacing them if necessary.",
+    },
+    {
+      title: " How often should I replace my car's battery?",
+      content:
+        " On average, car batteries last between 3 to 5 years. However, battery lifespan can vary depending on factors such as climate, usage patterns, and maintenance. Regularly check your battery's health and have it tested if you experience any starting issues or notice signs of a weak battery.",
+    },
+    {
       title: "Difference Between SUV and Sedan",
       content:
         "A sedan is a type of car that has four wheels, four doors, and a low ground clearance while a sports utility vehicle (SUV) is a type of car that also has four wheels and four doors but has a high ground clearance. The sedan is the most common type of car, and it has been in the market since the early 20th century while the SUV is a very popular type of car which has been available since the 1930s. Sedans have three compartments; the engine compartment located at the front end, the cargo compartment at the rear end, and the passenger compartment while SUVs have two compartments; the engine compartment and a combined passenger and cargo compartment.",
@@ -56,8 +76,8 @@ export default function Faq() {
   };
 
   return (
-    <div id="faq" className="min-h-max py-5 md:py-10 px-5 md:px-10 ">
-      <p className="text-black  text-start md:text-center text-3xl md:text-5xl font-bold p-2">
+    <div id="faq" className="min-h-max py-5 px-5 md:px-10 ">
+      <p className=" text-primary text-center  text-3xl md:text-5xl font-bold p-2">
         FAQ!
       </p>
       <div className="bg-white p-5 rounded-md">
