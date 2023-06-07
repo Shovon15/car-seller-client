@@ -24,7 +24,7 @@ const PostItems = () => {
     queryKey: ["postedItems"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/sellerPost/${user?.email}`
+        `https://y-shovon15.vercel.app/sellerPost/${user?.email}`
       );
       const data = await res.json();
       // console.log(data);
@@ -37,7 +37,7 @@ const PostItems = () => {
   };
 
   const handleDeletePost = () => {
-    fetch(`http://localhost:5000/sellerPost/${deletingPost._id}`, {
+    fetch(`https://y-shovon15.vercel.app/sellerPost/${deletingPost._id}`, {
       method: "DELETE",
       headers: {
         // authorization: `bearer ${localStorage.getItem('accessToken')}`

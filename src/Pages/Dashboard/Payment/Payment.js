@@ -17,7 +17,7 @@ const Payment = () => {
     const fetchProductData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/booking/${id}`
+          `https://y-shovon15.vercel.app/booking/${id}`
         );
         const data = await response.json();
 
@@ -45,7 +45,9 @@ const Payment = () => {
       <p className="text-primary font-bold text-2xl">
         Payment for {bookingData.modelName}
       </p>
-      <p className=" font-bold text-2xl">Total Price: {bookingData.price} BDT</p>
+      <p className=" font-bold text-2xl">
+        Total Price: {bookingData.price} BDT
+      </p>
       <Elements stripe={stripePromise}>
         <CheckOutForm booking={bookingData} />
       </Elements>

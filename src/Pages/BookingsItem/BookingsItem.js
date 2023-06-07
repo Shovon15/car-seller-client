@@ -12,7 +12,7 @@ const BookingsItem = () => {
   // const { data: bookings = [] } = useQuery({
   //   queryKey: ["bookings"],
   //   queryFn: async () => {
-  //     const res = await fetch(`http://localhost:5000/bookings/${user?.email}`);
+  //     const res = await fetch(`https://y-shovon15.vercel.app/bookings/${user?.email}`);
   //     const data = await res.json();
   //     return data;
   //   },
@@ -29,9 +29,12 @@ const BookingsItem = () => {
   } = useQuery({
     queryKey: ["bookings"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/bookings/${user?.email}`, {
-        headers,
-      });
+      const res = await fetch(
+        `https://y-shovon15.vercel.app/bookings/${user?.email}`,
+        {
+          headers,
+        }
+      );
       const data = await res.json();
       return data;
     },
@@ -167,7 +170,12 @@ const BookingsItem = () => {
                     <td className="p-2">
                       {booking.price && !booking.paid && (
                         <Link to={`/dashboard/payment/${booking._id}`}>
-                          <Button variant="outlined" className="p-2 border-primary text-primary">Pay Now</Button>
+                          <Button
+                            variant="outlined"
+                            className="p-2 border-primary text-primary"
+                          >
+                            Pay Now
+                          </Button>
                         </Link>
                       )}
                       {booking.price && booking.paid && (

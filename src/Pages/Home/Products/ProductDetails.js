@@ -45,7 +45,7 @@ const ProductDetails = () => {
   const { data: postRating = {}, refetch } = useQuery({
     queryKey: ["postRating"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/rating/${id}`);
+      const res = await fetch(`https://y-shovon15.vercel.app/rating/${id}`);
       const data = await res.json();
       return data;
     },
@@ -59,7 +59,7 @@ const ProductDetails = () => {
     const fetchProductData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/products/${category}/${id}`
+          `https://y-shovon15.vercel.app/products/${category}/${id}`
         );
         const data = await response.json();
 
@@ -79,7 +79,9 @@ const ProductDetails = () => {
 
   if (!productData) {
     return (
-      <div className="text-red-500 p-5">Error: Unable to fetch product data.</div>
+      <div className="text-red-500 p-5">
+        Error: Unable to fetch product data.
+      </div>
     );
   }
   // console.log(productData, "productData from product details");

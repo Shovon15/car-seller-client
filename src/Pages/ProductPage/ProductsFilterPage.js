@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "../../Component/Card/ProductCard";
 import CardSkeleton from "../Shared/Skeleton/CardSkeleton";
-axios.defaults.baseURL = "http://localhost:5000/";
+axios.defaults.baseURL = "https://y-shovon15.vercel.app/";
 
 const ProductsFilterPage = () => {
   const [limit, setLimit] = useState(10);

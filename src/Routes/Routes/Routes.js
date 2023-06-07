@@ -56,7 +56,7 @@ const router = createBrowserRouter([
       {
         path: "/product",
         element: <ProductsFilterPage />,
-        // loader: () => fetch("http://localhost:5000/products"),
+        // loader: () => fetch("https://y-shovon15.vercel.app/products"),
       },
 
       {
@@ -67,7 +67,9 @@ const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/products/${params.categoryName}`),
+          fetch(
+            `https://y-shovon15.vercel.app/products/${params.categoryName}`
+          ),
       },
       {
         path: "/products/:categoryName/:_id",
@@ -78,7 +80,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `http://localhost:5000/products/${params.categoryName}/${params._id}`
+            `https://y-shovon15.vercel.app/products/${params.categoryName}/${params._id}`
           ),
       },
     ],
@@ -120,7 +122,7 @@ const router = createBrowserRouter([
         path: "/dashboard/payment/:id",
         element: <Payment />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/booking/${params.id}`),
+          fetch(`https://y-shovon15.vercel.app/booking/${params.id}`),
       },
       {
         path: "/dashboard/buyerAccount",

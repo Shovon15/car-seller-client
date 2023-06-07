@@ -26,17 +26,17 @@ const BlogCard = ({ item, index }) => {
         >
           <img src={image} alt="..." className="w-full h-3/5 object-cover" />
         </CardHeader>
-        <CardBody className="relative">
-          <p className="absolute right-0 top-7 pr-7 font-semibold">
-            Post Data: {date}
-          </p>
-          <Typography
-            variant="h4"
-            color="red"
-            className="uppercase mb-4 font-bold"
-          >
-            {heading}
-          </Typography>
+        <CardBody>
+          <div className="flex flex-col md:flex-row-reverse md:justify-between">
+            <p className=" font-semibold">Post Data: {date}</p>
+            <Typography
+              variant="h4"
+              color="red"
+              className="uppercase mb-4 font-bold"
+            >
+              {heading}
+            </Typography>
+          </div>
           <div className="font-normal">
             {description.length >= 450 ? (
               <>

@@ -78,7 +78,7 @@ const AddItems = () => {
       });
 
     const saveItem = (items) => {
-      fetch("http://localhost:5000/products", {
+      fetch("https://y-shovon15.vercel.app/products", {
         method: "POST",
         headers: {
           "content-type": "application/json",

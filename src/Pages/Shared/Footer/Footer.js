@@ -1,7 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 import React from "react";
-import { FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa";
 import img from "../../../assets/logo/logo_carXchange.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -10,14 +10,16 @@ const Footer = () => {
         <img src={img} alt="logo-ct" className="w-44" />
         <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
           <li>
-            <Typography
-              as="a"
-              href="#"
-              color="blue-gray"
-              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
-            >
-              About Us
-            </Typography>
+            <Link to="/about">
+              <Typography
+                as="a"
+                href="#"
+                color="blue-gray"
+                className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+              >
+                About Us
+              </Typography>
+            </Link>
           </li>
           <li>
             <Typography

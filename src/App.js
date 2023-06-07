@@ -96,7 +96,7 @@ function App() {
                 path="/dashboard/payment/:id"
                 element={<Payment />}
                 // loader={({ params }) =>
-                //   fetch(`http://localhost:5000/booking/${params.id}`)
+                //   fetch(`https://y-shovon15.vercel.app/booking/${params.id}`)
                 // }
               />
             </Route>

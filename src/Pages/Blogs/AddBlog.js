@@ -6,17 +6,14 @@ import { useQuery } from "@tanstack/react-query";
 import BlogLists from "./BlogLists";
 
 const AddBlog = () => {
-
-
-
-    const { data: blogData = [] } = useQuery({
-        queryKey: ["bolgData"],
-        queryFn: async () => {
-          const res = await fetch("http://localhost:5000/blogs");
-          const data = await res.json();
-          return data;
-        },
-      });
+  const { data: blogData = [] } = useQuery({
+    queryKey: ["bolgData"],
+    queryFn: async () => {
+      const res = await fetch("https://y-shovon15.vercel.app/blogs");
+      const data = await res.json();
+      return data;
+    },
+  });
 
   const {
     register,
@@ -61,7 +58,7 @@ const AddBlog = () => {
       });
   };
   const saveItem = (items) => {
-    fetch("http://localhost:5000/blogs", {
+    fetch("https://y-shovon15.vercel.app/blogs", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -143,7 +140,7 @@ const AddBlog = () => {
       </form>
       <div>
         <h1 className="text-3xl font-bold text-primary ml-5 mt-5">Blog List</h1>
-        <BlogLists blogData={blogData}/>
+        <BlogLists blogData={blogData} />
       </div>
     </div>
   );

@@ -39,7 +39,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
   } = useQuery({
     queryKey: ["comments"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/comments/${id}`);
+      const res = await fetch(`https://y-shovon15.vercel.app/comments/${id}`);
       const data = await res.json();
       return data;
     },
@@ -61,7 +61,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
   };
 
   const saveComment = (userComment) => {
-    fetch("http://localhost:5000/comments", {
+    fetch("https://y-shovon15.vercel.app/comments", {
       method: "POST",
       headers: {
         "content-type": "application/json",
