@@ -6,11 +6,16 @@ import { FiLogOut } from "react-icons/fi";
 import UpdateProfileModal from "./UpdateProfileModal";
 import { useQuery } from "@tanstack/react-query";
 import { showSuccessToast } from "../../Shared/Toast/toaster";
+import Loader from "../../Shared/Loader/Loader";
 
 const UserProfile = () => {
   const { user, logOut } = useContext(AuthContext);
 
-  const { data: users = [], refetch } = useQuery({
+  const {
+    data: users = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await fetch(
@@ -38,8 +43,10 @@ const UserProfile = () => {
   function capitalizeFirstLetter(word) {
     return word?.charAt(0).toUpperCase() + word?.slice(1);
   }
-
-  // console.log(users, "user from useQuery");
+  if (isLoading) {
+    return <Loader />;
+  }
+  console.log( user, "user");
 
   return (
     <div className="mx-5 md:mx-10 mb-5 md:mb-10 min-h-max">
@@ -60,6 +67,7 @@ const UserProfile = () => {
             </h1>
           </div>
         </div>
+
         <div className="flex flex-col mt-6 md:mt-0 gap-2 w-44">
           <Button onClick={handleOpen} variant="outlined">
             Update Photo

@@ -22,7 +22,9 @@ const RecentProduct = () => {
   // console.log(recentProducts);
   return (
     <div>
-      <h1 className="font-bold text-2xl text-center pt-5">Recent Products</h1>
+      <h1 className="font-bold text-2xl text-center text-primary pt-5">
+        Recent Products
+      </h1>
       <div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mx-10 my-5">
           {recentProducts.map((product, i) => (

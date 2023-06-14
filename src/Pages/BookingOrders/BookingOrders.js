@@ -4,11 +4,12 @@ import { GrAddCircle } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { Button, Card, Typography } from "@material-tailwind/react";
+import Loader from "../Shared/Loader/Loader";
 
 const BookingOrders = () => {
   const { user } = useContext(AuthContext);
 
-  const { data: bookingOrder = [] } = useQuery({
+  const { data: bookingOrder = [], isLoading } = useQuery({
     queryKey: ["bookingOrder"],
     queryFn: async () => {
       const res = await fetch(
@@ -28,6 +29,9 @@ const BookingOrders = () => {
     "Buyer Contact",
     "Booking Date",
   ];
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <div className="my-10 min-h-96">
       <h2 className="text-3xl font-bold text-primary">My Booked Orders</h2>
@@ -71,7 +75,7 @@ const BookingOrders = () => {
               <tbody>
                 {bookingOrder.map((booking, index) => (
                   <tr key={index} className="even:bg-blue-gray-50/50">
-                    <td className="p-4">
+                    <td className="p-3">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -80,7 +84,7 @@ const BookingOrders = () => {
                         {index + 1}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-3">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -89,7 +93,7 @@ const BookingOrders = () => {
                         {booking.name}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-3">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -98,7 +102,7 @@ const BookingOrders = () => {
                         {booking.modelName}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-3">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -107,7 +111,7 @@ const BookingOrders = () => {
                         {booking.productId}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-3">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -116,7 +120,7 @@ const BookingOrders = () => {
                         {booking.email}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-3">
                       <Typography
                         as="a"
                         href="#"
@@ -126,7 +130,7 @@ const BookingOrders = () => {
                         {booking.phone}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-3">
                       <Typography
                         as="a"
                         href="#"

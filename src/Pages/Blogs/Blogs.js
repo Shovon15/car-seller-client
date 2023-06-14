@@ -1,6 +1,7 @@
 import React from "react";
 import BlogCard from "./BlogCard";
 import { useQuery } from "@tanstack/react-query";
+import Loader from "../Shared/Loader/Loader";
 
 const Blogs = () => {
   const { data: blogData = [], isLoading } = useQuery({
@@ -11,6 +12,9 @@ const Blogs = () => {
       return data;
     },
   });
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="min-h-max">

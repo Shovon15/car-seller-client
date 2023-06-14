@@ -20,7 +20,9 @@ const Categories = () => {
   // console.log(categories);
   return (
     <div className="">
-      <h1 className="text-center text-2xl font-bold pb-3">Car Categories</h1>
+      <h1 className="text-center text-2xl font-bold text-primary pb-3">
+        Car Categories
+      </h1>
       <Category categories={categories}></Category>
     </div>
   );

@@ -40,7 +40,7 @@ const BookingsItem = () => {
     },
   });
   if (isLoading) {
-    <Loader />;
+    return <Loader />;
   }
   const TABLE_HEAD = [
     "No.",
@@ -54,7 +54,7 @@ const BookingsItem = () => {
     "Transection Id",
   ];
 
-  console.log(bookings, "..............................");
+  // console.log(bookings, "..............................");
   return (
     <div className="my-10">
       <h2 className="text-3xl font-bold text-primary py-5">

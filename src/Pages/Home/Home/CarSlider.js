@@ -126,14 +126,14 @@ const CarSlider = () => {
           pagination={false}
           // renderPagination={myPagination}
           enableAutoPlay={true}
-          autoPlaySpeed={3500}
+          autoPlaySpeed={7500}
           onNextEnd={({ index }) => {
             // console.log("index", index, "length", items.length);
             if (index === 11) {
               clearTimeout(resetTimeout);
               resetTimeout = setTimeout(() => {
                 carouselRef?.current?.goTo(0);
-              }, 3500); // same time
+              }, 7500); // same time
             }
           }}
         >

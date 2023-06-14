@@ -33,7 +33,7 @@ const Login = () => {
   let userRole = "buyer";
 
   const from = location.state?.from?.pathname || "/";
-  console.log(user, "user");
+  // console.log(from, "login from");
   // if (user) {
   //   navigate("/");
   // }

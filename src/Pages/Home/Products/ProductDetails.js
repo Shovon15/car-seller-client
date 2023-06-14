@@ -1,7 +1,12 @@
 // import React, { useContext } from "react";
 import { useContext, useEffect, useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
-import { useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 import useUser from "../../../hooks/useUser";
 import { BsSpeedometer2 } from "react-icons/bs";
@@ -40,7 +45,16 @@ const ProductDetails = () => {
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
 
-  const handleOpen = () => setOpen((cur) => !cur);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleOpen = () => {
+    if (isUser) {
+      setOpen((cur) => !cur);
+    } else {
+      navigate("/login", { state: { from: location } });
+    }
+  };
 
   const { data: postRating = {}, refetch } = useQuery({
     queryKey: ["postRating"],

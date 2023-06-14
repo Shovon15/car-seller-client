@@ -12,8 +12,6 @@ const Footer = () => {
           <li>
             <Link to="/about">
               <Typography
-                as="a"
-                href="#"
                 color="blue-gray"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
@@ -23,8 +21,6 @@ const Footer = () => {
           </li>
           <li>
             <Typography
-              as="a"
-              href="#"
               color="blue-gray"
               className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
             >
@@ -33,8 +29,6 @@ const Footer = () => {
           </li>
           <li>
             <Typography
-              as="a"
-              href="#"
               color="blue-gray"
               className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
             >
@@ -43,8 +37,6 @@ const Footer = () => {
           </li>
           <li>
             <Typography
-              as="a"
-              href="#"
               color="blue-gray"
               className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
             >

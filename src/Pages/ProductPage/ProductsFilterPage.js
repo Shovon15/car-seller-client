@@ -68,6 +68,8 @@ const ProductsFilterPage = () => {
     "pickup",
   ];
 
+  const condition = ["", "New", "Excellent", "Good", "Fair"];
+
   // console.log(isLoading, "isLoading");
 
   return (
@@ -110,12 +112,27 @@ const ProductsFilterPage = () => {
           label="Model Year"
         />
 
-        <Input
-          value={values.condition}
-          onChange={handleInputChange}
-          name="condition"
-          label="Car condition"
-        />
+        <div className="relative">
+          <label className="absolute mx-2 px-2 -top-2 text-sm text-blue-500 bg-gray-200">
+            condition
+          </label>
+          <select
+            onChange={handleInputChange}
+            value={values.condition}
+            name="condition"
+            color="lightBlue"
+            // size="regular"
+            // placeholder="Select option"
+            className="w-full py-2 bg-gray-200  border rounded-md cursor-text border-gray-400
+             focus:outline-none focus:border-2 focus:border-blue-500"
+          >
+            {condition.map((item, i) => (
+              <option value={item} className="text-start " key={i}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
         <Input
           value={values.color}
           onChange={handleInputChange}

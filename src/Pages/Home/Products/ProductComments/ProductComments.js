@@ -11,6 +11,7 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../../Shared/Toast/toaster";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ProductComments = ({ id, ratingRefetch }) => {
   const [commentError, setCommentError] = useState();
@@ -22,8 +23,17 @@ const ProductComments = ({ id, ratingRefetch }) => {
   let day = date.getDate();
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
-  let currentDate = `${day}-${month}-${year}`;
-  // console.log(rated);
+  if (day < 10) {
+    day = "0" + day;
+  }
+
+  if (month < 10) {
+    month = "0" + month;
+  }
+  let currentDate = `${year}-${month}-${day}`;
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -86,6 +96,10 @@ const ProductComments = ({ id, ratingRefetch }) => {
   if (isLoading) {
     return <Loader />;
   }
+
+  const handleReview = () => {
+    navigate("/login", { state: { from: location } });
+  };
   return (
     <>
       {comments.length === 0 ? (
@@ -103,39 +117,51 @@ const ProductComments = ({ id, ratingRefetch }) => {
             <Comments key={comment._id} comments={comment}></Comments>
           ))}
         </div>
-        <div className="w-full md:w-4/12 mt-5">
-          <form onSubmit={handleSubmit(handleAddComment)}>
-            <div className="form-control w-full p-5 dark:text-slate-800">
-              <label className="label">
-                <span className="font-bold text-xl">Review Here</span>
-              </label>
-              <div className="flex justify-start items-center gap-2 md:m-2">
-                <Typography className="font-medium">Review Point:</Typography>
-                <Rating value={rated} onChange={(value) => setRated(value)} />
-                <Typography color="blue-gray" className="font-medium">
-                  {rated}.0 Rated
-                </Typography>
+        {isUser === false ? (
+          <p className="p-2">
+            Please{" "}
+            <Button
+              onClick={handleReview}
+              variant="outlined"
+              className="border-primary text-primary"
+            >
+              Login
+            </Button>{" "}
+            to give Review !!!
+          </p>
+        ) : (
+          <div className="w-full md:w-4/12 mt-5">
+            <form onSubmit={handleSubmit(handleAddComment)}>
+              <div className="form-control w-full p-5 dark:text-slate-800">
+                <label className="label">
+                  <span className="font-bold text-xl">Review Here</span>
+                </label>
+                <div className="flex justify-start items-center gap-2 md:m-2">
+                  <Typography className="font-medium">Review Point:</Typography>
+                  <Rating value={rated} onChange={(value) => setRated(value)} />
+                  <Typography color="blue-gray" className="font-medium">
+                    {rated}.0 Rated
+                  </Typography>
+                </div>
+                <div className="max-w-80">
+                  <Textarea
+                    label="Message"
+                    {...register("comment", {
+                      required: "please add something",
+                    })}
+                  />
+                  {errors.comment && (
+                    <p className="text-red-500">{errors.comment.message}</p>
+                  )}
+                </div>
+                {commentError && <p className="text-red-600">{commentError}</p>}
+                <Button type="submit" className="px-12 bg-primary">
+                  Send
+                </Button>
               </div>
-              <div className="max-w-80">
-                <Textarea
-                  label="Message"
-                  {...register("comment", {
-                    required: "please add something",
-                  })}
-                />
-                {errors.comment && (
-                  <p className="text-red-500">{errors.comment.message}</p>
-                )}
-              </div>
-              {commentError && <p className="text-red-600">{commentError}</p>}
-              {/* <div className="mb-10 md:mb-0"> */}
-              <Button type="submit" className="px-12 bg-primary">
-                Send
-              </Button>
-              {/* </div> */}
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
+        )}
       </div>
     </>
   );

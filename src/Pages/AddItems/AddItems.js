@@ -28,7 +28,14 @@ const AddItems = () => {
   let day = date.getDate();
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
-  let currentDate = `${day}-${month}-${year}`;
+  if (day < 10) {
+    day = "0" + day;
+  }
+
+  if (month < 10) {
+    month = "0" + month;
+  }
+  let currentDate = `${year}-${month}-${day}`;
 
   const handleAddItems = (data) => {
     // console.log("Test Data", data);
@@ -78,6 +85,7 @@ const AddItems = () => {
       });
 
     const saveItem = (items) => {
+      console.log(items, "items for add");
       fetch("https://y-shovon15.vercel.app/products", {
         method: "POST",
         headers: {
@@ -211,7 +219,7 @@ const AddItems = () => {
               size="lg"
               type="text"
               {...register("mileagePerl", {
-                required: "Model is Required",
+                required: "car Mileage is Required",
               })}
             />
             {errors.mileagePerl && (

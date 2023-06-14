@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
     image,
     price,
     _id,
-    color,
+    date,
     condition,
     modelYear,
     carInfo,
