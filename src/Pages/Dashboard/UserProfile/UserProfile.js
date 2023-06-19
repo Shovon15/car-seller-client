@@ -46,7 +46,7 @@ const UserProfile = () => {
   if (isLoading) {
     return <Loader />;
   }
-  console.log( user, "user");
+  // console.log( user, "user");
 
   return (
     <div className="mx-5 md:mx-10 mb-5 md:mb-10 min-h-max">

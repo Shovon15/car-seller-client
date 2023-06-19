@@ -1,22 +1,17 @@
 // import React, { useContext } from "react";
 import { useContext, useEffect, useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 import useUser from "../../../hooks/useUser";
 import { BsSpeedometer2 } from "react-icons/bs";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import { IoColorPaletteOutline } from "react-icons/io5";
 import { BsShieldFillCheck } from "react-icons/bs";
+import { MdOutlineAirlineSeatReclineExtra } from "react-icons/md";
 import BookingModal from "./BookingModal/BookingModal";
 import engineImg from "../../../assets/icons/car-engine.png";
 import fuelImg from "../../../assets/icons/fuel.png";
-import seatImg from "../../../assets/icons/car-seat.png";
 import carImg from "../../../assets/icons/car.png";
 import "./productDetails.css";
 
@@ -189,7 +184,7 @@ const ProductDetails = () => {
       </Card>
       <Card>
         <CardBody className="flex flex-col justify-center items-center">
-          <img src={seatImg} alt="..." className="w-10" />
+          <MdOutlineAirlineSeatReclineExtra className="text-3xl  text-black" />
           <Typography variant="h5" color="blue-gray" className="mb-2">
             Seating
             <br /> Capacity

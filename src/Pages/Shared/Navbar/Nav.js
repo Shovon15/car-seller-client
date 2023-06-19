@@ -92,7 +92,7 @@ const Nav = () => {
 
   return (
     <Navbar
-      className="sticky inset-0 z-10 h-max max-w-full bg-gray-300 rounded-none shadow-none border-none px-4 py-2"
+      className="sticky inset-0 z-30 h-max max-w-full bg-gray-300 rounded-none shadow-none border-none px-4 py-2"
       ref={menuRef}
     >
       <div className="flex items-center justify-between text-blue-gray-900">

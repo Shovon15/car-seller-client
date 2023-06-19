@@ -4,9 +4,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import useUser from "../../hooks/useUser";
-import { Button, Input, Spinner, Textarea } from "@material-tailwind/react";
-import OutlinedButton from "../../Component/Button/OutlinedButton";
-import { toast } from "react-toastify";
+import { Button, Input, Textarea } from "@material-tailwind/react";
+
 import { showErrorToast, showSuccessToast } from "../Shared/Toast/toaster";
 import Loader from "../Shared/Loader/Loader";
 

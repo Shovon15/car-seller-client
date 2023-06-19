@@ -7,9 +7,8 @@ import {
   CardFooter,
   CardHeader,
   Dialog,
-  Typography,
 } from "@material-tailwind/react";
-import { toast } from "react-toastify";
+
 import { showErrorToast, showSuccessToast } from "../../Shared/Toast/toaster";
 import { DashboardContext } from "../../../context/DashboardContext";
 

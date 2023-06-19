@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import Loader from "../../../Shared/Loader/Loader";
-import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../../context/AuthProvider";
@@ -112,7 +111,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
         </h1>
       )}
       <div className="flex flex-col md:mx-10 py-2">
-        <div className="w-full md:w-4/12 grid grid-cols-1 gap-5">
+        <div className="w-full lg:w-4/12 grid grid-cols-1 gap-5">
           {comments.map((comment) => (
             <Comments key={comment._id} comments={comment}></Comments>
           ))}
@@ -130,7 +129,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
             to give Review !!!
           </p>
         ) : (
-          <div className="w-full md:w-4/12 mt-5">
+          <div className="w-full lg:w-4/12 mt-5">
             <form onSubmit={handleSubmit(handleAddComment)}>
               <div className="form-control w-full p-5 dark:text-slate-800">
                 <label className="label">
@@ -143,7 +142,7 @@ const ProductComments = ({ id, ratingRefetch }) => {
                     {rated}.0 Rated
                   </Typography>
                 </div>
-                <div className="max-w-80">
+                <div className="w-full">
                   <Textarea
                     label="Message"
                     {...register("comment", {

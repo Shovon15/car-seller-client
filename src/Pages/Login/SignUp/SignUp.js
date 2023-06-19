@@ -48,45 +48,66 @@ const SignUp = () => {
 
   const handleSignUp = (data) => {
     setIsLoading(true);
-    const image = data.image[0];
-    const formData = new FormData();
-    formData.append("image", image);
-    const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
-    fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((imgData) => {
-        // console.log(imgData);
-        if (imgData.success) {
-          let image = imgData.data.url;
-          setSignUpError("");
-          createUser(data.email, data.password)
-            .then((result) => {
-              // const user = result.user;
-              // console.log(user);
-              setIsLoading(false);
-              // showSuccessToast("Signup Successfully.");
-              const userInfo = {
-                displayName: data.name,
-                image: image,
-              };
-              updateUser(userInfo)
-                .then(() => {
-                  saveUser(data.name, data.email, userRole, image);
-
-                  // navigate(from, { replace: true });
-                })
-                .catch((err) => console.log(err));
+    let image = data.image[0];
+    if (image) {
+      const formData = new FormData();
+      formData.append("image", image);
+      const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+      fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((imgData) => {
+          // console.log(imgData);
+          if (imgData.success) {
+            let image = imgData.data.url;
+            setSignUpError("");
+            createUser(data.email, data.password)
+              .then((result) => {
+                setIsLoading(false);
+                const userInfo = {
+                  displayName: data.name,
+                  image: image,
+                };
+                updateUser(userInfo)
+                  .then(() => {
+                    saveUser(data.name, data.email, userRole, image);
+                    console.log((data.name, data.email, userRole, image));
+                  })
+                  .catch((err) => console.log(err));
+              })
+              .catch((error) => {
+                // console.log(error);
+                setIsLoading(false);
+                setSignUpError(error.message);
+              });
+          }
+        });
+    } else {
+      let image =
+        "https://i.ibb.co/GVJGPy6/8b167af653c2399dd93b952a48740620.jpg";
+      setSignUpError("");
+      createUser(data.email, data.password)
+        .then((result) => {
+          setIsLoading(false);
+          const userInfo = {
+            displayName: data.name,
+            image: image,
+          };
+          updateUser(userInfo)
+            .then(() => {
+              saveUser(data.name, data.email, userRole, image);
+              console.log((data.name, data.email, userRole, image));
             })
-            .catch((error) => {
-              // console.log(error);
-              setIsLoading(false);
-              setSignUpError(error.message);
-            });
-        }
-      });
+            .catch((err) => console.log(err));
+        })
+        .catch((error) => {
+          // console.log(error);
+          setIsLoading(false);
+          setSignUpError(error.message);
+        });
+    }
   };
 
   const handleGoogleSignIn = () => {
@@ -158,7 +179,6 @@ const SignUp = () => {
           className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
         >
           <div className="mb-4 flex flex-col gap-6 text-start">
-            {/* <Input size="lg" label="Name" /> */}
             <div>
               <Input
                 size="lg"
@@ -188,9 +208,7 @@ const SignUp = () => {
             <div>
               <input
                 type="file"
-                {...register("image", {
-                  required: "Photo is Required",
-                })}
+                {...register("image")}
                 className="input input-bordered w-full  py-2 border border-gray-500 rounded-md"
               />
               {errors.image && (

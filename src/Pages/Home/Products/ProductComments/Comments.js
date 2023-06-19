@@ -8,7 +8,9 @@ const Comments = ({ comments }) => {
       <div className="flex flex-row gap-2 relative">
         <img src={userImage} alt="user" className="rounded-full w-12 h-12" />
         <div className="">
-          <h1 className="font-bold text-primary">{userName}</h1>
+          <h1 className="font-bold text-primary w-44 md:w-80 lg:w-52">
+            {userName}
+          </h1>
           <h1 className="text-gray-600">{date}</h1>
         </div>
         <Rating className="absolute right-0 p-2" value={rating} readonly />
