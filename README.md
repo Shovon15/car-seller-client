@@ -17,9 +17,35 @@ Feature of CarXchange web application
 8. give review and comments
 9. Edit user profile
 10. View blog section
-    Admin Feature:
-11. Make user as a varified seller
-12. publish blog posts
+11. Admin Feature: Make user as a varified seller
+12. Admin Feature: publish blog posts
+
+Technology used:
+frontEnd:
+
+1. react library
+2. react Router Dom
+3. react Query
+4. react-hook-form
+5. axios
+6. react-stripe-js
+7. react-icons
+8. react-photo-view
+9. react-scripts
+10. react-toastify
+11. tailwind css
+12. firebase
+13. jwt
+
+backEnd:
+
+1. node js
+2. express js
+3. cors
+4. dotenv
+5. jsonwebtoken
+6. mongodb
+7. stripe
 
 # Getting Started with Create React App
 
