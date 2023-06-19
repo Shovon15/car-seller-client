@@ -1,25 +1,25 @@
-Assignment 12 Programming Hero
-Name: Car Seller website
+Project Name: CarXchange
 
 Live website Link: https://car-resale-client.web.app/
 
 adminEmail: admin@admin.com
 adminPassword: Admin@001
 
-How i create Car Seller web application
+Feature of CarXchange web application
 
-1. create react app
-2. react router dom library
-3. firebase login/Registration
-4. firebase hosting
-5. react icons
-6. tailwind CSS
-7. daisyUI
-8. react hot toast
-9. react context hook
-10. env.local
-11. custom hooks
-12. firebase deploy
+1. User login or singup
+2. Browse products
+3. Search and filter products
+4. Booking products
+5. Manage booking items and payment
+6. Create post for sell cars
+7. View sell posts booking order status
+8. give review and comments
+9. Edit user profile
+10. View blog section
+    Admin Feature:
+11. Make user as a varified seller
+12. publish blog posts
 
 # Getting Started with Create React App
 
